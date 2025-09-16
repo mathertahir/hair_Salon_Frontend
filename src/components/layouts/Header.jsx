@@ -2,7 +2,7 @@
 import React, { useContext, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '../../components/ui/avatar.jsx';
 // import { AuthContext } from '@/services/context/AuthContext';
-import { FiX, FiMenu, FiUser, FiChevronDown, FiGlobe } from 'react-icons/fi';
+import { FiX, FiMenu, FiUser, FiChevronDown, FiGlobe, FiLogOut } from 'react-icons/fi';
 import logo from '../../assets/logo.png';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '../../components/ui/button.jsx';
@@ -208,7 +208,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
             {/* Mobile Sidebar */}
             <aside className={`
-                fixed top-0 left-0 h-full w-70 bg-white-FD shadow-xl transform transition-transform duration-300 ease-in-out z-50 md:hidden
+                fixed top-0 left-0 h-full w-[70%] bg-white-FD shadow-xl transform transition-transform duration-300 ease-in-out z-50 md:hidden
                 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
             `}>
                 {/* Sidebar Header */}
@@ -219,7 +219,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                                 <img src={logo} alt="logo" />
                             </div>
                         </div>
-                        <span className="text-sm text-gray-500 font-medium">Carywork</span>
+
                     </div>
                     <button
                         onClick={closeSidebar}
@@ -234,8 +234,8 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                     <Link
                         to="/"
                         onClick={closeSidebar}
-                        className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive('/')
-                            ? 'bg-amber-100 text-foreground'
+                        className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${isActive('/')
+                            ? 'bg-brown-31 text-background'
                             : 'text-foreground hover:bg-gray-100'
                             }`}
                     >
@@ -244,8 +244,8 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                     <Link
                         to="/about"
                         onClick={closeSidebar}
-                        className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive('/about')
-                            ? 'bg-amber-100 text-foreground'
+                        className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${isActive('/about')
+                            ? 'bg-brown-31 text-background'
                             : 'text-foreground hover:bg-gray-100'
                             }`}
                     >
@@ -254,8 +254,8 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                     <Link
                         to="/contact"
                         onClick={closeSidebar}
-                        className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive('/contact')
-                            ? 'bg-amber-100 text-brown-31'
+                        className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${isActive('/contact')
+                            ? 'bg-brown-31 text-background'
                             : 'text-foreground hover:bg-gray-100'
                             }`}
                     >
@@ -264,14 +264,13 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                 </nav>
 
                 {/* Sidebar Language Selector */}
-                <div className="px-6 py-4 border-t border-gray-200">
-                    <label className="block text-sm font-medium text-foreground mb-2">Language</label>
+                <div className="px-6 py-4 border-t border-light-brown-11p">
                     <Select value={language} onValueChange={setLanguage}>
-                        <SelectTrigger className="w-full">
+                        <SelectTrigger className="w-full border-[1px] border-brown-31  text-brown-31">
                             <div className="flex items-center space-x-2">
                                 <FiGlobe className="w-4 h-4" />
                                 <SelectValue />
-                                <FiChevronDown className="w-4 h-4" />
+                                {/* <FiChevronDown className="w-4 h-4" /> */}
                             </div>
                         </SelectTrigger>
                         <SelectContent>
@@ -283,35 +282,12 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                 </div>
 
                 {/* Sidebar User Section */}
-                <div className="px-6 py-4 border-t border-gray-200 mt-auto">
-                    <div className="flex items-center space-x-3 mb-4">
-                        <Avatar className="h-10 w-10">
-                            <AvatarImage
-                                src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
-                                alt="User profile"
-                                className="object-cover"
-                            />
-                            <AvatarFallback>
-                                <FiUser className="h-5 w-5" />
-                            </AvatarFallback>
-                        </Avatar>
-                        <div>
-                            <p className="text-sm font-medium text-gray-900">My Bookings</p>
-                            <p className="text-xs text-gray-500">user@example.com</p>
-                        </div>
-                    </div>
+                <div className="px-6 py-4 border-t border-light-brown-11p mt-auto">
+
 
                     <div className="space-y-2">
-                        <Link
-                            to="/profile"
-                            onClick={closeSidebar}
-                            className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-gray-100 rounded-lg transition-colors"
-                        >
-                            <FiUser className="mr-3 h-4 w-4" />
-                            My Account
-                        </Link>
-                        <button className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                            <FiX className="mr-3 h-4 w-4" />
+                        <button className="flex items-center justify-center w-full px-4 py-3 text-sm font-medium font-manrope text-background  bg-brown-31  rounded-lg transition-colors">
+                            <FiLogOut className="mr-3 h-4 w-4" />
                             Sign Out
                         </button>
                     </div>
