@@ -17,6 +17,7 @@ module.exports = {
         "gray-55": "var(--gray-55)",
         "white-F0": "var(--white-F0)",
         "light-brown-11p": "var(--light-brown-11p)",
+        "brown-97": "var(--brown-97)",
       },
 
       fontFamily: {

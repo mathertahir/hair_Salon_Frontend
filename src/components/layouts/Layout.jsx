@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import Header from './Header.jsx';
+import Footer from './Footer.jsx';
 
 const Layout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -14,7 +15,7 @@ const Layout = ({ children }) => {
 
 
       {/* Main content with Header and page content */}
-      <div className="flex-1 flex flex-col w-full bg-white">
+      <div className=" flex flex-col w-full bg-white">
         <Header
           onBurgerClick={() => setIsSidebarOpen(!isSidebarOpen)}
           isSidebarOpen={isSidebarOpen}
@@ -22,7 +23,10 @@ const Layout = ({ children }) => {
         <main className="flex-1 overflow-y-auto">
           {children || <Outlet />}
         </main>
+
+        <Footer />
       </div>
+
     </div>
   );
 };

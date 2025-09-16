@@ -35,7 +35,8 @@ code {
   --light-brown-c0: #E7D1C0;
   --gray-55: #555555;
   --white-F0: #EDFFF0;
-  --light-brown-11p: rgba(91, 53, 38, 0.11)
+  --light-brown-11p: rgba(91, 53, 38, 0.11);
+  --brown-97: #DBAB97;
 }
 
 /* Custom animations for active tab border */
