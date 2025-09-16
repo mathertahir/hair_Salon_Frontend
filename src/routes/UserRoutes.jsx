@@ -1,0 +1,39 @@
+import React from "react";
+import {
+    Routes,
+    Route,
+} from "react-router-dom";
+
+import Home from "../views/clientViews/Home.jsx";
+import Contact from "../views/clientViews/Contact.jsx";
+import AboutUs from "../views/clientViews/About.jsx";
+
+// Create placeholder components for new routes
+const Profile = () => (
+    <div className="p-6">
+        <h1 className="text-2xl font-bold mb-4">Profile</h1>
+        <p>This is the profile page.</p>
+    </div>
+);
+
+const Settings = () => (
+    <div className="p-6">
+        <h1 className="text-2xl font-bold mb-4">Settings</h1>
+        <p>This is the settings page.</p>
+    </div>
+);
+
+// ✅ App Router Component
+const UserRoutes = () => {
+    return (
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<Settings />} />
+        </Routes>
+    );
+};
+
+export default UserRoutes;
