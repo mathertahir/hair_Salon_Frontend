@@ -4,9 +4,9 @@ import {
     Route,
 } from "react-router-dom";
 
-import Home from "../views/clientViews/Home.jsx";
-import Contact from "../views/clientViews/Contact.jsx";
-import AboutUs from "../views/clientViews/About.jsx";
+import Home from "../pages/clientPages/Home.jsx";
+import Contact from "../pages/clientPages/Contact.jsx";
+import AboutUs from "../pages/clientPages/About.jsx";
 
 // Create placeholder components for new routes
 const Profile = () => (
