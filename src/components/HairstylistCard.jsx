@@ -17,7 +17,7 @@ const HairstylistCard = ({
             </div>
 
             <div className='flex-1 flex flex-col'>
-                <div className='p-6 border border-light-brown-c1 rounded-b-3xl flex-1 flex flex-col'>
+                <div className='p-6 border border-gray-55 rounded-b-3xl flex-1 flex flex-col'>
                     <div className='flex justify-between items-center'>
                         <div className='text-brown-A43 flex items-center gap-1'>
                             <FiStar className='w-4 h-4' />
