@@ -235,7 +235,7 @@ const Home = () => {
             <div className='bg-white-F0'>
                 <div className='container'>
                     <div className='flex flex-col gap-10 '>
-                        <div className='py-20 flex flex-col gap-10 '>
+                        <div className='py-10 sm:py-20 flex flex-col gap-10 '>
                             <div>
                                 <p className='font-manrope text-base font-semibold text-brown-A43 mb-[2px]'>TESTIMONIALS</p>
                                 <h2 className='sm:text-[40px] text-[22px] lg:text-[45px] font-playfair text-black-14 font-bold leading-none mb-4'>What Our Clients Say</h2>
