@@ -242,7 +242,7 @@ const Home = () => {
                             </div>
 
                             <div className='bg-brown-31 rounded-3xl'>
-                                <div className='py-12 sm:py-24'>
+                                <div className='py-8 sm:py-24'>
                                     <Swiper
                                         ref={swiperRef}
                                         modules={[Navigation, Pagination]}
