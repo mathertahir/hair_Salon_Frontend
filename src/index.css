@@ -33,13 +33,14 @@ code {
   --brown-31: #774531;
   --brown-A43: #A15E43;
   --light-brown-c0: #E7D1C0;
+  --light-brown-c1-o5: rgba(247, 229, 193, 0.5);
   --gray-55: #555555;
   --white-F0: #EDFFF0;
   --light-brown-11p: rgba(91, 53, 38, 0.11);
   --brown-97: #DBAB97;
   --light-brown-c1: #F7E5C1;
   --gray-245: rgba(235, 243, 245, 0.5);
-
+  --white-d3: #D3D3D3;
 }
 
 /* Custom animations for active tab border */

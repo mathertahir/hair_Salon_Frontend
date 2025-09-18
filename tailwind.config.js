@@ -20,6 +20,8 @@ module.exports = {
         "brown-97": "var(--brown-97)",
         "light-brown-c1": "var(--light-brown-c1)",
         "gray-245": "var(--gray-245)",
+        "light-brown-c1-o5": "var(--light-brown-c1-o5)",
+        "white-d3": "var(--white-d3)",
       },
 
       fontFamily: {
