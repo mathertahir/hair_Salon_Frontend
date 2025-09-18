@@ -17,6 +17,7 @@ import gallery3 from '../../assets/HG3.png'
 import gallery4 from '../../assets/HG4.png'
 import gallery5 from '../../assets/HG5.png'
 import ellipse from '../../assets/RounedEllipse.png'
+import subscribeBg from '../../assets/Subscribe.png'
 import { ButtonSquare } from '../../components/ui/buttonSquare'
 import HairstylistCard from '../../components/HairstylistCard'
 import { FaArrowLeft } from "react-icons/fa";
@@ -191,7 +192,7 @@ const Home = () => {
                                     <img src={gallery3} alt="gallery" className='w-full h-full object-cover lg:rounded-tr-3xl' />
                                 </div>
                                 <div className=''>
-                                    <img src={gallery4} alt="gallery" className='w-full h-full object-cover rounded-bl-3xl lg:rounded-0 ' />
+                                    <img src={gallery4} alt="gallery" className='w-full h-full object-cover rounded-bl-3xl lg:rounded-bl-none' />
                                 </div>
                                 <div className='rounded-br-3xl'>
                                     <img src={gallery5} alt="gallery" className='w-full h-full object-cover rounded-br-3xl' />
@@ -232,7 +233,7 @@ const Home = () => {
 
 
             {/* Testimonials Section */}
-            <div className='bg-white-F0'>
+            <div className='bg-custom-gradient'>
                 <div className='container'>
                     <div className='flex flex-col gap-10 '>
                         <div className='py-10 sm:py-20 flex flex-col gap-10 '>
@@ -328,6 +329,43 @@ const Home = () => {
 
                             {/* Custom pagination */}
                             {/* <div className='swiper-pagination-custom flex justify-center gap-2'></div> */}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {/* Subcribe Section */}
+
+
+            <div className=''>
+                <div className='container'>
+
+                    <div className='py-20'>
+                        <div className='grid   grid-cols-1 lg:grid-cols-2 gap-8 md:gap-14  px-[20px]  md:px-[60px]  2xl:px-[120px]'>
+
+                            <div className=' h-full w-full rounded-3xl'>
+                                <img src={subscribeBg} alt="subscribe" className='h-full w-full object-cover rounded-3xl' />
+                            </div>
+
+
+                            <div className='flex flex-col  justify-center  gap-8  '>
+
+                                <div className='flex flex-col gap-3 items-start  text-left '>
+                                    <h2 className=' sm:text-[40px] text-[22px] lg:text-[45px] font-playfair text-black-14 font-bold leading-none  '>Subscribe to newsletter</h2>
+                                    <p className='text-base sm:text-lg font-normal font-manrope text-gray-55  lg:text-left leading-relaxed text-left'>"Sign up for our newsletter to stay up-to-date on the latest promotions, discounts, and new features releases."</p>
+                                </div>
+
+                                <div className='py-2  px-2  sm:px-4 border border-brown-31 rounded-[45px] flex items-center gap-2'>
+                                    <input type="email" placeholder='Enter your email' className='w-full h-full bg-transparent border-none outline-none ' />
+                                    <Button className=' px-4 md:px-8 w-auto bg-black text-background hover:bg-brown-31/90 transition-all duration-300 active:scale-95'>Subscribe</Button>
+                                </div>
+                            </div>
+
+
+
+
+
                         </div>
                     </div>
                 </div>

@@ -46,6 +46,10 @@ module.exports = {
           "3xl": "120px", // 👈 Custom padding for 1920px
         },
       },
+
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(to right, #FDFDFD, #F0F0F0)',
+      },
     },
   },
   plugins: [],
