@@ -22,6 +22,7 @@ module.exports = {
         "gray-245": "var(--gray-245)",
         "light-brown-c1-o5": "var(--light-brown-c1-o5)",
         "white-d3": "var(--white-d3)",
+        "brown-E0": "var(--brown-E0)",
       },
 
       fontFamily: {
@@ -51,6 +52,10 @@ module.exports = {
 
       backgroundImage: {
         'custom-gradient': 'linear-gradient(to right, #FDFDFD, #F0F0F0)',
+      },
+
+       width: {
+        fill: "-webkit-fill-available",
       },
     },
   },

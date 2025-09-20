@@ -7,6 +7,7 @@ import {
 import Home from "../pages/clientPages/Home.jsx";
 import Contact from "../pages/clientPages/Contact.jsx";
 import AboutUs from "../pages/clientPages/About.jsx";
+import SalonDetailPage from "../pages/clientPages/SalonDetailPage.jsx";
 
 // Create placeholder components for new routes
 const Profile = () => (
@@ -32,6 +33,7 @@ const UserRoutes = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/salon-detail/:id" element={<SalonDetailPage />} />
         </Routes>
     );
 };

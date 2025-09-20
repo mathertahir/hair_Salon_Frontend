@@ -128,7 +128,7 @@ const About = () => {
                 </div>
             </div>
             {/* Testimonials Section */}
-            <TestimonialSwiper testimonials={testimonials} title={testimonialTitle} description={testimonialDescription} />
+
 
             {/* Values Section */}
             <div>
@@ -266,6 +266,9 @@ const About = () => {
                     </div>
                 </div>
             </div>
+
+
+            <TestimonialSwiper testimonials={testimonials} title={testimonialTitle} description={testimonialDescription} />
 
         </div>
     )

@@ -221,6 +221,7 @@ const Home = () => {
                                     location={hairstylist.location}
                                     rating={hairstylist.rating}
                                     reviewCount={hairstylist.reviewCount}
+                                    id={hairstylist.id}
                                     onBookNow={() => handleBookNow(hairstylist.id)}
                                 />
                             ))}

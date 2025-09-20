@@ -1,6 +1,7 @@
 import React from 'react'
 import { FiMapPin, FiStar } from 'react-icons/fi'
 import { ButtonSquare } from './ui/buttonSquare'
+import { Link } from 'react-router-dom'
 
 const HairstylistCard = ({
     image,
@@ -8,6 +9,7 @@ const HairstylistCard = ({
     location,
     rating,
     reviewCount,
+    id,
     onBookNow
 }) => {
     return (
@@ -37,13 +39,16 @@ const HairstylistCard = ({
                             </div>
                         </div>
 
-                        <ButtonSquare
-                            variant='outline'
-                            className='w-full p-4 text-base font-playfair font-bold text-brown-A43 hover:bg-brown-A43 hover:text-background border-brown-A43 hover:border-none mt-auto'
-                            onClick={onBookNow}
-                        >
-                            Book Now
-                        </ButtonSquare>
+                        <Link to={`/salon-detail/${id}`}>
+
+                            <ButtonSquare
+                                variant='outline'
+                                className='w-full p-4 text-base font-playfair font-bold text-brown-A43 hover:bg-brown-A43 hover:text-background border-brown-A43 hover:border-none mt-auto'
+                                onClick={onBookNow}
+                            >
+                                Book Now
+                            </ButtonSquare>
+                        </Link>
                     </div>
                 </div>
             </div>

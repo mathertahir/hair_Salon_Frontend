@@ -41,6 +41,7 @@ code {
   --light-brown-c1: #F7E5C1;
   --gray-245: rgba(235, 243, 245, 0.5);
   --white-d3: #D3D3D3;
+  --brown-E0:#FBF2E0;
 }
 
 /* Custom animations for active tab border */
@@ -231,4 +232,9 @@ code {
     height: 8px;
     margin: 0 4px;
   }
+}
+
+
+.w-fill-pic {
+  width: -webkit-fill-available !important;
 }
