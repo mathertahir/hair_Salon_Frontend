@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Button } from '../../components/ui/button'
 import { ButtonSquare } from '../../components/ui/buttonSquare'
 import gallery1 from '../../assets/HG1.png'
@@ -13,6 +13,7 @@ import values3 from '../../assets/community.png'
 import aboutUs from '../../assets/about.jpg'
 import checkvector from '../../assets/CheckVerctor.png'
 import video from "../../assets/video.mp4"
+import { Link } from 'react-router-dom'
 import { FaCheckCircle, FaPlay, FaPause } from 'react-icons/fa'
 
 const testimonials = [
@@ -100,6 +101,44 @@ const testimonialDescription = "What Our Clients Say"
 const About = () => {
     const [isPlaying, setIsPlaying] = useState(false)
     const videoRef = useRef(null)
+    const videoContainerRef = useRef(null)
+
+    // Intersection Observer to handle video visibility
+    useEffect(() => {
+        const videoElement = videoRef.current
+        const videoContainer = videoContainerRef.current
+
+        if (!videoElement || !videoContainer) return
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        // Video is visible - don't auto-play, let user control
+                        // The video will only play if user manually clicked play
+                        console.log('Video is visible in viewport')
+                    } else {
+                        // Video is not visible - pause it automatically
+                        if (!videoElement.paused) {
+                            videoElement.pause()
+                            setIsPlaying(false)
+                            console.log('Video paused - out of viewport')
+                        }
+                    }
+                })
+            },
+            {
+                threshold: 0.3, // Trigger when 30% of video is visible
+                rootMargin: '0px'
+            }
+        )
+
+        observer.observe(videoContainer)
+
+        return () => {
+            observer.disconnect()
+        }
+    }, [])
 
     const togglePlayPause = () => {
         if (videoRef.current) {
@@ -121,9 +160,9 @@ const About = () => {
                 <div className='container'>
                     <div className='py-20 flex flex-col justify-center items-center'>
                         <p className='font-manrope  text-sm font-semibold text-background  mb-[2px]'>NEARBY Hairstylist</p>
-                        <h2 className=' sm:text-[40px] text-[22px] lg:text-[45px] font-playfair text-light-brown-c1 font-bold leading-none mb-4  max-w-[545px] mb-[32px]'>The story behind Crownity – celebrating every crown 👑</h2>
+                        <h2 className=' sm:text-[40px] text-[22px] lg:text-[45px] font-playfair text-light-brown-c1 font-bold leading-none mb-4  max-w-[610px] mb-[32px]'>The story behind Crownity – celebrating every crown 👑</h2>
 
-                        <ButtonSquare className='bg-background text-brown-A43  text-sm rounded-none'>CONTACT US</ButtonSquare               >
+                        <Link to="/contact"><ButtonSquare className='bg-background text-brown-A43  text-sm rounded-none'>CONTACT US</ButtonSquare></Link>
                     </div>
                 </div>
             </div>
@@ -196,7 +235,7 @@ const About = () => {
             {/* Jouney Section */}
 
             <div className='bg-background'>
-                <div className='grid grid-cols-1  gap-[40px] lg:gap-[120px]  xl:gap-[150px]  lg:grid-cols-2 py-36 '>
+                <div className='grid grid-cols-1  gap-[40px] lg:gap-[100px]  xl:gap-[100px]  lg:grid-cols-2 py-36 '>
                     <div className=' pl-[1rem] sm:pl-[2rem]  lg:pl-[3rem] xl:pl-[4rem]   2xl:pl-[5rem]   3xl:pl-[120px]  pb-[160px]  flex flex-col gap-[35px items-start]  order-2 lg:order-1 '>
 
                         <div>
@@ -240,7 +279,7 @@ const About = () => {
                     </div>
 
                     <div className='relative  order-1 lg:order-2  px-[1rem] sm:-px-0 '    >
-                        <div className='h-full w-full  '>
+                        <div ref={videoContainerRef} className='h-full w-full  '>
                             <video
                                 ref={videoRef}
                                 src={video}

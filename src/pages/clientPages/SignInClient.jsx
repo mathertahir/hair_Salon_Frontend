@@ -65,10 +65,9 @@ const SignInClient = () => {
 
 
                     <div className='flex flex-col  md:gap-[104px] gap-[60px]'>
-                        <div className='flex gap-10  items-center justify-center'>
-
+                        <div className='flex gap-10  sm:flex-row flex-col items-center justify-center'>
                             <Link to="/signin-client" className='w-full sm:w-auto'>
-                                <ButtonSquare className=' px-[32px] py-[11px] flex justify-center items-center border-white-E9 border-[2px]  rounded-[8px]' variant='outline' >
+                                <ButtonSquare className=' px-[32px] py-[11px] flex justify-center items-center border-white-E9 border-[2px]  rounded-[8px] w-full sm:w-auto' variant='outline' >
                                     <div className=' w-[24px] h-[24px]'>
                                         <img src={google} className='w-full h-full object-fill'></img>
                                     </div>
@@ -77,16 +76,14 @@ const SignInClient = () => {
                                 </ButtonSquare>
                             </Link>
 
+                            <Link to="/signin-client" className='w-full sm:w-auto'>      <ButtonSquare className=' px-[32px] py-[11px] flex justify-center items-center border-white-E9 border-[2px]  rounded-[8px] w-full sm:w-auto' variant='outline' >
+                                <div className=' w-[24px] h-[24px]'>
+                                    <img src={facebook} className='w-full h-full object-fill'></img>
+                                </div>
 
-                            <Link to="/signin-client" className='w-full sm:w-auto'>
-                                <ButtonSquare className=' px-[32px] py-[11px] flex justify-center items-center border-white-E9 border-[2px]  rounded-[8px]' variant='outline' >
-                                    <div className=' w-[24px] h-[24px]'>
-                                        <img src={facebook} className='w-full h-full object-fill'></img>
-                                    </div>
+                                <p className='text-black text-[14px] font-manrope font-bold'>Facebook</p>
+                            </ButtonSquare>    </Link>
 
-                                    <p className='text-black text-[14px] font-manrope font-bold'>Facebook</p>
-                                </ButtonSquare>
-                            </Link>
                         </div>
 
 
