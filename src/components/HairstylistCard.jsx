@@ -39,7 +39,8 @@ const HairstylistCard = ({
                             </div>
                         </div>
 
-                        <Link to={`/salon-detail/${id}`}>
+                        {/* <Link to={`/salon-detail/${id}`}> */}
+                        <Link to={`/salon-detail/${id}`} onClick={onBookNow}>
 
                             <ButtonSquare
                                 variant='outline'

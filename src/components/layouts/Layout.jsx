@@ -1,34 +1,64 @@
-// components/layouts/DashboardLayout.jsx
+// // components/layouts/DashboardLayout.jsx
+// import React, { useState } from 'react';
+// import { Outlet } from 'react-router-dom';
+
+// import Header from './Header.jsx';
+// import Footer from './Footer.jsx';
+
+// const Layout = ({ children }) => {
+//   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+//   return (
+//     <div className="flex min-h-screen bg-gray-50">
+//       {/* Sidebar */}
+//       {/* <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} /> */}
+
+
+//       {/* Main content with Header and page content */}
+//       <div className=" flex flex-col w-full bg-white">
+//         <Header
+//           onBurgerClick={() => setIsSidebarOpen(!isSidebarOpen)}
+//           isSidebarOpen={isSidebarOpen}
+//         />
+//         <main className="flex-1 overflow-y-auto">
+//           {children || <Outlet />}
+//         </main>
+
+//         <Footer />
+//       </div>
+
+//     </div>
+//   );
+// };
+
+// export default Layout;
+
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 
-const Layout = ({ children }) => {
+const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar */}
-      {/* <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} /> */}
-
-
-      {/* Main content with Header and page content */}
-      <div className=" flex flex-col w-full bg-white">
+      {/* Sidebar can go here if needed */}
+      <div className="flex flex-col w-full bg-white">
         <Header
           onBurgerClick={() => setIsSidebarOpen(!isSidebarOpen)}
           isSidebarOpen={isSidebarOpen}
         />
         <main className="flex-1 overflow-y-auto">
-          {children || <Outlet />}
+          <Outlet /> {/* 👈 This is where page content will render */}
         </main>
-
         <Footer />
       </div>
-
     </div>
   );
 };
 
 export default Layout;
+

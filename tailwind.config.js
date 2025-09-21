@@ -23,11 +23,17 @@ module.exports = {
         "light-brown-c1-o5": "var(--light-brown-c1-o5)",
         "white-d3": "var(--white-d3)",
         "brown-E0": "var(--brown-E0)",
+        "white-d9": "var(--white-d9)",
+        "white-E9": "var(--white-E9)",
+        "blueCD": "var(--blueCD)",
+        "blueEC": "var(--blueEC)",
+        "blueB8": "var(--blueB8)",
       },
 
       fontFamily: {
         playfair: ["Playfair Display", "serif"],
         manrope: ["Manrope", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
       },
       screens: {
         xs: "480px",     // Extra small (phones)

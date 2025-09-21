@@ -26,6 +26,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
     // const { user } = useContext(AuthContext);
     const location = useLocation();
     const [language, setLanguage] = useState('EN');
+    console.log(location.pathname, "Current Location");
 
     // const getInitials = (firstName, lastName) => {
     //     if (!firstName && !lastName) return 'U';
@@ -37,6 +38,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
     const closeSidebar = () => {
         onBurgerClick();
     };
+
 
     return (
         < >
@@ -129,13 +131,17 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                                     </SelectContent>
                                 </Select>
                                 <div className='flex items-center space-x-4'>
-                                    <ButtonSquare variant="outline" className=" text-base  font-bold font-manrope">
-                                        Login
-                                    </ButtonSquare>
+                                    <Link to={"/signin-client"}>
+                                        <ButtonSquare variant="outline" className=" text-base  font-bold font-manrope">
+                                            Login
+                                        </ButtonSquare></Link>
 
-                                    <ButtonSquare variant="secondary" className=" text-base  font-bold font-manrope">
-                                        Sign Up
-                                    </ButtonSquare>
+
+                                    <Link to={"/signup-client"}>
+                                        <ButtonSquare variant="secondary" className=" text-base  font-bold font-manrope">
+                                            Sign Up
+                                        </ButtonSquare>
+                                    </Link>
                                 </div>
 
 
@@ -143,13 +149,18 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
 
                             <div className='flex items-center space-x-4 md:hidden'>
-                                <ButtonSquare variant="outline" className=" text-base  font-bold font-manrope">
-                                    Login
-                                </ButtonSquare>
 
-                                <ButtonSquare variant="secondary" className=" text-base  font-bold font-manrope">
-                                    Sign Up
-                                </ButtonSquare>
+                                <Link to={"/role"}>
+                                    <ButtonSquare variant="outline" className=" text-base  font-bold font-manrope">
+                                        Login
+                                    </ButtonSquare>
+                                </Link>
+
+                                <Link to={"/role"}>
+                                    <ButtonSquare variant="secondary" className=" text-base  font-bold font-manrope">
+                                        Sign Up
+                                    </ButtonSquare>
+                                </Link>
                             </div>
 
 
@@ -194,17 +205,19 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                     </DropdownMenu> */}
                         </div>
                     </header>
-                </div>
-            </div>
+                </div >
+            </div >
 
 
             {/* Mobile Sidebar Overlay */}
-            {isSidebarOpen && (
-                <div
-                    className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
-                    onClick={closeSidebar}
-                />
-            )}
+            {
+                isSidebarOpen && (
+                    <div
+                        className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+                        onClick={closeSidebar}
+                    />
+                )
+            }
 
             {/* Mobile Sidebar */}
             <aside className={`
