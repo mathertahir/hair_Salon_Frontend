@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState, memo } from "react";
+import React, { useEffect, useRef, useState, memo, useMemo, useCallback } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
 
 const mapContainerStyle = {
     height: "100%",
     width: "100%",
-    padding:"200px 0px 200px 0px"
+    padding: "200px 0px 200px 0px"
 };
 
 // Static libraries array to prevent unnecessary reloads
@@ -14,7 +14,6 @@ const MyMap = memo(function MyMap({ coordinates }) {
     const mapRef = useRef(null);
     const markerRef = useRef(null);
     const [map, setMap] = useState(null);
-    const [advancedMarker, setAdvancedMarker] = useState(null);
     const [debugInfo, setDebugInfo] = useState("");
 
     // Debug: Check API key
@@ -25,9 +24,13 @@ const MyMap = memo(function MyMap({ coordinates }) {
         libraries: libraries,
     });
 
-    const center = coordinates
-        ? { lat: coordinates[1], lng: coordinates[0] }
-        : { lat: 43.65107, lng: -79.347015 }; // fallback Toronto
+    // Memoize center to prevent unnecessary re-renders
+    const center = useMemo(() => {
+        if (coordinates && Array.isArray(coordinates) && coordinates.length >= 2) {
+            return { lat: coordinates[1], lng: coordinates[0] };
+        }
+        return { lat: 43.65107, lng: -79.347015 }; // fallback Toronto
+    }, [coordinates]);
 
     // Debug logging
     useEffect(() => {
@@ -43,6 +46,7 @@ const MyMap = memo(function MyMap({ coordinates }) {
         }
     }, [isLoaded, loadError, apiKey]);
 
+    // Initialize map only once when loaded
     useEffect(() => {
         if (isLoaded && mapRef.current && !map) {
             try {
@@ -57,44 +61,46 @@ const MyMap = memo(function MyMap({ coordinates }) {
                 setDebugInfo(`Map creation error: ${error.message}`);
             }
         }
-    }, [isLoaded, center, map]);
+    }, [isLoaded, map]); // Removed center dependency to prevent re-creation
 
-    useEffect(() => {
-        if (map && isLoaded) {
+    // Create marker when map is ready
+    const createMarker = useCallback(async () => {
+        if (!map || !isLoaded) return;
+
+        try {
             // Clean up existing marker
             if (markerRef.current) {
                 markerRef.current.map = null;
             }
 
-            // Create Advanced Marker
-            const createAdvancedMarker = async () => {
-                try {
-                    const { AdvancedMarkerElement } = await window.google.maps.importLibrary("marker");
+            const { AdvancedMarkerElement } = await window.google.maps.importLibrary("marker");
 
-                    const marker = new AdvancedMarkerElement({
-                        map: map,
-                        position: center,
-                        title: "Salon Location",
-                    });
+            const marker = new AdvancedMarkerElement({
+                map: map,
+                position: center,
+                title: "Salon Location",
+            });
 
-                    markerRef.current = marker;
-                    setAdvancedMarker(marker);
-                } catch (error) {
-                    console.error("Error creating advanced marker:", error);
-                    setDebugInfo(`Marker creation error: ${error.message}`);
-                }
-            };
-
-            createAdvancedMarker();
+            markerRef.current = marker;
+        } catch (error) {
+            console.error("Error creating advanced marker:", error);
+            setDebugInfo(`Marker creation error: ${error.message}`);
         }
+    }, [map, isLoaded, center]);
 
-        // Cleanup function
-        return () => {
-            if (markerRef.current) {
-                markerRef.current.map = null;
-            }
-        };
-    }, [map, center, isLoaded]);
+    // Create marker when map is ready
+    useEffect(() => {
+        if (map && isLoaded) {
+            createMarker();
+        }
+    }, [map, isLoaded, createMarker]);
+
+    // Update marker position when coordinates change
+    useEffect(() => {
+        if (markerRef.current && map) {
+            markerRef.current.position = center;
+        }
+    }, [center, map]);
 
     // Show debug information
     if (loadError) {
@@ -122,6 +128,20 @@ const MyMap = memo(function MyMap({ coordinates }) {
         );
     }
 
+
+    // Debug logging (only in development)
+    if (process.env.NODE_ENV === 'development') {
+        console.log("MyMap Debug:", {
+            isLoaded,
+            map: !!map,
+            markerRef: !!markerRef.current,
+            debugInfo,
+            loadError,
+            apiKey: !!apiKey,
+            coordinates,
+            center
+        });
+    }
     if (!isLoaded) {
         return (
             <div style={mapContainerStyle} className="flex items-center justify-center bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">

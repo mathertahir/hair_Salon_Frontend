@@ -47,6 +47,8 @@ code {
   --blueCD:#ADB0CD;
   --blueEC:#E4E6EC;
   --blueB8:#969AB8;
+  --red0:#FF0000;
+  --brown-A43-o2:rgba(161, 94, 67, 0.2)
 }
 
 /* Custom animations for active tab border */

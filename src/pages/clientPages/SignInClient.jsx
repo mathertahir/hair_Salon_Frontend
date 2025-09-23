@@ -9,13 +9,21 @@ import { Link } from 'react-router-dom'
 
 
 const SignInClient = () => {
+
+    const handleSignIn = () => {
+        console.log('Sign In');
+
+        localStorage.setItem('token', '1234567890');
+    }
+
+
     return (
         <div className='bg-background'>
             <div className='flex flex-col md:flex-row 2xl:gap-x-[140px] gap-x-[30px] mx-0 px-0'>
                 <div className='w-full md:w-1/2 xl:w-1/3 md:py-[170px] py-[60px] px-[1rem] sm:px-[20px] md:pl-[60px] xl:pl-[120px] flex flex-col gap-10 justify-center'>
                     <h1 className='md:text-[30px] text-[20px] font-bold font-manrope text-black text-center sm:text-left'>Sign In </h1>
 
-                    <form className='flex flex-col gap-4'>
+                    <form className='flex flex-col gap-4' onSubmit={handleSignIn}>
                         <div className='p-[10px] border-[1px] border-white-E9 rounded-[5px] '>
                             <div className='flex gap-3 items-center '>
                                 <div className='text-blueCD'>
@@ -46,8 +54,8 @@ const SignInClient = () => {
                         </div>
 
 
-                        <ButtonSquare className='w-full bg-brown-A43 text-background  p-[20px]  font-extrabold text-[14px] font-manrope' variant='secondary' >Sign In</ButtonSquare>
-                    </form>
+                        <ButtonSquare className='w-full bg-brown-A43 text-background  p-[20px]  font-extrabold text-[14px] font-manrope' variant='secondary' type='submit' >Sign In</ButtonSquare>
+                    </form >
 
                     <div className='flex  flex-col gap-[20px]'>
 

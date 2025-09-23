@@ -28,6 +28,8 @@ module.exports = {
         "blueCD": "var(--blueCD)",
         "blueEC": "var(--blueEC)",
         "blueB8": "var(--blueB8)",
+        "red0": "var(--red0)",
+        "brown-A43-o2": "var(--brown-A43-o2)",
       },
 
       fontFamily: {

@@ -57,6 +57,8 @@ import SignInClient from "../pages/clientPages/SignInClient.jsx";
 import ForgotPassword from "../pages/ForgotPassword.jsx";
 import OTP from "../pages/OTP.jsx";
 import ResetPassword from "../pages/ResetPassword.jsx";
+import ClientBookingPage from "../pages/clientPages/ClientBookingPage.jsx";
+import ClientBookingInfo from "../pages/clientPages/ClientBookingInfo.jsx";
 
 // Temporary placeholder components
 const Profile = () => (
@@ -92,6 +94,8 @@ const UserRoutes = () => {
                 <Route path="forgotPassword" element={<ForgotPassword />} />
                 <Route path="otp" element={<OTP />} />
                 <Route path="resetPassword" element={<ResetPassword />} />
+                <Route path="client-bookings" element={<ClientBookingPage />} />
+                <Route path="client-booking-info/:id" element={<ClientBookingInfo />} />
             </Route>
         </Routes>
     );

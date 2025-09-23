@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '../../components/ui/avatar.jsx';
 // import { AuthContext } from '@/services/context/AuthContext';
 import { FiX, FiMenu, FiUser, FiChevronDown, FiGlobe, FiLogOut } from 'react-icons/fi';
+import profile from '../../assets/profile.png';
 import logo from '../../assets/logo.png';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '../../components/ui/button.jsx';
@@ -21,12 +22,15 @@ import {
     SelectValue,
 } from '../../components/ui/select.jsx';
 import { ButtonSquare } from '../ui/buttonSquare.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
     // const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
     const location = useLocation();
     const [language, setLanguage] = useState('EN');
     console.log(location.pathname, "Current Location");
+    const [showProfileMenu, setShowProfileMenu] = useState(false);
 
     // const getInitials = (firstName, lastName) => {
     //     if (!firstName && !lastName) return 'U';
@@ -40,6 +44,13 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
     };
 
 
+    const handleSignOut = () => {
+        localStorage.removeItem('token');
+
+    }
+
+
+    const token = localStorage.getItem('token');
     return (
         < >
 
@@ -130,7 +141,11 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                                         <SelectItem value="FR">FR</SelectItem>
                                     </SelectContent>
                                 </Select>
-                                <div className='flex items-center space-x-4'>
+
+
+
+
+                                <div className={`flex items-center space-x-4 ${token?.length > 0 ? 'hidden' : 'block'}`}>
                                     <Link to={"/signin-client"}>
                                         <ButtonSquare variant="outline" className=" text-base  font-bold font-manrope">
                                             Login
@@ -142,6 +157,24 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                                             Sign Up
                                         </ButtonSquare>
                                     </Link>
+                                </div>
+
+
+                                <div className={`flex items-center space-x-4 ${token?.length > 0 ? 'block' : 'hidden'}  relative`}>
+
+                                    <div onMouseEnter={() => setShowProfileMenu(!showProfileMenu)}>
+                                        <img class="w-10 h-10 rounded-full" src={profile} alt="Rounded avatar" />
+                                    </div>
+
+                                    <div className={`bg-background py-[30px] px-[24px] rounded-[30px] shadow-2xl w-[260px] h-auto absolute top-[50px] right-0 ${showProfileMenu ? 'block' : 'hidden'}`} onMouseLeave={() => setShowProfileMenu(!showProfileMenu)}>
+                                        <div className=' flex flex-col gap-[30px]'>
+                                            <Link to="/client-bookings"> <p className='text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300'>My Bookings</p></Link>
+                                            <Link to="/signin-client">   <p onClick={handleSignOut} className='text-black font-bold font-manrope text-red0 text-[18px] hover:translate-y-[1px] transition-all duration-300 '>Sign Out</p></Link>
+
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
 

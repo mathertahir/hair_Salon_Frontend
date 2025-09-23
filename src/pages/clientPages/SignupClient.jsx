@@ -2,6 +2,9 @@ import React from 'react'
 import { LiaKeySolid } from "react-icons/lia";
 import { MdForwardToInbox } from 'react-icons/md'
 import { ButtonSquare } from '../../components/ui/buttonSquare'
+import { FaUser } from 'react-icons/fa'
+import { CiUser } from "react-icons/ci";
+import { FaRegUser } from "react-icons/fa6";
 import google from '../../assets/google.png'
 import facebook from "../../assets/fb.png"
 import signup from "../../assets/SignUp.png"
@@ -16,6 +19,20 @@ const SignupClient = () => {
                     <h1 className='md:text-[30px] text-[20px] font-bold font-manrope text-black text-center sm:text-left'>Sign Up </h1>
 
                     <form className='flex flex-col gap-4'>
+                        <div className='p-[10px] border-[1px] border-white-E9 rounded-[5px] '>
+                            <div className='flex gap-3 items-center '>
+                                <div className='text-blueCD'>
+                                    <FaRegUser size={24} />
+                                </div>
+                                <input
+                                    className="focus:border-none focus:outline-none border-none w-full bg-transparent"
+                                    type="text"
+                                    placeholder='Name'
+                                />
+
+                            </div>
+
+                        </div>
                         <div className='p-[10px] border-[1px] border-white-E9 rounded-[5px] '>
                             <div className='flex gap-3 items-center '>
                                 <div className='text-blueCD'>
