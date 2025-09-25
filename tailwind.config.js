@@ -29,7 +29,10 @@ module.exports = {
         "blueEC": "var(--blueEC)",
         "blueB8": "var(--blueB8)",
         "red0": "var(--red0)",
+        "white-F3": "var(--whiteF3)",
         "brown-A43-o2": "var(--brown-A43-o2)",
+        "black-050": "var(--black-050)",
+        "brown-A43-o20": "var(--brown-A43-o20)",
       },
 
       fontFamily: {

@@ -3,15 +3,18 @@ import { MdOutlineKeyboardArrowRight, MdOutlineKeyboardArrowDown } from "react-i
 import { FaArrowRight } from "react-icons/fa";
 import MyMap from '../../components/MyMap'
 import { FiStar } from 'react-icons/fi'
+import { ButtonSquare } from '../../components/ui/buttonSquare'
+import { Link } from 'react-router-dom'
+import userCover from '../../assets/userCover.png'
 
-const ClientBookingInfo = () => {
+
+const StylistBookingInfo = () => {
     const [activeTab, setActiveTab] = useState(null)
+    const [activebtn, setActivebtn] = useState(2);
 
     const toggleTab = (tabIndex) => {
         setActiveTab(activeTab === tabIndex ? null : tabIndex)
     }
-
-
 
     return (
         <div className='bg-background'>
@@ -21,12 +24,17 @@ const ClientBookingInfo = () => {
                     <div className='py-[45px] md:px-[40px] bg-background rounded-[10px]'>
                         <div className='flex flex-col gap-[20px]'>
 
+
+                            <div className='w-full '>
+                                <img src={userCover} alt="userCover" className='w-full h-full object-cover  rounded-[20px]' />
+                            </div>
+
                             <div className={`${activeTab === 0 ? 'gap-[20px]' : 'gap-[0px]'} flex flex-col shadow-2xl  px-[26px] py-[20px] rounded-[15px]  `} >
                                 <div
                                     className='flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors duration-200'
                                     onClick={() => toggleTab(0)}
                                 >
-                                    <p className='text-black-black  font-playfair font-bold  sm:text-[30px] text-[20px]'>Hairstlist Details</p>
+                                    <p className='text-black-black  font-playfair font-bold  sm:text-[30px] text-[20px]'>User Details</p>
 
                                     <div className='text-black-black transition-transform duration-300'>
                                         {activeTab === 0 ?
@@ -45,86 +53,41 @@ const ClientBookingInfo = () => {
 
                                         <div className='flex sm:flex-row flex-col justify-between items-center'>
                                             <div>
-                                                <p className=' sm:text-[25px] text-[20px] sfont-playfair font-bold text-black-14'>Crown by Amara</p>
+                                                <p className=' sm:text-[35px] text-[20px] font-playfair font-bold text-black-14'>Adam Scout</p>
                                             </div>
-                                            <div className="flex gap-[20px] items-center">
-                                                <div className="flex items-center gap-[10px] text-brown-A43">
-                                                    <div>  <FiStar size={24} /></div>
 
-                                                    <p className='md:text-[25px]  text-[13px] font-manrope font-normal '>4.5</p>
-                                                </div>
-
-                                                <div>                        <p className='md:text-lg text-[13px] font-playfair font-bold text-gray-55'>104 Reviews.</p></div>
-                                            </div>
                                         </div>
 
-                                        <p className='font-manrope md:text-base text-[13px] font-semibold text-gray-55  text-left  md:leading-10 leading-5 '>
-                                            At Crown by Amara, we believe your hair is your crown, and it deserves the best care. With years of professional experience, we specialize in modern cuts, vibrant coloring, bridal styling, and treatments that bring life back to your hair. Our mission is to create looks that reflect your personality while keeping your hair healthy and radiant.
 
-                                            Whether it’s a quick trim, a bold transformation, or the perfect style for your big day, Crown by Amara ensures every client leaves with confidence and a smile. 🌸.</p>
+
                                     </div>
 
 
-                                    <div className='flex flex-col md:gap-[20px] gap-[10px] items-start justify-start text-left md:mb-[111px] mb-[20px]'>
-                                        <p className='sm:text-[35px] text-[20px] sm:font-playfair font-bold text-black-14'>Location</p>
-
-                                        <div className='w-full'>
-                                            <MyMap key="salon-map" coordinates={[43.65107, -79.347015]} />
-                                        </div>
-                                    </div>
 
 
-                                    <div className='grid grid-cols-1    lg:grid-cols-3  md:gap-[104px]  gap-[10px] md:gap-[80px] sm:gap-[60px] xs:gap-[30px] md:mb-[111px] mb-[20px]'>
+
+                                    <div className='grid grid-cols-1    lg:grid-cols-2  md:gap-[104px]  gap-[10px] md:gap-[80px] sm:gap-[60px] xs:gap-[30px] md:mb-[111px] mb-[20px]'>
                                         <div className='flex flex-col gap-[20px] items-start justify-start text-left  border-b-[1px] lg:border-b-0   lg:border-r-[1px] border-white-d9'>
-                                            <p className='sm:text-[35px] text-[12x] sm:font-playfair font-bold text-brown-A43'>Services Offered</p>
+                                            <p className='sm:text-[35px] text-[12x] sm:font-playfair font-bold text-brown-A43'>Email</p>
 
                                             <div className=' '>
-                                                <ul className='flex flex-col gap-[10px] list-disc list-inside'>
-                                                    <li className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>Women's Haircut</li>
-                                                    <li className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>Bridal Hair Styling</li>
-                                                    <li className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>Hair Coloring and styling</li>
-                                                    <li className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>Keratin & Rebonding</li>
-                                                    <li className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>Blow Dry & Styling</li>
-
-
-                                                </ul>
+                                                <p className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>adamscout@gmail.com</p>
                                             </div>
                                         </div>
 
 
                                         <div className='flex border-white-d9  border-r-[1px] '>
                                             <div className='flex flex-col gap-[20px] items-start justify-start text-left'>
-                                                <p className='sm:text-[35px] text-[12x] sm:font-playfair font-bold text-brown-A43'>Avaiilability</p>
+                                                <p className='sm:text-[35px] text-[12x] sm:font-playfair font-bold text-brown-A43'>Address</p>
 
                                                 <div className=' '>
-                                                    <ul className='flex flex-col gap-[10px] '>
-                                                        <li className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>Mon - Sat</li>
-                                                        <li className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>11:00 AM - 10:00 PM`</li>
-
-
-
-                                                    </ul>
+                                                    <p className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>123 Main St, Anytown, USA</p>
                                                 </div>
                                             </div>
                                         </div>
 
 
 
-                                        <div className="flex  ">
-                                            <div className='flex flex-col gap-[20px] items-start justify-start text-left'>
-                                                <p className='sm:text-[35px] text-[12x] sm:font-playfair font-bold text-brown-A43'>Price Range</p>
-
-                                                <div className=''>
-                                                    <ul className='flex flex-col gap-[10px] '>
-
-                                                        <li className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>Starting from PKR 3,000`</li>
-
-
-
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
 
                                     </div>
                                 </div>
@@ -216,6 +179,23 @@ const ClientBookingInfo = () => {
                                                 Please be on time and bring all the accessories that make my hairstyle perfect, with or
                                                 without them. Also, make sure to bring the original color for my hair..</p>
                                         </div>
+
+                                        <div className='grid sm:grid-cols-2 grid-cols-1 gap-4 w-full'>
+
+                                            <div className='w-full' onMouseEnter={() => setActivebtn(1)}>
+                                                <Link to="/">
+                                                    <ButtonSquare className={`w-full bg-transparent  text-brown-A43  py-[32px] px-[110px]  font-extrabold text-[14px] font-manrope ${activebtn === 1 ? 'bg-brown-A43 text-background' : 'bg-brown-A43-o20 text-brown-A43'} hover:bg-brown-A43 hover:text-background`} variant='secondary' >DISCARD</ButtonSquare>
+                                                </Link>
+                                            </div>
+
+                                            <div className='w-full' onMouseEnter={() => setActivebtn(2)}>
+                                                <Link to="/">
+                                                    <ButtonSquare className={`w-full bg-transparent  text-brown-A43  py-[32px]  px-[110px] font-extrabold text-[14px] font- ${activebtn === 2 ? 'bg-brown-A43 text-background' : 'bg-brown-A43-o20 text-brown-A43'} hover:bg-brown-A43 hover:text-background`} variant='secondary' >Continue</ButtonSquare>
+                                                </Link>
+                                            </div>
+
+
+                                        </div>
                                     </div>
 
                                 </div>
@@ -234,4 +214,4 @@ const ClientBookingInfo = () => {
     )
 }
 
-export default ClientBookingInfo
+export default StylistBookingInfo

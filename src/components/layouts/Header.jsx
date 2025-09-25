@@ -51,6 +51,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
 
     const token = localStorage.getItem('token');
+    const id = 1
     return (
         < >
 
@@ -168,7 +169,8 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
                                     <div className={`bg-background py-[30px] px-[24px] rounded-[30px] shadow-2xl w-[260px] h-auto absolute top-[50px] right-0 ${showProfileMenu ? 'block' : 'hidden'}`} onMouseLeave={() => setShowProfileMenu(!showProfileMenu)}>
                                         <div className=' flex flex-col gap-[30px]'>
-                                            <Link to="/client-bookings"> <p className='text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300'>My Bookings</p></Link>
+                                            <Link to="/stylist-bookings"> <p className='text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300'>My Bookings</p></Link>
+                                            <Link to={`/salon-detailed-info/${id}`}> <p className='text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300'>My Account</p></Link>
                                             <Link to="/signin-client">   <p onClick={handleSignOut} className='text-black font-bold font-manrope text-red0 text-[18px] hover:translate-y-[1px] transition-all duration-300 '>Sign Out</p></Link>
 
                                         </div>
@@ -181,7 +183,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                             </div>
 
 
-                            <div className='flex items-center space-x-4 md:hidden'>
+                            <div className={`flex items-center space-x-4 md:hidden ${token?.length > 0 ? 'hidden' : 'block'}`}>
 
                                 <Link to={"/role"}>
                                     <ButtonSquare variant="outline" className=" text-base  font-bold font-manrope">
@@ -195,6 +197,29 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                                     </ButtonSquare>
                                 </Link>
                             </div>
+
+
+
+                            <div className={`flex items-center space-x-4  md:hidden ${token?.length > 0 ? 'block' : 'hidden'}  relative`}>
+
+                                <div onMouseEnter={() => setShowProfileMenu(!showProfileMenu)}>
+                                    <img class="w-10 h-10 rounded-full" src={profile} alt="Rounded avatar" />
+                                </div>
+
+                                <div className={`bg-background py-[30px] px-[24px] rounded-[30px] shadow-2xl w-[260px] h-auto absolute top-[50px] right-0 ${showProfileMenu ? 'block' : 'hidden'}`} onMouseLeave={() => setShowProfileMenu(!showProfileMenu)}>
+                                    <div className=' flex flex-col gap-[30px]'>
+                                        <Link to="/stylist-bookings"> <p className='text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300'>My Bookings</p></Link>
+                                        <Link to={`/salon-detailed-info/${id}`}> <p className='text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300'>My Account</p></Link>
+                                        <Link to="/signin-client">   <p onClick={handleSignOut} className='text-black font-bold font-manrope text-red0 text-[18px] hover:translate-y-[1px] transition-all duration-300 '>Sign Out</p></Link>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
 
 
 

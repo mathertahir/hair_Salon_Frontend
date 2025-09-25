@@ -5,9 +5,9 @@ import gallery2 from '../../assets/HG2.png'
 import gallery3 from '../../assets/HG3.png'
 import gallery4 from '../../assets/HG4.png'
 import gallery5 from '../../assets/HG5.png'
-import ClientBookingCards from '../../components/ClientBookingCards'
+import StylistBookingCards from '../../components/StylistBookingCards'
 
-const ClientBookingPage = () => {
+const StylistBookingPage = () => {
     const [activeTab, setActiveTab] = useState(1);
 
     const handleTabClick = (tab) => {
@@ -15,25 +15,20 @@ const ClientBookingPage = () => {
     };
 
 
-
-
     const bookings = [
         {
             id: 1,
             image: gallery1,
             name: "Crown by Amara",
-            location: "Brookpark Ext, 27085, North Olmsted, 44070",
-            rating: "4.5",
-            bookingId: "323323",
-            status: "Pending"
+            email: "info@nikitascout.com",
+
         },
         {
             id: 2,
             image: gallery2,
             name: "The Loc Lounge",
-            location: "2267 Main st, Fort Myers, 33901",
-            rating: "4.5",
-            bookingId: "323323",
+            email: "info@nikitascout.com",
+
             status: "Completed"
         },
 
@@ -41,9 +36,8 @@ const ClientBookingPage = () => {
             id: 3,
             image: gallery3,
             name: "Royal Strands Studio",
-            location: "2267 Main st, Fort Myers, 33901,",
-            rating: "4.5",
-            bookingId: "323323",
+            email: "info@nikitascout.com",
+
             status: "Completed"
         },
 
@@ -51,17 +45,11 @@ const ClientBookingPage = () => {
             id: 4,
             image: gallery4,
             name: "Royal Strands Studio",
-            location: "2267 Main st, Fort Myers, 33901,",
-            rating: "4.5",
-            bookingId: "323323",
+            email: "info@nikitascout.com",
+
             status: "Pending"
         }
     ]
-
-    // Sample data for demonstration
-
-
-
     return (
         <div className='bg-background'>
             <div className='container'>
@@ -85,13 +73,13 @@ const ClientBookingPage = () => {
                     {/* Tab Content */}
                     <div className="tab-content">
                         {activeTab === 1 && (
-                            <ClientBookingCards
+                            <StylistBookingCards
                                 bookings={bookings.filter(booking => booking.status === 'Pending')}
                             />
                         )}
 
                         {activeTab === 2 && (
-                            <ClientBookingCards
+                            <StylistBookingCards
                                 bookings={bookings.filter(booking => booking.status === 'Completed')}
 
                             />
@@ -103,4 +91,4 @@ const ClientBookingPage = () => {
     )
 }
 
-export default ClientBookingPage
+export default StylistBookingPage

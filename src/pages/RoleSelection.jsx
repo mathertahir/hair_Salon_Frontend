@@ -34,21 +34,23 @@ const RoleSelection = () => {
                                     }`}>I am a client</p>
                             </div>
                         </Link>
-                        <div
-                            className={`lg:w-[300px] lg:h-[316px] w-[250px] h-[270px] rounded-[20px] flex flex-col gap-[10px] justify-center items-center cursor-pointer transition-all duration-300 ${activeRole === 2
-                                ? 'bg-foreground'
-                                : 'bg-light-brown-11p'
-                                }`}
-                            onClick={() => setActiveRole(2)}
-                        >
-                            <div>
-                                <img src={hairstylistRole} alt="role" />
+                        <Link to="/stylist-signup">
+                            <div
+                                className={`lg:w-[300px] lg:h-[316px] w-[250px] h-[270px] rounded-[20px] flex flex-col gap-[10px] justify-center items-center cursor-pointer transition-all duration-300 ${activeRole === 2
+                                    ? 'bg-foreground'
+                                    : 'bg-light-brown-11p'
+                                    }`}
+                                onClick={() => setActiveRole(2)}
+                            >
+                                <div>
+                                    <img src={hairstylistRole} alt="role" />
+                                </div>
+                                <p className={`font-bold text-[25px] font-manrope font-normal ${activeRole === 2
+                                    ? 'text-background'
+                                    : 'text-foreground'
+                                    }`}>I am a hairstylist</p>
                             </div>
-                            <p className={`font-bold text-[25px] font-manrope font-normal ${activeRole === 2
-                                ? 'text-background'
-                                : 'text-foreground'
-                                }`}>I am a hairstylist</p>
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </div>

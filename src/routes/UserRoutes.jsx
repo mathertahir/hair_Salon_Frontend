@@ -59,7 +59,14 @@ import OTP from "../pages/OTP.jsx";
 import ResetPassword from "../pages/ResetPassword.jsx";
 import ClientBookingPage from "../pages/clientPages/ClientBookingPage.jsx";
 import ClientBookingInfo from "../pages/clientPages/ClientBookingInfo.jsx";
-
+import StylistSignUpPage from "../pages/stylistPages/StylistSignUpPage.jsx";
+import ProfileUnderReview from "../pages/stylistPages/ProfileUnderReview.jsx";
+import ApprovedPage from "../pages/stylistPages/ApprovedPage.jsx";
+import PricingPage from "../pages/stylistPages/PricingPage.jsx";
+import PaymentForm from "../pages/stylistPages/PaymentForm.jsx";
+import StylistBookingPage from "../pages/stylistPages/StylistBookingPage.jsx";
+import StylistBookingInfo from "../pages/stylistPages/StylistBookingInfo.jsx";
+import SalonDetailedInfo from "../pages/stylistPages/SalonDetailedInfo.jsx";
 // Temporary placeholder components
 const Profile = () => (
     <div className="p-6">
@@ -96,6 +103,14 @@ const UserRoutes = () => {
                 <Route path="resetPassword" element={<ResetPassword />} />
                 <Route path="client-bookings" element={<ClientBookingPage />} />
                 <Route path="client-booking-info/:id" element={<ClientBookingInfo />} />
+                <Route path="stylist-signup" element={<StylistSignUpPage />} />
+                <Route path="profile-under-review" element={<ProfileUnderReview />} />
+                <Route path="approved" element={<ApprovedPage />} />
+                <Route path="pricing" element={<PricingPage />} />
+                <Route path="payment-form" element={<PaymentForm />} />
+                <Route path="stylist-bookings" element={<StylistBookingPage />} />
+                <Route path="stylist-booking-info/:id" element={<StylistBookingInfo />} />
+                <Route path="salon-detailed-info/:id" element={<SalonDetailedInfo />} />
             </Route>
         </Routes>
     );
