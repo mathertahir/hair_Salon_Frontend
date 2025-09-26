@@ -2,6 +2,13 @@ import React, { useState } from 'react'
 import { MdOutlineKeyboardArrowRight, MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { ButtonSquare } from '../../components/ui/buttonSquare'
 import { Link } from 'react-router-dom'
+import verified from "../../assets/verificationDocument.png"
+import gallery1 from '../../assets/HG1.png'
+import gallery2 from '../../assets/HG2.png'
+import gallery3 from '../../assets/HG3.png'
+import gallery4 from '../../assets/HG4.png'
+import { FaCheck } from 'react-icons/fa';
+
 
 
 
@@ -162,33 +169,43 @@ const SalonDetailedInfo = () => {
                                         <div className='flex flex-col gap-[20px]'>
                                             <div className='grid grid-cols-1    lg:grid-cols-3  md:gap-[104px]  gap-[10px] md:gap-[80px] sm:gap-[60px] xs:gap-[30px] md:mb-[111px] mb-[20px]'>
                                                 <div className='flex flex-col gap-[20px] items-start justify-start text-left  border-b-[1px] lg:border-b-0   lg:border-r-[1px] border-white-d9'>
-                                                    <p className='sm:text-[35px] text-[12px] sm:font-playfair font-bold text-brown-A43'>My Account</p>
+                                                    <p className='sm:text-[35px] text-[12px] sm:font-playfair font-bold text-brown-A43'>Verification Document</p>
 
-                                                    <div className=' '>
-                                                        <ul className='flex flex-col gap-[10px] list-disc list-inside'>
-                                                            <li className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>Haircut</li>
-                                                            <li className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>Bridal Hair Styling</li>
-                                                            <li className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>Hair Coloring and highlights</li>
+                                                    <div className='flex gap-3 items-center flex-wrap'>
 
+                                                        <div className='w-[100px] h-[100px] relative rounded-lg'>
+                                                            <img src={verified} alt='' className='w-full h-full rounded-lg' ></img>
+                                                            <div className='absolute top-[3px] right-[5px]'>
+                                                                <span class=" text-background text-xs font-medium me-2 px-2.5 py-0.5 rounded-full bg-green-900 ">Verified</span>
+                                                            </div>
 
+                                                        </div>
 
-                                                        </ul>
                                                     </div>
                                                 </div>
 
 
                                                 <div className='flex border-white-d9 lg:border-r-[1px] '>
                                                     <div className='flex flex-col gap-[20px] items-start justify-start text-left'>
-                                                        <p className='sm:text-[35px] text-[12px] sm:font-playfair font-bold text-brown-A43'>Time</p>
+                                                        <p className='sm:text-[35px] text-[12px] sm:font-playfair font-bold text-brown-A43'>ID</p>
 
-                                                        <div className=' '>
-                                                            <ul className='flex flex-col gap-[10px] '>
-                                                                <li className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>Mon - Sat</li>
-                                                                <li className='md:text-2xl text-[13px] font-manrope font-normal text-gray-55'>11:00 AM - 8:00 PM</li>
+                                                        <div className='flex gap-3 items-center flex-wrap'>
 
+                                                            <div className='w-[100px] h-[100px] relative rounded-lg'>
+                                                                <img src={verified} alt='' className='w-full h-full rounded-lg' ></img>
+                                                                <div className='absolute top-[3px] right-[5px]'>
+                                                                    <span class=" text-background text-xs font-medium me-2 px-2.5 py-0.5 rounded-full bg-green-900 ">Verified</span>
+                                                                </div>
 
+                                                            </div>
+                                                            <div className='w-[100px] h-[100px] relative rounded-lg'>
+                                                                <img src={verified} alt='' className='w-full h-full rounded-lg' ></img>
+                                                                <div className='absolute top-[3px] right-[5px]'>
+                                                                    <span class=" text-background text-xs font-medium me-2 px-2.5 py-0.5 rounded-full bg-green-900 ">Verified</span>
+                                                                </div>
 
-                                                            </ul>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -197,46 +214,41 @@ const SalonDetailedInfo = () => {
 
                                                 <div className="flex  ">
                                                     <div className='flex flex-col gap-[20px] items-start justify-start text-left'>
-                                                        <p className='sm:text-[35px] text-[12px] sm:font-playfair font-bold text-brown-A43'>Booking Id</p>
+                                                        <p className='sm:text-[35px] text-[12px] sm:font-playfair font-bold text-brown-A43'>Saloon Images</p>
 
-                                                        <div className=''>
-                                                            <ul className='flex flex-col gap-[10px] '>
+                                                        <div className='flex gap-3 items-center flex-wrap'>
 
-                                                                <li className='md:text-2xl text-[13px] font-playfair font-normal text-gray-55'>789531</li>
+                                                            <div className='w-[100px] h-[100px] relative rounded-lg'>
+                                                                <img src={gallery1} alt='' className='w-full h-full rounded-lg' ></img>
 
 
+                                                            </div>
+                                                            <div className='w-[100px] h-[100px] relative rounded-lg'>
+                                                                <img src={gallery2} alt='' className='w-full h-full rounded-lg' ></img>
 
-                                                            </ul>
+
+                                                            </div>
+
+                                                            <div className='w-[100px] h-[100px] relative rounded-lg'>
+                                                                <img src={gallery3} alt='' className='w-full h-full rounded-lg' ></img>
+
+
+                                                            </div>
+
+                                                            <div className='w-[100px] h-[100px] relative rounded-lg'>
+                                                                <img src={gallery4} alt='' className='w-full h-full rounded-lg' ></img>
+
+
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
 
                                             </div>
 
-                                            <div className='flex flex-col  gap-[30px] mb-[24px]'>
-                                                <p className='sm:text-[35px] text-[12px] sm:font-playfair font-bold text-brown-A43'>Special Request</p>
-
-                                                <p className='font-manrope md:text-2xl text-[13px] font-playfair text-gray-55  text-left  md:leading-10 leading-5 '>
-                                                    Please be on time and bring all the accessories that make my hairstyle perfect, with or
-                                                    without them. Also, make sure to bring the original color for my hair..</p>
-                                            </div>
-
-                                            <div className='grid sm:grid-cols-2 grid-cols-1 gap-4 w-full'>
-
-                                                <div className='w-full' onMouseEnter={() => setActivebtn(1)}>
-                                                    <Link to="/">
-                                                        <ButtonSquare className={`w-full bg-transparent  text-brown-A43  py-[32px] px-[110px]  font-extrabold text-[14px] font-manrope ${activebtn === 1 ? 'bg-brown-A43 text-background' : 'bg-brown-A43-o20 text-brown-A43'} hover:bg-brown-A43 hover:text-background`} variant='secondary' >DISCARD</ButtonSquare>
-                                                    </Link>
-                                                </div>
-
-                                                <div className='w-full' onMouseEnter={() => setActivebtn(2)}>
-                                                    <Link to="/">
-                                                        <ButtonSquare className={`w-full bg-transparent  text-brown-A43  py-[32px]  px-[110px] font-extrabold text-[14px] font-manrope ${activebtn === 2 ? 'bg-brown-A43 text-background' : 'bg-brown-A43-o20 text-brown-A43'} hover:bg-brown-A43 hover:text-background`} variant='secondary' >Continue</ButtonSquare>
-                                                    </Link>
-                                                </div>
 
 
-                                            </div>
                                         </div>
 
                                     </div>
@@ -256,12 +268,85 @@ const SalonDetailedInfo = () => {
                             //     bookings={bookings.filter(booking => booking.status === 'Completed')}
 
                             // />
-                            <></>
+                            <>
+                                <div className='py-[80px]'>
+                                    <div className='w-full  2xl:w-1/2'>
+                                        <div className='flex flex-col gap-6 h-full'>
+
+                                            <div className='flex justify-between items-center'>
+                                                <div className='flex flex-col gap-6'>
+                                                    <h1 className='md:text-[40px] text-[20px]   font-bold text-black-14 font-playfair'>Unlimited</h1>
+                                                    <p className='text-[20px] font-normal font-playfair text-black-14'>Limtless possibilites</p>
+                                                </div>
+                                                <p className='text-[20px] font-bold font-playfair text-green-800'>Active</p>
+                                            </div>
+
+
+                                            <div className='p-[57px]     bg-brown-A43 rounded-[30px] h-full flex flex-col group transition-colors duration-300 ease-in-out'>
+
+
+                                                <div className='flex flex-col gap-20 flex-1'>
+                                                    <div className='flex flex-col gap-10 '>
+                                                        <div className='flex flex-col gap-3'>
+                                                            <p className='md:text-[40px] text-[20px]   font-bold  font-playfair  text-background transition-colors duration-300 ease-in-out'>$0/mo</p>
+                                                            <p className='text-[20px] font-normal font-playfair  text-background transition-colors duration-300 ease-in-out'>Try it as long as you like</p>
+                                                        </div>
+
+                                                        <div className='flex lg:flex-row flex-col   lg:gap-[80px] gap-[50px]'>
+                                                            <ul className='flex flex-col gap-3'>
+                                                                <li className='flex gap-3 items-center'>
+                                                                    <div className=' text-background transition-colors duration-300 ease-in-out'><FaCheck size={15} /></div>
+                                                                    <p className='text-[20px] font-normal font-playfair text-background transition-colors duration-300 ease-in-out'>Full profile customizatione</p>
+                                                                </li>
+                                                                <li className='flex gap-3 items-center'>
+                                                                    <div className=' text-background transition-colors duration-300 ease-in-out'> <FaCheck size={15} /></div>
+                                                                    <p className='text-[20px] font-normal font-playfair text-background transition-colors duration-300 ease-in-out'>Unlimited services</p>
+                                                                </li>
+                                                                <li className='flex gap-3 items-center'>
+                                                                    <div className=' text-background transition-colors duration-300 ease-in-out'><FaCheck size={15} /></div>
+                                                                    <p className='text-[20px] font-normal font-playfair text-background transition-colors duration-300 ease-in-out'>Unlimited bookings</p>
+                                                                </li>
+                                                            </ul>
+
+                                                            <ul className='flex flex-col gap-3 '>
+                                                                <li className='flex gap-3 items-center'>
+                                                                    <div className='text-background transition-colors duration-300 ease-in-out'><FaCheck size={15} /></div>
+                                                                    <p className='text-[20px] font-normal font-playfair text-background transition-colors duration-300 ease-in-out'>Calendar sync </p>
+                                                                </li>
+                                                                <li className='flex gap-3 items-center'>
+                                                                    <div className='text-background transition-colors duration-300 ease-in-out'><FaCheck size={15} /></div>
+                                                                    <p className='text-[20px] font-normal font-playfair text-background transition-colors duration-300 ease-in-out'>Appointment reminders </p>
+                                                                </li>
+                                                                <li className='flex gap-3 items-center'>
+                                                                    <div className='text-background transition-colors duration-300 ease-in-out'><FaCheck size={15} /></div>
+                                                                    <p className='text-[20px] font-normal font-playfair text-background transition-colors duration-300 ease-in-out'>Unlimited client reviews</p>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+
+
+
+                                                    </div>
+
+
+                                                    <div className=' mt-auto'>
+
+                                                        <ButtonSquare className=' rounded-[32px]    py-[32px] 2xl:px-[100px] px-[50px]  font-extrabold text-[14px] font-manrope  bg-background  text-brown-A43 transition-colors duration-300 ease-in-out w-full lg:w-auto' variant='secondary' disabled >Contine Payment</ButtonSquare>
+
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
                         )}
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

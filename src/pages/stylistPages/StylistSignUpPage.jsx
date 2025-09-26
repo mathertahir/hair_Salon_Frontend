@@ -283,25 +283,7 @@ const SignupClient = () => {
 
                     {/* Social logins + link */}
                     <div className='flex flex-col md:gap-[104px] gap-[60px]'>
-                        <div className='flex gap-10 sm:flex-row flex-col items-center justify-center'>
-                            <Link to="/signin-client" className='w-full sm:w-auto'>
-                                <ButtonSquare className='px-[32px] py-[11px] flex justify-center items-center border-white-E9 border-[2px] rounded-[8px] w-full sm:w-auto' variant='outline'>
-                                    <div className='w-[24px] h-[24px]'>
-                                        <img src={google} alt="Google logo" className='w-full h-full object-fill' />
-                                    </div>
-                                    <p className='text-black text-[14px] font-manrope font-bold'>Google</p>
-                                </ButtonSquare>
-                            </Link>
 
-                            <Link to="/signin-client" className='w-full sm:w-auto'>
-                                <ButtonSquare className='px-[32px] py-[11px] flex justify-center items-center border-white-E9 border-[2px] rounded-[8px] w-full sm:w-auto' variant='outline'>
-                                    <div className='w-[24px] h-[24px]'>
-                                        <img src={facebook} alt="Facebook logo" className='w-full h-full object-fill' />
-                                    </div>
-                                    <p className='text-black text-[14px] font-manrope font-bold'>Facebook</p>
-                                </ButtonSquare>
-                            </Link>
-                        </div>
 
                         <div className='flex gap-[6px] justify-center items-center'>
                             <p className='text-blueB8 text-[15px] font-poppins font-semibold'>
