@@ -38,13 +38,13 @@ const SalonDetailedInfo = () => {
                             onClick={() => handleTabClick(1)}
                             className={`${activeTab === 1 ? 'text-background' : 'text-black'} font-bold md:text-[18px] text-[12px] font-manrope ${activeTab === 1 ? 'bg-brown-A43' : 'bg-transparent'} rounded-[50px] flex justify-center items-center w-1/2 py-[18px] px-[20px] transition-all duration-300 cursor-pointer`}
                         >
-                            Active Booking
+                            My Account
                         </button>
                         <button
                             onClick={() => handleTabClick(2)}
                             className={`${activeTab === 2 ? 'text-background' : 'text-brown-black'} font-bold md:text-[18px] text-[12px] font-manrope ${activeTab === 2 ? 'bg-brown-A43' : 'bg-transparent'} rounded-[50px] flex justify-center items-center w-1/2 py-[18px] px-[20px] transition-all duration-300 cursor-pointer`}
                         >
-                            Completed Booking
+                            Subscriptions
                         </button>
                     </div>
 
@@ -281,8 +281,8 @@ const SalonDetailedInfo = () => {
                                                 <p className='text-[20px] font-bold font-playfair text-green-800'>Active</p>
                                             </div>
 
-
-                                            <div className='p-[57px]     bg-brown-A43 rounded-[30px] h-full flex flex-col group transition-colors duration-300 ease-in-out'>
+                                        <div className='flex '></div>
+                                            {/* <div className='p-[57px]     bg-brown-A43 rounded-[30px] h-full flex flex-col group transition-colors duration-300 ease-in-out'>
 
 
                                                 <div className='flex flex-col gap-20 flex-1'>
@@ -337,7 +337,7 @@ const SalonDetailedInfo = () => {
                                                     </div>
 
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </div>

@@ -15,9 +15,11 @@ const ApprovedPage = () => {
                     <div className="   md:text-[30px] text-[15px]  md:text-[35px]  xl:text-[50px] font-poppins font-extrabold text-black"> Congratulations!🚀</div>
                     <p className='   md:text-[30px] text-[15px] font-poppins font-normal text-gray-55 text-center'>Thank you so much for choosing crownity. Your profile is successfully submitted and and you are ready to go</p>
                     <div className='w-full'>
-                        <Link to="/pricing">
-                            <ButtonSquare className='w-full bg-brown-A43 text-background  p-[32px]  font-extrabold text-[14px] font-manrope' variant='secondary' >Continuer</ButtonSquare>
+                        <Link to="/profile-setup/1">
+                            <ButtonSquare className='w-full bg-brown-A43 text-background  p-[32px]  font-extrabold text-[14px] font-manrope' variant='secondary' >Continue</ButtonSquare>
                         </Link>
+                    
+                       
                     </div>
                 </div>
 

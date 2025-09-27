@@ -67,6 +67,7 @@ import PaymentForm from "../pages/stylistPages/PaymentForm.jsx";
 import StylistBookingPage from "../pages/stylistPages/StylistBookingPage.jsx";
 import StylistBookingInfo from "../pages/stylistPages/StylistBookingInfo.jsx";
 import SalonDetailedInfo from "../pages/stylistPages/SalonDetailedInfo.jsx";
+import ProfileSetup from "../pages/stylistPages/ProfileSetup.jsx";
 // Temporary placeholder components
 const Profile = () => (
     <div className="p-6">
@@ -111,6 +112,7 @@ const UserRoutes = () => {
                 <Route path="stylist-bookings" element={<StylistBookingPage />} />
                 <Route path="stylist-booking-info/:id" element={<StylistBookingInfo />} />
                 <Route path="salon-detailed-info/:id" element={<SalonDetailedInfo />} />
+                <Route path="profile-setup/:id?" element={<ProfileSetup />} />
             </Route>
         </Routes>
     );

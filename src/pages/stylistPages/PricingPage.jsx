@@ -82,7 +82,7 @@ const PricingPage = () => {
                                     <div className='flex flex-col gap-20 flex-1'>
                                         <div className='flex flex-col gap-10 '>
                                             <div className='flex flex-col gap-3'>
-                                                <p className='md:text-[40px] text-[20px]   font-bold text-black-14 font-playfair  group-hover:text-background transition-colors duration-300 ease-in-out'>$0/mo</p>
+                                                <p className='md:text-[40px] text-[20px]   font-bold text-black-14 font-playfair  group-hover:text-background transition-colors duration-300 ease-in-out'>$49/mo</p>
                                                 <p className='text-[20px] font-normal font-playfair text-black-14 group-hover:text-background transition-colors duration-300 ease-in-out'>Try it as long as you like</p>
                                             </div>
 
