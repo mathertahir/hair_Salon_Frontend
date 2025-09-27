@@ -144,7 +144,7 @@ const SalonDetailedInfo = () => {
                                 </div>
 
 
-                                <div className={`${activeTab === 1 ? 'gap-[20px]' : 'gap-[0px]'} flex flex-col shadow-2xl  px-[26px] py-[20px] rounded-[15px]  `} >
+                                <div className={`${activeAccordion === 1 ? 'gap-[20px]' : 'gap-[0px]'} flex flex-col shadow-2xl  px-[26px] py-[20px] rounded-[15px]  `} >
                                     <div
                                         className='flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors duration-200'
                                         onClick={() => toggleAccordion(1)}
