@@ -11,6 +11,12 @@ const PaymentForm = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [activebtn, setActivebtn] = useState(2);
+
+    const handleroleType = () => {
+        localStorage.setItem("roleType", "2");
+        localStorage.setItem('token', '1234567890');
+
+    };
     return (
 
         <>
@@ -95,7 +101,7 @@ const PaymentForm = () => {
                             onClick={() => setIsOpen(false)} // close on outside click
                         >
                             <div
-                                className="relative p-4 w-full max-w-[98%] sm:w-[80%]  lg:w-[80%]  xl:max-w-[80%]  h-[90%] m-8 bg-background 
+                                className="relative p-4 w-full max-w-[98%] sm:w-[80%]  lg:w-[80%]  xl:max-w-[80%]  h-[80%]  sm:h-[90%] m-8 bg-background 
                        rounded-[30px] shadow-sm overflow-y-auto flex flex-col justify-center items-center webkit-scrollbar-none 
                         "
                                 onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
@@ -136,7 +142,7 @@ const PaymentForm = () => {
                                         </div>
 
                                         <div className='w-full' onMouseEnter={() => setActivebtn(2)}>
-                                            <Link to="/">
+                                            <Link to="/" onClick={handleroleType} >
                                                 <ButtonSquare className={`w-full bg-transparent border border-brown-A43 text-brown-A43  py-[32px]  px-[110px] font-extrabold text-[14px] font- ${activebtn === 2 ? 'bg-brown-A43 text-background' : ''} hover:bg-brown-A43 hover:text-background`} variant='secondary' >Continue</ButtonSquare>
                                             </Link>
                                         </div>

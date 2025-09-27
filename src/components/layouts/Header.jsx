@@ -32,6 +32,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
     console.log(location.pathname, "Current Location");
     const [showProfileMenu, setShowProfileMenu] = useState(false);
 
+
     // const getInitials = (firstName, lastName) => {
     //     if (!firstName && !lastName) return 'U';
     //     return `${firstName?.[0] || ''}${lastName?.[0] || ''}`.toUpperCase();
@@ -46,11 +47,21 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
     const handleSignOut = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('roleType');
 
     }
 
 
+    const closeProfileMenu = () => {
+        setShowProfileMenu(false)
+    }
+
+
+    const roleType = localStorage.getItem('roleType')
+
+
     const token = localStorage.getItem('token');
+    console.log(roleType, "Comming RoleType")
     const id = 1
     return (
         < >
@@ -147,13 +158,13 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
 
                                 <div className={`flex items-center space-x-4 ${token?.length > 0 ? 'hidden' : 'block'}`}>
-                                    <Link to={"/signin-client"}>
+                                    <Link to={"/role/3"}>
                                         <ButtonSquare variant="outline" className=" text-base  font-bold font-manrope">
                                             Login
                                         </ButtonSquare></Link>
 
 
-                                    <Link to={"/signup-client"}>
+                                    <Link to={"/role"}>
                                         <ButtonSquare variant="secondary" className=" text-base  font-bold font-manrope">
                                             Sign Up
                                         </ButtonSquare>
@@ -169,9 +180,28 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
                                     <div className={`bg-background py-[30px] px-[24px] rounded-[30px] shadow-2xl w-[260px] h-auto absolute top-[50px] right-0 ${showProfileMenu ? 'block' : 'hidden'}`} onMouseLeave={() => setShowProfileMenu(!showProfileMenu)}>
                                         <div className=' flex flex-col gap-[30px]'>
-                                            <Link to="/stylist-bookings"> <p className='text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300'>My Bookings</p></Link>
-                                            <Link to={`/salon-detailed-info/${id}`}> <p className='text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300'>My Account</p></Link>
-                                            <Link to="/signin-client">   <p onClick={handleSignOut} className='text-black font-bold font-manrope text-red0 text-[18px] hover:translate-y-[1px] transition-all duration-300 '>Sign Out</p></Link>
+                                            <Link
+                                                to={`${Number(roleType) === 1 ? "client-bookings" : "stylist-bookings"}`}
+                                                onClick={closeProfileMenu}
+                                            >
+                                                <p className='text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300'>
+                                                    My Bookings
+                                                </p>
+                                            </Link>
+
+                                            <div className={`${roleType == "1" ? "hidden" : "block"}`}>
+                                                <Link to={`/salon-detailed-info/${id}`}
+                                                    onClick={closeProfileMenu}
+                                                >
+                                                    <p className="text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300">
+                                                        My Account
+                                                    </p>
+                                                </Link>
+                                            </div>
+
+                                            <Link to="/signin-client"
+                                                onClick={closeProfileMenu}
+                                            >   <p onClick={handleSignOut} className='text-black font-bold font-manrope text-red0 text-[18px] hover:translate-y-[1px] transition-all duration-300 '>Sign Out</p></Link>
 
                                         </div>
 
@@ -185,7 +215,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
                             <div className={`flex items-center space-x-4 md:hidden ${token?.length > 0 ? 'hidden' : 'block'}`}>
 
-                                <Link to={"/role"}>
+                                <Link to={"/role/3"}>
                                     <ButtonSquare variant="outline" className=" text-base  font-bold font-manrope">
                                         Login
                                     </ButtonSquare>
@@ -208,9 +238,21 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
                                 <div className={`bg-background py-[30px] px-[24px] rounded-[30px] shadow-2xl w-[260px] h-auto absolute top-[50px] right-0 ${showProfileMenu ? 'block' : 'hidden'}`} onMouseLeave={() => setShowProfileMenu(!showProfileMenu)}>
                                     <div className=' flex flex-col gap-[30px]'>
-                                        <Link to="/stylist-bookings"> <p className='text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300'>My Bookings</p></Link>
-                                        <Link to={`/salon-detailed-info/${id}`}> <p className='text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300'>My Account</p></Link>
-                                        <Link to="/signin-client">   <p onClick={handleSignOut} className='text-black font-bold font-manrope text-red0 text-[18px] hover:translate-y-[1px] transition-all duration-300 '>Sign Out</p></Link>
+                                        <Link to="/stylist-bookings"
+                                            onClick={closeProfileMenu}
+                                        > <p className='text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300'>My Bookings</p></Link>
+                                        <div className={`${roleType == "1" ? "hidden" : "block"}`}>
+                                            <Link to={`/salon-detailed-info/${id}`}
+                                                onClick={closeProfileMenu}
+                                            >
+                                                <p className="text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300">
+                                                    My Account
+                                                </p>
+                                            </Link>
+                                        </div>
+                                        <Link to="/signin-client"
+                                            onClick={closeProfileMenu}
+                                        >   <p onClick={handleSignOut} className='text-black font-bold font-manrope text-red0 text-[18px] hover:translate-y-[1px] transition-all duration-300 '>Sign Out</p></Link>
 
                                     </div>
 
@@ -271,7 +313,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
             {
                 isSidebarOpen && (
                     <div
-                        className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+                        className="fixed inset-0 bg-black-050 z-40 md:hidden"
                         onClick={closeSidebar}
                     />
                 )
@@ -356,12 +398,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                 <div className="px-6 py-4 border-t border-light-brown-11p mt-auto">
 
 
-                    <div className="space-y-2">
-                        <button className="flex items-center justify-center w-full px-4 py-3 text-sm font-medium font-manrope text-background  bg-brown-31  rounded-lg transition-colors">
-                            <FiLogOut className="mr-3 h-4 w-4" />
-                            Sign Out
-                        </button>
-                    </div>
+
                 </div>
             </aside>
         </>

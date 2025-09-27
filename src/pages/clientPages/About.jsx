@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Button } from '../../components/ui/button'
+
 import { ButtonSquare } from '../../components/ui/buttonSquare'
 import gallery1 from '../../assets/HG1.png'
 import gallery2 from '../../assets/HG2.png'
@@ -10,11 +10,11 @@ import ValuesCard from '../../components/ValuesCard'
 import values1 from '../../assets/Expert.png'
 import values2 from '../../assets/Quality.png'
 import values3 from '../../assets/community.png'
-import aboutUs from '../../assets/about.jpg'
+
 import checkvector from '../../assets/CheckVerctor.png'
 import video from "../../assets/video.mp4"
 import { Link } from 'react-router-dom'
-import { FaCheckCircle, FaPlay, FaPause } from 'react-icons/fa'
+import { FaPlay, FaPause } from 'react-icons/fa'
 
 const testimonials = [
     {

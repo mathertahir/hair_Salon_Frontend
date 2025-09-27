@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import clientRole from '../assets/client.png'
 import hairstylistRole from '../assets/hairStylist.png'
 import { Link } from 'react-router-dom'
+import { useParams } from "react-router-dom";
 
 const RoleSelection = () => {
+    const { id } = useParams();
     const [activeRole, setActiveRole] = useState(1) // 1 for client, 2 for hairstylist
 
 
@@ -17,7 +19,9 @@ const RoleSelection = () => {
 
                     <div className='flex gap-10 lg:gap-20 flex-col lg:flex-row items-center'>
 
-                        <Link to="/signup-client">
+                        <Link
+                            to={`${id ? "/signin-client/1" : "/signup-client"}`}
+                        >
                             <div
                                 className={`w-[250px] h-[270px]  lg:w-[300px] lg:h-[316px] rounded-[20px] flex flex-col gap-[10px] justify-center items-center cursor-pointer transition-all duration-300 ${activeRole === 1
                                     ? 'bg-foreground'
@@ -34,7 +38,10 @@ const RoleSelection = () => {
                                     }`}>I am a client</p>
                             </div>
                         </Link>
-                        <Link to="/stylist-signup">
+                        <Link
+                            to={`${id ? "/signin-client/2" : "/stylist-signup"}`}
+
+                        >
                             <div
                                 className={`lg:w-[300px] lg:h-[316px] w-[250px] h-[270px] rounded-[20px] flex flex-col gap-[10px] justify-center items-center cursor-pointer transition-all duration-300 ${activeRole === 2
                                     ? 'bg-foreground'

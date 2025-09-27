@@ -4,16 +4,18 @@ import { MdForwardToInbox } from 'react-icons/md'
 import { ButtonSquare } from '../../components/ui/buttonSquare'
 import google from '../../assets/google.png'
 import facebook from "../../assets/fb.png"
-import signup from "../../assets/SignUp.png"
+import signup from "../../assets/HG5.png"
 import { Link } from 'react-router-dom'
+import { useParams } from "react-router-dom";
 
 
 const SignInClient = () => {
-
+    const { id } = useParams();
     const handleSignIn = () => {
         console.log('Sign In');
 
         localStorage.setItem('token', '1234567890');
+        localStorage.setItem('roleType', id)
     }
 
 
@@ -53,8 +55,10 @@ const SignInClient = () => {
 
                         </div>
 
+                        <Link to="/" onClick={handleSignIn}>
+                            <ButtonSquare className='w-full bg-brown-A43 text-background  p-[20px]  font-extrabold text-[14px] font-manrope' variant='secondary' type='submit' >Sign In</ButtonSquare>
+                        </Link>
 
-                        <ButtonSquare className='w-full bg-brown-A43 text-background  p-[20px]  font-extrabold text-[14px] font-manrope' variant='secondary' type='submit' >Sign In</ButtonSquare>
                     </form >
 
                     <div className='flex  flex-col gap-[20px]'>

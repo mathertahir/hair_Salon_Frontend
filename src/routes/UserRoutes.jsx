@@ -95,9 +95,9 @@ const UserRoutes = () => {
                 <Route path="salon-detail/:id" element={<SalonDetailPage />} />
                 <Route path="booking" element={<BookingPage />} />
                 <Route path="booking-confirm/:id" element={<BookingConfirmPage />} />
-                <Route path="role" element={<RoleSelection />} />
+                <Route path="role/:id?" element={<RoleSelection />} />
                 <Route path="signup-client" element={<SignupClient />} />
-                <Route path="signin-client" element={<SignInClient />} />
+                <Route path="signin-client/:id?" element={<SignInClient />} />
                 <Route path="forgotPassword" element={<ForgotPassword />} />
                 <Route path="otp" element={<OTP />} />
                 <Route path="resetPassword" element={<ResetPassword />} />

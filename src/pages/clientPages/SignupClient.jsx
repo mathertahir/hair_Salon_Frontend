@@ -7,11 +7,18 @@ import { CiUser } from "react-icons/ci";
 import { FaRegUser } from "react-icons/fa6";
 import google from '../../assets/google.png'
 import facebook from "../../assets/fb.png"
-import signup from "../../assets/SignUp.png"
+import signup from "../../assets/HG5.png"
 import { Link } from 'react-router-dom'
 
 
 const SignupClient = () => {
+
+
+    const handleroleType = () => {
+        localStorage.setItem("roleType", "1");
+        localStorage.setItem('token', '1234567890');
+    };
+
     return (
         <div className='bg-background'>
             <div className='flex flex-col md:flex-row 2xl:gap-x-[140px] gap-x-[30px] mx-0 px-0'>
@@ -75,7 +82,7 @@ const SignupClient = () => {
                             </div>
 
                         </div>
-                        <Link to="/signin-client">                         <ButtonSquare className='w-full bg-brown-A43 text-background  p-[20px]  font-extrabold text-[14px] font-manrope' variant='secondary' >Sign Up</ButtonSquare> </Link>
+                        <Link to="/" onClick={handleroleType}>  <ButtonSquare className='w-full bg-brown-A43 text-background  p-[20px]  font-extrabold text-[14px] font-manrope' variant='secondary' >Sign Up</ButtonSquare> </Link>
 
                     </form>
 
@@ -111,7 +118,7 @@ const SignupClient = () => {
 
 
                         <div className='flex gap-[6px] justify-center items-center'>
-                            <p className='text-blueB8 text-[15px] font-poppins font-semibold'>Already have an account? <Link to="/login" className='hover:-translate-y-[2px] text-brown-A43 font-semibold font-poppins'>Login</Link></p>
+                            <p className='text-blueB8 text-[15px] font-poppins font-semibold'>Already have an account? <Link to="/signin-client" className='hover:-translate-y-[2px] text-brown-A43 font-semibold font-poppins'>Login</Link></p>
                         </div>
                     </div>
 

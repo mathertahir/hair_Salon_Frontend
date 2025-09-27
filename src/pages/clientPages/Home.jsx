@@ -121,9 +121,9 @@ const Home = () => {
 
 
                             <div className='bg-background rounded-[60px]  p-[25px] xl:pl-[40px] xl:py-[14px] xl:pr-[14px]'>
-                                <div className='flex flex-col xl:flex-row gap-6 items-center'>
+                                <div className='flex flex-col xl:flex-row gap-6 items-stretch'>
                                     {/* Hairstyle Input Section */}
-                                    <div className='w-full xl:w-1/2 flex flex-col gap-2'>
+                                    <div className='w-full xl:flex-1 flex flex-col justify-between'>
                                         <p className='font-manrope font-bold xl:text-lg text-base text-brown-A43'>What hairstyle are you looking for?</p>
                                         <div className='flex items-center gap-2 border-b border-black-14 pb-2'>
                                             <input
@@ -136,8 +136,8 @@ const Home = () => {
                                     </div>
 
                                     {/* Location Input Section */}
-                                    <div className='w-full xl:w-1/2 flex flex-col gap-2'>
-                                        <p className='font-manrope font-bold xltext-lg text-base text-brown-A43'>Where are you located?</p>
+                                    <div className='w-full xl:flex-1 flex flex-col justify-between'>
+                                        <p className='font-manrope font-bold xl:text-lg text-base text-brown-A43'>Where are you located?</p>
                                         <div className='flex items-center gap-2 border-b border-black-14 pb-2'>
                                             <input
                                                 className="focus:border-none focus:outline-none border-none w-full bg-transparent"
@@ -149,7 +149,7 @@ const Home = () => {
                                     </div>
 
                                     {/* Search Button Section */}
-                                    <div className='w-full xl:w-1/2 h-full xl:w-auto '>
+                                    <div className='w-full xl:w-auto flex items-center'>
                                         <Button className=' w-full h-full px-8 py-[16px] bg-brown-A43 text-background hover:bg-brown-A43/90 transition-colors'>
                                             <span className='flex items-center gap-2'>
                                                 Search

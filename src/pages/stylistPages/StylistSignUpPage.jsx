@@ -1,27 +1,41 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import { LiaKeySolid } from "react-icons/lia";
 import { MdForwardToInbox, MdPhone } from 'react-icons/md'
 import { ButtonSquare } from '../../components/ui/buttonSquare'
-import { FaLocationPin, FaRegUser } from "react-icons/fa6";
-import google from '../../assets/google.png'
-import facebook from "../../assets/fb.png"
-import signup from "../../assets/SignUp.png"
+import { FaCheck, FaRegUser } from "react-icons/fa6";
+
+import signup from "../../assets/HG5.png"
 import { Link } from 'react-router-dom'
-import { FaPaperclip, FaPaperPlane, FaStore } from 'react-icons/fa';
+import { FaStore } from 'react-icons/fa';
 import { GrServices } from "react-icons/gr";
 import { IoNewspaperOutline } from "react-icons/io5";
 import { CiLocationOn } from "react-icons/ci";
 import { TbBasketDollar } from "react-icons/tb";
 
+import { LuPaperclip } from "react-icons/lu";
+
 const SignupClient = () => {
     const [activeStep, setActiveStep] = React.useState(0);
+
+    const [registrationDoc, setRegistrationDoc] = useState(null);
+    const [idDoc, setIdDoc] = useState(null);
+    const [salonPhotos, setSalonPhotos] = useState(null);
     const totalSteps = 3;
+    const [file, setFile] = useState(null);
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    };
 
     const handleNext = () => {
         if (activeStep < totalSteps - 1) {
             setActiveStep((prev) => prev + 1);
         }
+    };
+
+    const handleroleType = () => {
+        localStorage.setItem("roleType", "2");
     };
 
     return (
@@ -38,16 +52,16 @@ const SignupClient = () => {
                                 {/* Circle */}
                                 <div
                                     onClick={() => setActiveStep(i)}
-                                    className={`w-7 h-7 shrink-0 flex items-center justify-center rounded-full cursor-pointer transition-colors duration-500 ${activeStep >= i ? "bg-blue-600" : "bg-gray-300"
+                                    className={`w-7 h-7 shrink-0 flex items-center justify-center rounded-full cursor-pointer transition-colors duration-500 ${activeStep >= i ? "bg-brown-A43" : "bg-gray-300"
                                         }`}
                                 >
-                                    <span className="text-sm text-white font-semibold">{i + 1}</span>
+                                    <span className="text-sm text-white font-semibold"><FaCheck /></span>
                                 </div>
 
                                 {/* Connector - only show if not the last step */}
                                 {i < totalSteps - 1 && (
                                     <div
-                                        className={`flex-1 h-[3px] mx-2 rounded-lg transition-colors duration-500 ${activeStep > i ? "bg-blue-600" : "bg-gray-300"
+                                        className={`flex-1 h-[3px] mx-2 rounded-lg transition-colors duration-500 ${activeStep > i ? "bg-brown-A43" : "bg-gray-300"
                                             }`}
                                     />
                                 )}
@@ -214,47 +228,93 @@ const SignupClient = () => {
                         {/* Step 3 */}
                         {activeStep === 2 && (
                             <>
-                                <div className='p-[10px] border-[1px] border-white-E9 rounded-[5px] '>
-                                    <div className='flex gap-3 items-center '>
-                                        <div className='text-blueCD'>
-                                            <IoNewspaperOutline size={24} />
+                                {/* Registration Doc */}
+                                <div className="space-y-2">
+                                    <label className="flex items-center justify-between p-3 border rounded-md cursor-pointer hover:bg-gray-50">
+                                        <div className="flex items-center gap-2 text-blueCD">
+                                            <IoNewspaperOutline size={20} />
+                                            <span>Upload Registration Doc</span>
                                         </div>
+                                        <LuPaperclip size={20} className="text-blueCD" />
+
                                         <input
-                                            className="focus:border-none focus:outline-none border-none w-full bg-transparent"
                                             type="file"
-                                            placeholder='Upload Image'
+                                            className="hidden"
+                                            onChange={(e) => setRegistrationDoc(e.target.files[0])}
                                         />
-                                    </div>
+                                    </label>
+
+                                    {registrationDoc && (
+                                        <div className="w-16 mt-1">
+                                            <img
+                                                src={URL.createObjectURL(registrationDoc)}
+                                                alt="preview"
+                                                className="w-full h-auto border rounded"
+                                            />
+                                        </div>
+                                    )}
                                 </div>
 
-                                <div className='p-[10px] border-[1px] border-white-E9 rounded-[5px] '>
-                                    <div className='flex gap-3 items-center '>
-                                        <div className='text-blueCD'>
-                                            <IoNewspaperOutline size={24} />
+                                {/* ID Upload */}
+                                <div className="space-y-2">
+                                    <label className="flex items-center justify-between p-3 border rounded-md cursor-pointer hover:bg-gray-50">
+                                        <div className="flex items-center gap-2 text-blueCD">
+                                            <IoNewspaperOutline size={20} />
+                                            <span>Upload ID</span>
                                         </div>
+                                        <LuPaperclip size={20} className="text-blueCD" />
+
                                         <input
-                                            className="focus:border-none focus:outline-none border-none w-full bg-transparent"
                                             type="file"
-                                            placeholder='Upload Image'
+                                            className="hidden"
+                                            onChange={(e) => setIdDoc(e.target.files[0])}
                                         />
-                                    </div>
+                                    </label>
+
+                                    {idDoc && (
+                                        <div className="w-16 mt-1">
+                                            <img
+                                                src={URL.createObjectURL(idDoc)}
+                                                alt="preview"
+                                                className="w-full h-auto border rounded"
+                                            />
+                                        </div>
+                                    )}
                                 </div>
 
-                                <div className='p-[10px] border-[1px] border-white-E9 rounded-[5px] '>
-                                    <div className='flex gap-3 items-center '>
-                                        <div className='text-blueCD'>
-                                            <IoNewspaperOutline size={24} />
+                                {/* Salon Photos */}
+                                <div className="space-y-2">
+                                    <label className="flex items-center justify-between p-3 border rounded-md cursor-pointer hover:bg-gray-50">
+                                        <div className="flex items-center gap-2 text-blueCD">
+                                            <IoNewspaperOutline size={20} />
+                                            <span>Salon Photos</span>
                                         </div>
+                                        <LuPaperclip size={20} className="text-blueCD" />
+
                                         <input
-                                            className="focus:border-none focus:outline-none border-none w-full bg-transparent"
                                             type="file"
-                                            placeholder='Upload Image'
+                                            className="hidden"
+                                            onChange={(e) => setSalonPhotos(e.target.files[0])}
                                         />
-                                    </div>
+                                    </label>
+
+                                    {salonPhotos && (
+                                        <div className="w-16 mt-1">
+                                            <img
+                                                src={URL.createObjectURL(salonPhotos)}
+                                                alt="preview"
+                                                className="w-full h-auto border rounded"
+                                            />
+                                        </div>
+                                    )}
                                 </div>
 
                                 <Link to="/profile-under-review">
-                                    <ButtonSquare className='w-full bg-brown-A43 text-background p-[20px] font-extrabold text-[14px] font-manrope' variant='secondary'>
+                                    <ButtonSquare
+                                        className="w-full bg-brown-A43 text-background p-[20px] font-extrabold text-[14px] font-manrope"
+                                        variant="secondary"
+                                        onClick={handleroleType}
+                                    >
                                         Sign Up
                                     </ButtonSquare>
                                 </Link>
@@ -287,7 +347,7 @@ const SignupClient = () => {
 
                         <div className='flex gap-[6px] justify-center items-center'>
                             <p className='text-blueB8 text-[15px] font-poppins font-semibold'>
-                                Already have an account? <Link to="/login" className='hover:-translate-y-[2px] text-brown-A43 font-semibold font-poppins'>Login</Link>
+                                Already have an account? <Link to="/signin-client" className='hover:-translate-y-[2px] text-brown-A43 font-semibold font-poppins'>Login</Link>
                             </p>
                         </div>
                     </div>

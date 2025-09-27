@@ -14,8 +14,8 @@ const PricingPage = () => {
                     </div>
 
 
-                    <div className='grid  grid-cols-12   gap-10 items-stretch'>
-                        <div className='lg:col-span-4 col-span-12  flex-1'  >
+                    <div className='grid  grid-cols-12  gap-y-10   lg:gap-x-10 items-stretch w-full'>
+                        <div className='lg:col-span-4 col-span-12  flex-1 '  >
                             <div className='flex flex-col gap-6 h-full'>
                                 <div className='flex flex-col gap-6'>
                                     <h1 className='md:text-[40px] text-[20px]   font-bold text-black-14 font-playfair'>Free</h1>
