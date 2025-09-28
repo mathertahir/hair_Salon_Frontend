@@ -199,6 +199,16 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                                                 </Link>
                                             </div>
 
+                                            <div className={`${roleType == "1" ? "hidden" : "block"}`}>
+                                                <Link to={`/profile-setup/${id}`}
+                                                    onClick={closeProfileMenu}
+                                                >
+                                                    <p className="text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300">
+                                                        Business Profile
+                                                    </p>
+                                                </Link>
+                                            </div>
+
                                             <Link to="/signin-client"
                                                 onClick={closeProfileMenu}
                                             >   <p onClick={handleSignOut} className='text-black font-bold font-manrope text-red0 text-[18px] hover:translate-y-[1px] transition-all duration-300 '>Sign Out</p></Link>
@@ -247,6 +257,16 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                                             >
                                                 <p className="text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300">
                                                     My Account
+                                                </p>
+                                            </Link>
+                                        </div>
+
+                                        <div className={`${roleType == "1" ? "hidden" : "block"}`}>
+                                            <Link to={`/profile-setup/${id}`}
+                                                onClick={closeProfileMenu}
+                                            >
+                                                <p className="text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300">
+                                                    Business Profile
                                                 </p>
                                             </Link>
                                         </div>
