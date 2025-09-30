@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { MdArrowDropDown } from "react-icons/md";
+import { GrLanguage } from "react-icons/gr";
 
 export default function CustomSelectBox({ languages, selectedLang, handleChange, loading, closeSidebar }) {
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef(null);
-    
+
 
     // find the selected language
     const selected = languages.find((lang) => lang.code === selectedLang);
@@ -12,11 +13,10 @@ export default function CustomSelectBox({ languages, selectedLang, handleChange,
     const handleSelect = (lang) => {
         handleChange({ target: { value: lang.code } }); // mimic <select> onChange
         setOpen(false);
-           if(closeSidebar !== undefined)
-           {
-closeSidebar();
-           }
-     // close sidebar on selection
+        if (closeSidebar !== undefined) {
+            closeSidebar();
+        }
+        // close sidebar on selection
     };
 
     // ✅ Close dropdown on outside click
@@ -54,7 +54,7 @@ closeSidebar();
                     className="w-full px-3 py-2  pb-0 rounded bg-white text-left flex justify-between items-center cursor-pointer"
                 >
                     <span>{selected?.name || "Select"}</span>
-                    <span className="ml-2 text-brown-A43"><MdArrowDropDown size={24}/></span>
+                    <span className="ml-2 text-brown-A43"><GrLanguage size={24} /></span>
                 </button>
 
                 {/* Dropdown list */}
