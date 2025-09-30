@@ -1,5 +1,5 @@
 // components/Header.jsx
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '../../components/ui/avatar.jsx';
 // import { AuthContext } from '@/services/context/AuthContext';
 import { FiX, FiMenu, FiUser, FiChevronDown, FiGlobe, FiLogOut } from 'react-icons/fi';
@@ -14,6 +14,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu.jsx';
+import GoogleTranslate from '../../components/GoogleTranslate.jsx';
 import {
     Select,
     SelectContent,
@@ -25,10 +26,12 @@ import { ButtonSquare } from '../ui/buttonSquare.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
+
+    
     // const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
-    const [language, setLanguage] = useState('EN');
+    const [language, setLanguage] = useState('en');
     console.log(location.pathname, "Current Location");
     const [showProfileMenu, setShowProfileMenu] = useState(false);
 
@@ -48,6 +51,8 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
     const handleSignOut = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('roleType');
+        localStorage.removeItem('selectedLang');
+        localStorage.removeItem('selectedLanguage')
 
     }
 
@@ -62,6 +67,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
     const token = localStorage.getItem('token');
     console.log(roleType, "Comming RoleType")
+    // useEffect for profile menu or other logic can go here, but do not set selectedLang here
     const id = 1
     return (
         < >
@@ -139,7 +145,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                                 </nav>
 
 
-                                <Select value={language} onValueChange={setLanguage}>
+                                {/* <Select value={language} onValueChange={setLanguage}>
                                     <SelectTrigger className="w-16 h-8 border-0 bg-transparent hover:bg-gray-50 focus:ring-0">
                                         <div className="flex items-center space-x-1">
                                             <FiGlobe className="w-3 h-3" />
@@ -152,7 +158,9 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                                         <SelectItem value="ES">ES</SelectItem>
                                         <SelectItem value="FR">FR</SelectItem>
                                     </SelectContent>
-                                </Select>
+                                </Select> */}
+
+                                <GoogleTranslate />
 
 
 
@@ -398,20 +406,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
                 {/* Sidebar Language Selector */}
                 <div className="px-6 py-4 border-t border-light-brown-11p">
-                    <Select value={language} onValueChange={setLanguage}>
-                        <SelectTrigger className="w-full border-[1px] border-brown-31  text-brown-31">
-                            <div className="flex items-center space-x-2">
-                                <FiGlobe className="w-4 h-4" />
-                                <SelectValue />
-                                {/* <FiChevronDown className="w-4 h-4" /> */}
-                            </div>
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="EN">English</SelectItem>
-                            <SelectItem value="ES">Español</SelectItem>
-                            <SelectItem value="FR">Français</SelectItem>
-                        </SelectContent>
-                    </Select>
+                    <GoogleTranslate  closeSidebar={closeSidebar}/>
                 </div>
 
                 {/* Sidebar User Section */}
