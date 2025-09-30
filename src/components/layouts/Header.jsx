@@ -6,22 +6,10 @@ import { FiX, FiMenu, FiUser, FiChevronDown, FiGlobe, FiLogOut } from 'react-ico
 import profile from '../../assets/profile.png';
 import logo from '../../assets/logo.png';
 import { Link, useLocation } from 'react-router-dom';
-import { Button } from '../../components/ui/button.jsx';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from '../../components/ui/dropdown-menu.jsx';
+
+
 import GoogleTranslate from '../../components/GoogleTranslate.jsx';
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '../../components/ui/select.jsx';
+
 import { ButtonSquare } from '../ui/buttonSquare.jsx';
 import { useNavigate } from 'react-router-dom';
 
