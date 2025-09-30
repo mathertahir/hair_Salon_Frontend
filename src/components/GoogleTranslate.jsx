@@ -1,145 +1,8 @@
 
-
-
-// import { useLocation } from "react-router-dom";
-// import React from "react";
-// import './GoogleTranslate.css';
-
-// const languages = [
-//   { code: "en", name: "English" },
-//   { code: "fr", name: "French" },
-//   { code: "es", name: "Spanish" },
-// ];
-
-// // Force 'en' as default in memory on every window reload
-// const defaultLang = 'en';
-
-// export default function GoogleTranslate() {
-//   const [selectedLang, setSelectedLang] = React.useState(defaultLang);
-//   const [loading, setLoading] = React.useState(false);
-//   const location = useLocation();
-
-//   // Clear Google Translate cookies and reset to English on mount
-//   React.useEffect(() => {
-//     // Clear Google Translate cookies to prevent auto-translation
-//     document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-//     document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
-
-//     // Remove the hash that Google Translate adds
-//     if (window.location.hash.includes('#googtrans')) {
-//       window.location.hash = '';
-//     }
-
-//     const style = document.createElement('style');
-//     style.innerHTML = `
-//       .goog-te-banner-frame { display: none !important; }
-//       body { top: 0 !important; }
-//       #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
-//       iframe.skiptranslate { display: none !important; }
-//       iframe.goog-te-banner-frame { display: none !important; }
-//       body > .skiptranslate { display: none !important; }
-//     `;
-//     document.head.appendChild(style);
-
-//     // Hide banner frame and iframes if they appear dynamically
-//     const hideElements = setInterval(() => {
-//       // Hide banner
-//       const banner = document.querySelector('.goog-te-banner-frame');
-//       if (banner) {
-//         banner.style.display = 'none';
-//       }
-
-//       // Hide all Google Translate iframes
-//       const iframes = document.querySelectorAll('iframe.skiptranslate, iframe.goog-te-banner-frame');
-//       iframes.forEach(iframe => {
-//         iframe.style.display = 'none';
-//       });
-
-//       // Reset body position
-//       document.body.style.top = '0';
-//       document.body.style.position = 'static';
-
-//       // Clear cookies again if they reappear
-//       if (document.cookie.includes('googtrans')) {
-//         document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-//       }
-//     }, 100);
-
-//     return () => clearInterval(hideElements);
-//   }, []);
-
-//   // Force reset to English on component mount
-//   React.useEffect(() => {
-//     // Wait for Google Translate to initialize, then force English
-//     const forceEnglish = () => {
-//       const select = document.querySelector('.goog-te-combo');
-//       if (select && select.value !== 'en') {
-//         select.value = 'en';
-//         select.dispatchEvent(new Event('change'));
-//       }
-//     };
-
-//     // Try multiple times to ensure it works
-//     setTimeout(forceEnglish, 500);
-//     setTimeout(forceEnglish, 1000);
-//     setTimeout(forceEnglish, 1500);
-//   }, []);
-
-//   // Function to change language
-//   const changeLanguage = (lang) => {
-//     setLoading(true);
-//     setSelectedLang(lang);
-//     const tryChangeLanguage = () => {
-//       const select = document.querySelector('.goog-te-combo');
-//       if (select) {
-//         select.value = lang;
-//         select.dispatchEvent(new Event('change'));
-//         setTimeout(() => setLoading(false), 600);
-//       } else {
-//         setTimeout(tryChangeLanguage, 300);
-//       }
-//     };
-//     tryChangeLanguage();
-//   };
-
-//   // Handle dropdown change
-//   const handleChange = (e) => {
-//     changeLanguage(e.target.value);
-//   };
-
-//   // On mount and on route change, auto-apply saved language
-//   React.useEffect(() => {
-//     changeLanguage(selectedLang);
-//     // eslint-disable-next-line
-//   }, [location]);
-
-//   return (
-//     <div className={`pb-[8px] fade-translate${loading ? ' fade-out' : ' fade-in'}`} style={{ position: 'relative' }}>
-//       {loading && (
-//         <div className="translate-loader">
-//           <div className="spinner"></div>
-//         </div>
-//       )}
-//       <select
-//         className="border-none none outline-none"
-//         onChange={handleChange}
-//         value={selectedLang}
-//         disabled={loading}
-//       >
-//         {languages.map((lang) => (
-//           <option key={lang.code} value={lang.code}>
-//             {lang.name}
-//           </option>
-//         ))}
-//       </select>
-//     </div>
-//   );
-// }
-
 import { useLocation } from "react-router-dom";
-import React from "react";
-import './GoogleTranslate.css';
-import  CustomSelectBox from  "../components/ui/CustomSelectBox"
+import React, { useEffect, useRef, useState } from "react";
+import "./GoogleTranslate.css";
+import CustomSelectBox from "../components/ui/CustomSelectBox";
 
 const languages = [
   { code: "en", name: "English" },
@@ -147,136 +10,147 @@ const languages = [
   { code: "es", name: "Spanish" },
 ];
 
-// Force 'en' as default in memory on every window reload
-const defaultLang = 'en';
+// 🔑 Fix: Reset Google Translate cookies
+const setTranslateCookie = (lang = "en") => {
+  const host = window.location.hostname;
+
+  const cookieDomains = [
+    host,
+    "." + host,
+    window.location.host,
+    "translate.googleapis.com",
+    "google.com",
+    ".google.com",
+  ];
+
+  cookieDomains.forEach((domain) => {
+    document.cookie = `googtrans=/en/${lang}; path=/; domain=${domain};`;
+  });
+
+  // Also root scope (no domain)
+  document.cookie = `googtrans=/en/${lang}; path=/;`;
+};
 
 export default function GoogleTranslate({ closeSidebar }) {
-  const [selectedLang, setSelectedLang] = React.useState(defaultLang);
-  const [loading, setLoading] = React.useState(false);
+  const [selectedLang, setSelectedLang] = useState(
+    () => localStorage.getItem("selectedLang") || "en"
+  );
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
+  const isInitialMount = useRef(true);
 
-  console.log("closeSidebar prop:", closeSidebar);
+  // On mount → reset cookies and enforce default/saved language
+  useEffect(() => {
+    const savedLang = localStorage.getItem("selectedLang") || "en";
+    setTranslateCookie(savedLang);
 
-  // Clear Google Translate cookies and reset to English on mount
-  React.useEffect(() => {
-    // Clear Google Translate cookies to prevent auto-translation
-    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
-
-    // Remove the hash that Google Translate adds
-    if (window.location.hash.includes('#googtrans')) {
-      window.location.hash = '';
+    // Remove translate hash from URL
+    if (window.location.hash.includes("#googtrans")) {
+      window.location.hash = "";
     }
 
-    const style = document.createElement('style');
+    // Hide Google Translate UI elements
+    const style = document.createElement("style");
     style.innerHTML = `
-      .goog-te-banner-frame { display: none !important; }
-      body { top: 0 !important; }
-      #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
-      iframe.skiptranslate { display: none !important; }
-      iframe.goog-te-banner-frame { display: none !important; }
-      body > .skiptranslate { display: none !important; }
+      .goog-te-banner-frame, 
+      #goog-gt-tt, 
+      .goog-te-balloon-frame,
+      iframe.skiptranslate,
+      iframe.goog-te-banner-frame,
+      body > .skiptranslate {
+        display: none !important;
+      }
+      body { top: 0 !important; position: static !important; }
     `;
     document.head.appendChild(style);
 
-    // Hide banner frame and iframes if they appear dynamically
-    const hideElements = setInterval(() => {
-      // Hide banner
-      const banner = document.querySelector('.goog-te-banner-frame');
-      if (banner) {
-        banner.style.display = 'none';
-      }
+    // Safety interval to re-hide banners
+    const interval = setInterval(() => {
+      const banner = document.querySelector(".goog-te-banner-frame");
+      if (banner) banner.style.display = "none";
 
-      // Hide all Google Translate iframes
-      const iframes = document.querySelectorAll('iframe.skiptranslate, iframe.goog-te-banner-frame');
-      iframes.forEach(iframe => {
-        iframe.style.display = 'none';
-      });
+      document.querySelectorAll(
+        "iframe.skiptranslate, iframe.goog-te-banner-frame"
+      ).forEach((iframe) => (iframe.style.display = "none"));
 
-      // Reset body position
-      document.body.style.top = '0';
-      document.body.style.position = 'static';
+      document.body.style.top = "0";
+      document.body.style.position = "static";
+    }, 300);
 
-      // Clear cookies again if they reappear
-      if (document.cookie.includes('googtrans')) {
-        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      }
-    }, 100);
-
-    return () => clearInterval(hideElements);
+    return () => clearInterval(interval);
   }, []);
 
-  // Force reset to English on component mount
-  React.useEffect(() => {
-    // Wait for Google Translate to initialize, then force English
-    const forceEnglish = () => {
-      const select = document.querySelector('.goog-te-combo');
-      if (select && select.value !== 'en') {
-        select.value = 'en';
-        select.dispatchEvent(new Event('change'));
+  // Ensure saved language is applied after widget loads
+  useEffect(() => {
+    const savedLang = localStorage.getItem("selectedLang") || "en";
+
+    const applySavedLanguage = () => {
+      const select = document.querySelector(".goog-te-combo");
+      if (select) {
+        select.value = savedLang;
+        select.dispatchEvent(new Event("change"));
+      } else {
+        setTimeout(applySavedLanguage, 300);
       }
     };
 
-    // Try multiple times to ensure it works
-    setTimeout(forceEnglish, 500);
-    setTimeout(forceEnglish, 1000);
-    setTimeout(forceEnglish, 1500);
+    setTimeout(applySavedLanguage, 600);
   }, []);
 
   // Function to change language
   const changeLanguage = (lang) => {
     setLoading(true);
     setSelectedLang(lang);
-    const tryChangeLanguage = () => {
-      const select = document.querySelector('.goog-te-combo');
+    localStorage.setItem("selectedLang", lang);
+
+    // Reset cookies
+    setTranslateCookie(lang);
+
+    const tryChange = () => {
+      const select = document.querySelector(".goog-te-combo");
       if (select) {
         select.value = lang;
-        select.dispatchEvent(new Event('change'));
-        setTimeout(() => setLoading(false), 600);
+        select.dispatchEvent(new Event("change"));
+        setTimeout(() => setLoading(false), 500);
       } else {
-        setTimeout(tryChangeLanguage, 300);
+        setTimeout(tryChange, 300);
       }
     };
-    tryChangeLanguage();
+    tryChange();
   };
 
-  // Handle dropdown change
+  // Handle CustomSelectBox change
   const handleChange = (e) => {
     changeLanguage(e.target.value);
   };
 
-  // On route change, auto-apply current selected language
-  React.useEffect(() => {
-    // Wait a bit for the page to load new content
+  // On route change → reapply selected language
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
     const timer = setTimeout(() => {
-      if (selectedLang !== 'en') {
-        changeLanguage(selectedLang);
-      }
+      const savedLang = localStorage.getItem("selectedLang") || "en";
+      changeLanguage(savedLang);
     }, 300);
 
     return () => clearTimeout(timer);
-    // eslint-disable-next-line
   }, [location.pathname]);
 
   return (
-    <div className={`pb-[8px] fade-translate${loading ? ' fade-out' : ' fade-in'}`} style={{ position: 'relative' }}>
+    <div
+      className={`pb-[8px] fade-translate${
+        loading ? " fade-out" : " fade-in"
+      }`}
+      style={{ position: "relative" }}
+    >
       {loading && (
         <div className="translate-loader">
           <div className="spinner"></div>
         </div>
       )}
-      {/* <select
-        className="border-none none outline-none custom-select "
-        onChange={handleChange}
-        value={selectedLang}
-        disabled={loading}
-      >
-        {languages.map((lang) => (
-          <option key={lang.code} value={lang.code}>
-            {lang.name}
-          </option>
-        ))}
-      </select> */}
 
       <CustomSelectBox
         languages={languages}
@@ -288,3 +162,5 @@ export default function GoogleTranslate({ closeSidebar }) {
     </div>
   );
 }
+
+
