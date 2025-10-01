@@ -4,11 +4,6 @@ import "./GoogleTranslate.css";
 import CustomSelectBox from "../components/ui/CustomSelectBox";
 
 // ✅ languages must be plain objects with string `name`
-const languages = [
-  { code: "en", name: "English" },
-  { code: "fr", name: "French" },
-  { code: "es", name: "Spanish" },
-];
 
 // 🔑 Set Translate Cookie
 const setTranslateCookie = (lang = "en") => {
@@ -32,6 +27,17 @@ const setTranslateCookie = (lang = "en") => {
 };
 
 export default function GoogleTranslate({ closeSidebar }) {
+
+const languages = [
+  { code: "en", name: "English" },
+  { code: "fr", name: "French" },
+  { code: "es", name: "Spanish" },
+];
+
+
+
+
+
   const [selectedLang, setSelectedLang] = useState(
     () => localStorage.getItem("selectedLang") || "en"
   );
@@ -130,7 +136,7 @@ export default function GoogleTranslate({ closeSidebar }) {
           <div className="spinner"></div>
         </div>
       )}
-
+                    
       <CustomSelectBox
         languages={languages}
         selectedLang={selectedLang}
