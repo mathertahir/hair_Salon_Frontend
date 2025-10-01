@@ -103,3 +103,13 @@ body {
   
  
 }
+
+/* .goog-te-banner-frame, 
+      #goog-gt-tt, 
+       .goog-te-balloon-frame,
+       iframe.skiptranslate,
+     iframe.goog-te-banner-frame,
+       body > .skiptranslate {
+        position: absolute !important;
+        top: -9999px !important;
+       } */

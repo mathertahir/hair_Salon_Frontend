@@ -1,17 +1,16 @@
-
 import { useLocation } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import "./GoogleTranslate.css";
 import CustomSelectBox from "../components/ui/CustomSelectBox";
-import { Link } from "react-router-dom";
 
+// ✅ languages must be plain objects with string `name`
 const languages = [
   { code: "en", name: "English" },
   { code: "fr", name: "French" },
   { code: "es", name: "Spanish" },
 ];
 
-// 🔑 Fix: Reset Google Translate cookies
+// 🔑 Set Translate Cookie
 const setTranslateCookie = (lang = "en") => {
   const host = window.location.hostname;
 
@@ -28,7 +27,7 @@ const setTranslateCookie = (lang = "en") => {
     document.cookie = `googtrans=/en/${lang}; path=/; domain=${domain};`;
   });
 
-  // Also root scope (no domain)
+  // Also root scope
   document.cookie = `googtrans=/en/${lang}; path=/;`;
 };
 
@@ -40,17 +39,18 @@ export default function GoogleTranslate({ closeSidebar }) {
   const location = useLocation();
   const isInitialMount = useRef(true);
 
-  // On mount → reset cookies and enforce default/saved language
+  // 🔥 Force correct language after widget init
   useEffect(() => {
     const savedLang = localStorage.getItem("selectedLang") || "en";
+    setSelectedLang(savedLang);
     setTranslateCookie(savedLang);
 
-    // Remove translate hash from URL
+    // Remove #googtrans from URL if added
     if (window.location.hash.includes("#googtrans")) {
       window.location.hash = "";
     }
 
-    // Hide Google Translate UI elements
+    // Hide Google banner
     const style = document.createElement("style");
     style.innerHTML = `
       .goog-te-banner-frame, 
@@ -65,46 +65,33 @@ export default function GoogleTranslate({ closeSidebar }) {
     `;
     document.head.appendChild(style);
 
-    // Safety interval to re-hide banners
-    const interval = setInterval(() => {
-      const banner = document.querySelector(".goog-te-banner-frame");
-      if (banner) banner.style.display = "none";
-
-      document.querySelectorAll(
-        "iframe.skiptranslate, iframe.goog-te-banner-frame"
-      ).forEach((iframe) => (iframe.style.display = "none"));
-
-      document.body.style.top = "0";
-      document.body.style.position = "static";
-    }, 300);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Ensure saved language is applied after widget loads
-  useEffect(() => {
-    const savedLang = localStorage.getItem("selectedLang") || "en";
-
-    const applySavedLanguage = () => {
+    // 🔄 Keep forcing saved language until stable
+    const enforceLanguage = () => {
       const select = document.querySelector(".goog-te-combo");
-      if (select) {
+      if (select && select.value !== savedLang) {
         select.value = savedLang;
         select.dispatchEvent(new Event("change"));
-      } else {
-        setTimeout(applySavedLanguage, 300);
+        setTranslateCookie(savedLang);
+        console.log("Forced language:", savedLang);
       }
     };
 
-    setTimeout(applySavedLanguage, 600);
+    const t1 = setTimeout(enforceLanguage, 1000);
+    const interval = setInterval(enforceLanguage, 2000);
+    const stopper = setTimeout(() => clearInterval(interval), 10000);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(stopper);
+      clearInterval(interval);
+    };
   }, []);
 
-  // Function to change language
+  // 🌀 Change language handler
   const changeLanguage = (lang) => {
     setLoading(true);
     setSelectedLang(lang);
     localStorage.setItem("selectedLang", lang);
-
-    // Reset cookies
     setTranslateCookie(lang);
 
     const tryChange = () => {
@@ -120,31 +107,22 @@ export default function GoogleTranslate({ closeSidebar }) {
     tryChange();
   };
 
-  // Handle CustomSelectBox change
-  const handleChange = (e) => {
-    changeLanguage(e.target.value);
-  };
-
-  // On route change → reapply selected language
+  // On route change → reapply language
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
       return;
     }
-
     const timer = setTimeout(() => {
       const savedLang = localStorage.getItem("selectedLang") || "en";
       changeLanguage(savedLang);
     }, 300);
-
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
   return (
     <div
-      className={`pb-[8px] fade-translate${
-        loading ? " fade-out" : " fade-in"
-      }`}
+      className={`pb-[8px] fade-translate${loading ? " fade-out" : " fade-in"}`}
       style={{ position: "relative" }}
     >
       {loading && (
@@ -156,15 +134,10 @@ export default function GoogleTranslate({ closeSidebar }) {
       <CustomSelectBox
         languages={languages}
         selectedLang={selectedLang}
-        handleChange={handleChange}
+        handleChange={(e) => changeLanguage(e.target.value)} // ✅ pass value only
         loading={loading}
         closeSidebar={closeSidebar}
       />
     </div>
   );
 }
-
-
-
-
-
