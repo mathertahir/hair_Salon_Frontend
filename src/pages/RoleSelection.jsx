@@ -15,7 +15,7 @@ const RoleSelection = () => {
                 <div className='py-20 flex flex-col gap-[40px] justify-center items-center'>
 
 
-                    <h1 className='text-[30px] font-bold font-manrope text-black'>Choose Your Role to Get Started</h1>
+                    <h1 className='text-[30px] font-bold font-manrope text-black'>Pick your profile to continue</h1>
 
                     <div className='flex gap-10 lg:gap-20 flex-col lg:flex-row items-center'>
 
@@ -29,8 +29,8 @@ const RoleSelection = () => {
                                     }`}
                                 onClick={() => setActiveRole(1)}
                             >
-                                <div>
-                                    <img src={clientRole} alt="role" />
+                                <div className='w-[120px] h-[120px] lg:w-[150px] lg:h-[150px]'>
+                                    <img src={clientRole} alt="role"  className='object-fit rounded-full'/>
                                 </div>
                                 <p className={`font-bold text-[20px] ${activeRole === 1
                                     ? 'text-background'
@@ -49,8 +49,8 @@ const RoleSelection = () => {
                                     }`}
                                 onClick={() => setActiveRole(2)}
                             >
-                                <div>
-                                    <img src={hairstylistRole} alt="role" />
+                                <div className='w-[120px] h-[120px] lg:w-[150px] lg:h-[150px]'>
+                                    <img src={hairstylistRole} alt="role" className='object-fit rounded-full' />
                                 </div>
                                 <p className={`font-bold text-[25px] font-manrope font-normal ${activeRole === 2
                                     ? 'text-background'
