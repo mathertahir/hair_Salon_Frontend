@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 
 const RoleSelection = () => {
     const { id } = useParams();
-    const [activeRole, setActiveRole] = useState(1) // 1 for client, 2 for hairstylist
+    const [activeRole, setActiveRole] = useState(0) // 1 for client, 2 for hairstylist
 
 
     return (
@@ -20,39 +20,39 @@ const RoleSelection = () => {
                     <div className='flex gap-10 lg:gap-20 flex-col lg:flex-row items-center'>
 
                         <Link
-                            to={`${id ? "/signin-client/1" : "/signup-client"}`}
+                            to={`${id ? "/signin-client/0" : "/signup-client"}`}
                         >
                             <div
-                                className={`w-[250px] h-[270px]  lg:w-[300px] lg:h-[316px] rounded-[20px] flex flex-col gap-[10px] justify-center items-center cursor-pointer transition-all duration-300 ${activeRole === 1
+                                className={`w-[250px] h-[270px]  lg:w-[300px] lg:h-[316px] rounded-[20px] flex flex-col gap-[10px] justify-center items-center cursor-pointer transition-all duration-300 ${activeRole === 0
                                     ? 'bg-foreground'
                                     : 'bg-light-brown-11p'
                                     }`}
-                                onClick={() => setActiveRole(1)}
+                                onClick={() => setActiveRole(0)}
                             >
                                 <div className='w-[120px] h-[120px] lg:w-[150px] lg:h-[150px]'>
-                                    <img src={clientRole} alt="role"  className='object-fit rounded-full'/>
+                                    <img src={clientRole} alt="role" className='object-fit rounded-full' />
                                 </div>
-                                <p className={`font-bold text-[20px] ${activeRole === 1
+                                <p className={`font-bold text-[20px] ${activeRole === 0
                                     ? 'text-background'
                                     : 'text-foreground'
                                     }`}>I am a client</p>
                             </div>
                         </Link>
                         <Link
-                            to={`${id ? "/signin-client/2" : "/stylist-signup"}`}
+                            to={`${id ? "/signin-client/1" : "/stylist-signup"}`}
 
                         >
                             <div
-                                className={`lg:w-[300px] lg:h-[316px] w-[250px] h-[270px] rounded-[20px] flex flex-col gap-[10px] justify-center items-center cursor-pointer transition-all duration-300 ${activeRole === 2
+                                className={`lg:w-[300px] lg:h-[316px] w-[250px] h-[270px] rounded-[20px] flex flex-col gap-[10px] justify-center items-center cursor-pointer transition-all duration-300 ${activeRole === 1
                                     ? 'bg-foreground'
                                     : 'bg-light-brown-11p'
                                     }`}
-                                onClick={() => setActiveRole(2)}
+                                onClick={() => setActiveRole(1)}
                             >
                                 <div className='w-[120px] h-[120px] lg:w-[150px] lg:h-[150px]'>
                                     <img src={hairstylistRole} alt="role" className='object-fit rounded-full' />
                                 </div>
-                                <p className={`font-bold text-[25px] font-manrope font-normal ${activeRole === 2
+                                <p className={`font-bold text-[25px] font-manrope font-normal ${activeRole === 1
                                     ? 'text-background'
                                     : 'text-foreground'
                                     }`}>I am a hairstylist</p>

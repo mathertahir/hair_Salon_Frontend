@@ -19,6 +19,8 @@ const SignupClient = () => {
         localStorage.setItem('token', '1234567890');
     };
 
+
+
     return (
         <div className='bg-background'>
             <div className='flex flex-col md:flex-row 2xl:gap-x-[140px] gap-x-[30px] mx-0 px-0'>
@@ -42,7 +44,7 @@ const SignupClient = () => {
                         </div>
                         <div className='p-[10px] border-[1px] border-white-E9 rounded-[5px] '>
                             <div className='flex gap-3 items-center '>
-                                <div className='text-blueCD'>
+                                <div className='text-blueCD'>\
                                     <MdForwardToInbox size={24} />
                                 </div>
                                 <input

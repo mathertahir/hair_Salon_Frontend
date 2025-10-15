@@ -1,0 +1,55 @@
+import React, { createContext, useState, useEffect } from "react";
+
+export const AuthContext = createContext(undefined);
+
+export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+    const [authToken, setAuthToken] = useState(null);
+    const [isAuthInitialized, setIsAuthInitialized] = useState(false); // Track auth initialization
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        const storedToken = localStorage.getItem("auth_token");
+
+
+        if (storedUser && storedToken) {
+            setUser(JSON.parse(storedUser));
+            setAuthToken(storedToken);
+        }
+
+        setIsAuthInitialized(true); // Indicate that auth check is complete
+    }, []);
+
+    const login = (userData, token) => {
+        const bearerToken = `Bearer ${token}`;
+        localStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem("auth_token", bearerToken);
+
+        setUser(userData);
+        setAuthToken(bearerToken);
+    };
+
+    const logout = () => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("auth_token");
+        localStorage.removeItem("roleType");
+        setUser(null);
+        setAuthToken(null);
+    };
+
+    const updateUser = (updatedUser) => {
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        setUser(updatedUser);
+    };
+
+    const handleRoleType = (roleType) => {
+        localStorage.setItem("roleType", roleType);
+    };
+
+    return (
+        <AuthContext.Provider value={{ user, login, logout, updateUser, handleRoleType, authToken }}>
+            {/* Show loading screen or children only after auth state is initialized */}
+            {isAuthInitialized ? children : ""}
+        </AuthContext.Provider>
+    );
+};

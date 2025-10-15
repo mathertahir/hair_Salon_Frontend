@@ -13,7 +13,6 @@
 //       {/* Sidebar */}
 //       {/* <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} /> */}
 
-
 //       {/* Main content with Header and page content */}
 //       <div className=" flex flex-col w-full bg-white">
 //         <Header
@@ -33,15 +32,21 @@
 
 // export default Layout;
 
-import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
-import Header from './Header.jsx';
-import Footer from './Footer.jsx';
+import Header from "./Header.jsx";
+import Footer from "./Footer.jsx";
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -61,4 +66,3 @@ const Layout = () => {
 };
 
 export default Layout;
-

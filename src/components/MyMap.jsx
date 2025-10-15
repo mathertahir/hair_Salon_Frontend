@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState, memo, useMemo, useCallback } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
+import { googleMapsApiKey } from "../utils/MapUtils/MapConfig";
+import { googleMapsLibraries } from "../utils/MapUtils/MapConfig";
+
 
 const mapContainerStyle = {
     height: "100%",
@@ -11,6 +14,8 @@ const mapContainerStyle = {
 const libraries = ["marker"];
 
 const MyMap = memo(function MyMap({ coordinates }) {
+
+    console.log(coordinates, "Comming Coordinates")
     const mapRef = useRef(null);
     const markerRef = useRef(null);
     const [map, setMap] = useState(null);
@@ -20,8 +25,8 @@ const MyMap = memo(function MyMap({ coordinates }) {
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
     const { isLoaded, loadError } = useJsApiLoader({
-        googleMapsApiKey: apiKey || "dummy-key", // Provide fallback to prevent errors
-        libraries: libraries,
+        googleMapsApiKey, // Provide fallback to prevent errors
+        libraries: googleMapsLibraries,
     });
 
     // Memoize center to prevent unnecessary re-renders
@@ -139,7 +144,7 @@ const MyMap = memo(function MyMap({ coordinates }) {
             loadError,
             apiKey: !!apiKey,
             coordinates,
-            center
+
         });
     }
     if (!isLoaded) {
