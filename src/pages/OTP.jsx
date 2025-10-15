@@ -7,13 +7,16 @@ import facebook from "../assets/fb.png";
 import signup from "../assets/SignUp.png";
 import resetPassword from "../assets/reset.png";
 import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const OTP = () => {
   const [otpValues, setOtpValues] = useState(["", "", "", ""]);
   const [timeLeft, setTimeLeft] = useState(30);
   const [isTimerActive, setIsTimerActive] = useState(true);
   const inputRefs = useRef([]);
+  const { id, email } = useParams();
 
+  console.log(id, "id", "email", email)
   // Timer effect
   useEffect(() => {
     let interval = null;
@@ -152,10 +155,10 @@ const OTP = () => {
                       {index === 0
                         ? "First"
                         : index === 1
-                        ? "Second"
-                        : index === 2
-                        ? "Third"
-                        : "Fourth"}{" "}
+                          ? "Second"
+                          : index === 2
+                            ? "Third"
+                            : "Fourth"}{" "}
                       code
                     </label>
                     <input
@@ -176,9 +179,8 @@ const OTP = () => {
 
               <div className="flex flex-col items-end">
                 <p
-                  className={`text-[16px] font-poppins font-medium ${
-                    timeLeft === 0 ? "text-red-500" : "text-black"
-                  }`}
+                  className={`text-[16px] font-poppins font-medium ${timeLeft === 0 ? "text-red-500" : "text-black"
+                    }`}
                 >
                   {formatTime(timeLeft)}
                 </p>
@@ -188,11 +190,10 @@ const OTP = () => {
             <Link to={"/resetPassword"}>
               <ButtonSquare
                 type="submit"
-                className={`w-full p-[20px] font-extrabold text-[14px] font-manrope ${
-                  isOtpComplete()
-                    ? "bg-brown-A43 text-background"
-                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                }`}
+                className={`w-full p-[20px] font-extrabold text-[14px] font-manrope ${isOtpComplete()
+                  ? "bg-brown-A43 text-background"
+                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  }`}
                 variant="secondary"
                 disabled={!isOtpComplete()}
               >

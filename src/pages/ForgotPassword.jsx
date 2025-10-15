@@ -35,7 +35,7 @@ const ForgotPassword = () => {
     const handleForgotPassword = async (e) => {
         e.preventDefault(); // prevent page reload
         setIsLoading(true);
-
+        let usermail = formData?.email
         try {
             const response = await API.post(url, {
                 email: formData.email,
@@ -46,7 +46,9 @@ const ForgotPassword = () => {
             console.log(responseMessage, "Comming Message")
             console.log("ToastService:", ToastService)
             ToastService.success(`${responseMessage}`)
-            navigate(`/otp/${id}`)
+
+            console.log("Navigating to:", `/otp/${id}?email=${encodeURIComponent(usermail)}`);
+            navigate(`/otp/${id}?email=${encodeURIComponent(usermail)}`)
 
 
 
