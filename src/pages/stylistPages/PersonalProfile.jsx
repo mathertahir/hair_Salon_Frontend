@@ -172,9 +172,9 @@ const PersonalProfile = () => {
       </div>
 
       {/* Buttons */}
-      <div className="flex justify-end gap-2">
+      <div className="flex  flex-col sm:flex-row justify-end gap-2">
         <div
-          className="w-max"
+          className=" w-full sm:w-max"
           onMouseEnter={() => setActivebtn(1)}
           onClick={(e) => {
             e.stopPropagation();
@@ -191,7 +191,7 @@ const PersonalProfile = () => {
         </div>
 
         <div
-          className="w-max"
+          className="w-full sm:w-max"
           onMouseEnter={() => setActivebtn(2)}
           onClick={() => setIsProfileUpdated(true)}
         >

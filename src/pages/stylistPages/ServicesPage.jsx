@@ -168,11 +168,22 @@ const ServicesPage = () => {
                                     <td className="px-6 py-4 font-medium text-gray-900">{service.name}</td>
                                     <td className="px-6 py-4">${service.price}</td>
                                     <td className="px-6 py-4">
-                                        <img
-                                            src={service.servicePhoto?.url || "https://via.placeholder.com/100"}
-                                            alt={service.name}
-                                            className="w-16 h-16 object-cover rounded-md"
-                                        />
+
+                                        <PhotoProvider>
+                                            <div className="flex gap-2 flex-wrap">
+
+                                                <PhotoView src={service?.servicePhoto?.url}>
+                                                    <img
+                                                        src={service?.servicePhoto?.url}
+
+                                                        className="w-[80px] h-[80px] object-cover rounded-md cursor-pointer"
+                                                    />
+                                                </PhotoView>
+
+
+                                            </div>
+                                        </PhotoProvider>
+
                                     </td>
                                     <td className="px-6 py-4 flex items-center gap-3">
                                         <button onClick={() => handleEdit(service)} className="text-blue-600 hover:text-blue-800">
