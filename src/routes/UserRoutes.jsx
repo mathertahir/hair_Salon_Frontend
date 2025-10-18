@@ -30,6 +30,8 @@ import SubscriptionPage from "../pages/stylistPages/SubscriptionPage.jsx";
 import PersonalProfile from "../pages/stylistPages/PersonalProfile.jsx";
 import BusinessProfile from "../pages/stylistPages/BusinessProfile.jsx";
 import BusinessProfileEdit from "../pages/stylistPages/BusinessProfileEdit.jsx";
+import ServicesPage from "../pages/stylistPages/ServicesPage.jsx";
+import ViewServicePage from "../pages/stylistPages/ViewServicePage.jsx";
 
 // Temporary placeholder components
 const Profile = () => (
@@ -62,7 +64,7 @@ const UserRoutes = () => {
         { path: "booking-confirm/:id", element: <BookingConfirmPage /> },
         { path: "role/:id?", element: <RoleSelection /> },
         { path: "signup-client", element: <SignupClient /> },
-        { path: "signin-client/:id?", element: <SignInClient /> },
+        { path: "login/:id?", element: <SignInClient /> },
         { path: "forgotPassword/:id?", element: <ForgotPassword /> },
         { path: "otp/:id?", element: <OTP /> },
         { path: "resetPassword/:id?", element: <ResetPassword /> },
@@ -94,6 +96,15 @@ const UserRoutes = () => {
           element: <SubscriptionPage />,
         },
         {
+          path: "services/:id?",
+          element: <ServicesPage />,
+        },
+
+        {
+          path: "viewService/:id?",
+          element: <ViewServicePage />,
+        },
+        {
           path: "profile",
           element: <PersonalProfile />,
         },
@@ -109,6 +120,9 @@ const UserRoutes = () => {
           path: "businessProfileEdit",
           element: <BusinessProfileEdit />,
         },
+        { path: "profile-under-review", element: <ProfileUnderReview /> },
+        { path: "approved", element: <ApprovedPage /> },
+        { path: "pricing", element: <PricingPage /> },
       ],
     },
   ]);

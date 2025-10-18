@@ -23,7 +23,7 @@ const BusinessLayout = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 ">
+    <div className="min-h-screen bg-gray-50   ">
       {/* 🔹 Top Navbar */}
       <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200  flex justify-between items-center px-4 py-3">
         {/* Left side */}
@@ -101,7 +101,7 @@ const BusinessLayout = () => {
 
       {/* 🔹 Main Content */}
       <main className="pt-16 sm:ml-64 transition-all">
-        <div className="p-4 border-2 border-dashed border-gray-200  rounded-lg m-4">
+        <div className="p-4 border-2 border-dashed border-gray-200  rounded-lg m-4 min-h-[90vh]">
           <Outlet />
         </div>
       </main>

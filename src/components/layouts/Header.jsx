@@ -248,7 +248,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                         {" "}
                         <p
                           onClick={handleSignOut}
-                          className="text-black font-bold font-manrope text-red0 text-[18px] hover:translate-y-[1px] transition-all duration-300 "
+                          className="text-black font-bold font-manrope text-red0 text-[18px] hover:translate-y-[1px] transition-all duration-300  cursor-pointer"
                         >
                           Sign Out
                         </p>
@@ -330,7 +330,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                       {" "}
                       <p
                         onClick={handleSignOut}
-                        className="text-black font-bold font-manrope text-red0 text-[18px] hover:translate-y-[1px] transition-all duration-300 "
+                        className="text-black font-bold font-manrope text-red0 text-[18px] hover:translate-y-[1px] transition-all duration-300  cursor-pointer"
                       >
                         Sign Out
                       </p>

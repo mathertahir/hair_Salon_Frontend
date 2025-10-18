@@ -20,7 +20,7 @@ const RoleSelection = () => {
                     <div className='flex gap-10 lg:gap-20 flex-col lg:flex-row items-center'>
 
                         <Link
-                            to={`${id ? "/signin-client/0" : "/signup-client"}`}
+                            to={`${id ? "/login/0" : "/signup-client"}`}
                         >
                             <div
                                 className={`w-[250px] h-[270px]  lg:w-[300px] lg:h-[316px] rounded-[20px] flex flex-col gap-[10px] justify-center items-center cursor-pointer transition-all duration-300 ${activeRole === 0
@@ -39,7 +39,7 @@ const RoleSelection = () => {
                             </div>
                         </Link>
                         <Link
-                            to={`${id ? "/signin-client/1" : "/stylist-signup"}`}
+                            to={`${id ? "/login/1" : "/stylist-signup"}`}
 
                         >
                             <div

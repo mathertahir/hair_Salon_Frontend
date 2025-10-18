@@ -1,41 +1,67 @@
 
 
+
 import React, { useState, useContext } from "react";
 import { LiaKeySolid } from "react-icons/lia";
 import { MdForwardToInbox, MdPhone } from "react-icons/md";
 import { FaCheck, FaRegUser, FaStore } from "react-icons/fa6";
 import { GrServices } from "react-icons/gr";
 import { IoNewspaperOutline } from "react-icons/io5";
-import { CiLocationOn } from "react-icons/ci";
-import { TbBasketDollar } from "react-icons/tb";
-import { LuPaperclip } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastService, ToastContainerWrapper } from "../../utils/ToastService";
 import { ButtonSquare } from "../../components/ui/buttonSquare";
 import useAPI from "../../services/baseUrl/useApiHook";
 import signup from "../../assets/HG5.png";
-import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
+import { useJsApiLoader } from "@react-google-maps/api";
 import { handleApiError } from "../../utils/helpers/HelperFunction";
 import { AuthContext } from "../../services/context/AuthContext";
 import MapSearchField from "../../components/ui/MapSearchField";
 import { FileUploadField } from "../../components/ui/FileUploadField";
-
 import { googleMapsApiKey, googleMapsLibraries } from "../../utils/MapUtils/MapConfig";
-const SignupClient = () => {
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
+import InputPassword from "../../components/ui/InputPassword";
+
+// ✅ Yup Validation Schemas per step
+const StepSchemas = [
+    Yup.object({
+        name: Yup.string().required("Name is required"),
+        email: Yup.string()
+            .email("Enter a valid email")
+            .required("Email is required"),
+        phone: Yup.string().required("Phone is required"),
+        password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+        confirmPassword: Yup.string()
+            .oneOf([Yup.ref("password")], "Passwords do not match")
+            .required("Confirm Password is required"),
+    }),
+    Yup.object({
+        businessName: Yup.string().required("Business name is required"),
+        streetAddress: Yup.string().required("Address is required"),
+        businessPhone: Yup.string().required("Business phone is required"),
+    }),
+    Yup.object(), // file validation handled manually
+];
+
+const StylistSignUpPage = () => {
     const [activeStep, setActiveStep] = useState(0);
     const totalSteps = 3;
     const API = useAPI();
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
-
-
     const [isLoading, setIsLoading] = useState(false);
+
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey,
         libraries: googleMapsLibraries,
     });
 
-    const [formData, setFormData] = useState({
+    const [businessRegistrationDoc, setBusinessRegistrationDoc] = useState([]);
+    const [businessNICPhoto, setBusinessNICPhoto] = useState([]);
+    const [businessPhotos, setBusinessPhotos] = useState([]);
+    const [businessFeaturedImage, setBusinessFeaturedImage] = useState([]);
+
+    const initialValues = {
         name: "",
         email: "",
         phone: "",
@@ -51,93 +77,19 @@ const SignupClient = () => {
         city: "",
         postalCode: "",
         streetAddress: "",
-    });
-
-    const [businessRegistrationDoc, setBusinessRegistrationDoc] = useState([]);
-    const [businessNICPhoto, setBusinessNICPhoto] = useState([]);
-    const [businessPhotos, setBusinessPhotos] = useState([]);
-    const [businessFeaturedImage, setBusinessFeaturedImage] = useState([]);
-
-    const [errors, setErrors] = useState({});
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleNext = () => {
-        if (validateStep()) {
-            if (activeStep < totalSteps - 1) setActiveStep((prev) => prev + 1);
-        }
     };
 
     const handleroleType = (roleType) => {
         localStorage.setItem("roleType", roleType);
     };
 
-    const validateStep = () => {
-        let newErrors = {};
-
-        if (activeStep === 0) {
-            if (!formData.name.trim()) newErrors.name = "Name is required";
-            if (!formData.email.trim()) newErrors.email = "Email is required";
-            else if (!/\S+@\S+\.\S+/.test(formData.email))
-                newErrors.email = "Enter a valid email";
-            if (!formData.phone.trim()) newErrors.phone = "Phone is required";
-            if (!formData.password.trim()) newErrors.password = "Password is required";
-            else if (formData.password.length < 6)
-                newErrors.password = "Password must be at least 6 characters";
-            if (formData.confirmPassword !== formData.password)
-                newErrors.confirmPassword = "Passwords do not match";
-        } else if (activeStep === 1) {
-            if (!formData.businessName.trim())
-                newErrors.businessName = "Business name is required";
-            if (!formData.streetAddress.trim())
-                newErrors.streetAddress = "Address is required";
-            if (!formData.businessPhone.trim())
-                newErrors.businessPhone = "Business phone is required";
-        } else if (activeStep === 2) {
-            if (businessRegistrationDoc.length === 0)
-                newErrors.businessRegistrationDoc = "Registration document is required";
-            if (businessNICPhoto.length === 0)
-                newErrors.businessNICPhoto = "ID document is required";
-            if (businessPhotos.length === 0)
-                newErrors.businessPhotos = "Business photo is required";
-            if (businessFeaturedImage.length === 0)
-                newErrors.businessFeaturedImage = "Featured image is required";
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
-
-    const handlePlaceChanged = (locationData) => {
-        setFormData((prev) => ({
-            ...prev,
-            latitude: locationData.latitude,
-            longitude: locationData.longitude,
-            postalCode: locationData.postalCode,
-            state: locationData.state,
-            city: locationData.city,
-            streetAddress: locationData.streetAddress,
-        }));
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        if (!validateStep()) return;
-
+    const handleSubmit = async (values) => {
         try {
             setIsLoading(true);
 
             const payload = new FormData();
+            Object.entries(values).forEach(([key, value]) => payload.append(key, value));
 
-            // ✅ Append all form fields
-            Object.entries(formData).forEach(([key, value]) => {
-                payload.append(key, value);
-            });
-
-            // ✅ Helper to append multiple or single files
             const appendFiles = (files, key) => {
                 if (Array.isArray(files)) {
                     files.forEach((file) => payload.append(key, file));
@@ -151,34 +103,23 @@ const SignupClient = () => {
             appendFiles(businessPhotos, "businessPhotos");
             appendFiles(businessFeaturedImage, "businessFeaturedImage");
 
-            // ✅ API request
             const response = await API.post("/api/auth/business/signup", payload, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 
-            console.log(response, "Signup Response");
-
-
-
-            console.log(response.data.responseData.user, "Comming APi Response")
             const token = response.data?.responseData?.user?.accessToken;
             const user = response.data?.responseData?.user?.user;
+            const businessProfile = response.data?.responseData?.businessProfile
 
-            console.log(token, user, "Token and User");
 
             if (token && user) {
                 ToastService.success("Signup successful!");
-
-                // Save role or any extra info
                 handleroleType(user?.roleType);
+                auth.handleBusinessProfile(businessProfile)
                 auth.login(user, token);
-
-
-                navigate("/profile-under-review");
+                navigate("/");
             }
         } catch (error) {
-            // ✅ Centralized error handling
-
             console.log(error, "Error");
             handleApiError(error);
         } finally {
@@ -186,8 +127,14 @@ const SignupClient = () => {
         }
     };
 
-
-    // if (!isLoaded) return <p>Loading Google Maps...</p>;
+    const handlePlaceChanged = (locationData, setFieldValue) => {
+        setFieldValue("latitude", locationData.latitude);
+        setFieldValue("longitude", locationData.longitude);
+        setFieldValue("postalCode", locationData.postalCode);
+        setFieldValue("state", locationData.state);
+        setFieldValue("city", locationData.city);
+        setFieldValue("streetAddress", locationData.streetAddress);
+    };
 
     return (
         <div className="bg-background">
@@ -219,153 +166,196 @@ const SignupClient = () => {
                         ))}
                     </div>
 
-                    {/* Form */}
-                    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                        {activeStep === 0 && (
-                            <>
-                                <InputField
-                                    icon={<FaRegUser size={22} />}
-                                    name="name"
-                                    placeholder="Name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    error={errors.name}
-                                />
-                                <InputField
-                                    icon={<MdForwardToInbox size={22} />}
-                                    name="email"
-                                    placeholder="Email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    error={errors.email}
-                                />
-                                <InputField
-                                    icon={<MdPhone size={22} />}
-                                    name="phone"
-                                    placeholder="Phone"
-                                    value={formData.phone}
-                                    onChange={handleChange}
-                                    error={errors.phone}
-                                />
-                                <InputField
-                                    icon={<LiaKeySolid size={22} />}
-                                    name="password"
-                                    type="password"
-                                    placeholder="Password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    error={errors.password}
-                                />
-                                <InputField
-                                    icon={<LiaKeySolid size={22} />}
-                                    name="confirmPassword"
-                                    type="password"
-                                    placeholder="Confirm Password"
-                                    value={formData.confirmPassword}
-                                    onChange={handleChange}
-                                    error={errors.confirmPassword}
-                                />
-                            </>
+                    {/* Formik Wrapper */}
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={StepSchemas[activeStep]}
+                        onSubmit={async (values) => {
+                            if (activeStep < totalSteps - 1) {
+                                setActiveStep((prev) => prev + 1);
+                            } else {
+                                // Manual file validation
+                                const fileErrors = {};
+                                if (businessRegistrationDoc.length === 0)
+                                    fileErrors.businessRegistrationDoc = "Registration document is required";
+                                if (businessNICPhoto.length === 0)
+                                    fileErrors.businessNICPhoto = "ID document is required";
+                                if (businessPhotos.length === 0)
+                                    fileErrors.businessPhotos = "Business photo is required";
+                                if (businessFeaturedImage.length === 0)
+                                    fileErrors.businessFeaturedImage = "Featured image is required";
+
+                                if (Object.keys(fileErrors).length > 0) {
+                                    ToastService.error("Please upload all required documents.");
+                                    return;
+                                }
+                                await handleSubmit(values);
+                            }
+                        }}
+                    >
+                        {({ values, errors, touched, handleChange, setFieldValue }) => (
+                            <Form className="flex flex-col gap-4">
+                                {activeStep === 0 && (
+                                    <>
+                                        <InputField
+                                            icon={<FaRegUser size={22} />}
+                                            name="name"
+                                            placeholder="Name"
+                                            value={values.name}
+                                            onChange={handleChange}
+                                            error={touched.name && errors.name}
+                                        />
+                                        <InputField
+                                            icon={<MdForwardToInbox size={22} />}
+                                            name="email"
+                                            placeholder="Email"
+                                            value={values.email}
+                                            onChange={handleChange}
+                                            error={touched.email && errors.email}
+                                        />
+                                        <InputField
+                                            icon={<MdPhone size={22} />}
+                                            name="phone"
+                                            placeholder="Phone"
+                                            value={values.phone}
+                                            onChange={handleChange}
+                                            error={touched.phone && errors.phone}
+                                        />
+
+
+                                        {/* Password Field */}
+                                        <div className="p-[10px] border-[1px] border-white-E9 rounded-[5px]">
+                                            <div className="flex gap-3 items-center">
+                                                <div className="text-blueCD">
+                                                    <LiaKeySolid size={24} />
+                                                </div>
+                                                <InputPassword
+                                                    name="password"
+                                                    placeholder="Password"
+                                                    value={values.password}
+                                                    onChange={handleChange}
+                                                />
+                                            </div>
+                                            {touched.password && errors.password && (
+                                                <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+                                            )}
+                                        </div>
+
+                                        {/* Confirm Password Field */}
+                                        <div className="p-[10px] border-[1px] border-white-E9 rounded-[5px]">
+                                            <div className="flex gap-3 items-center">
+                                                <div className="text-blueCD">
+                                                    <LiaKeySolid size={24} />
+                                                </div>
+                                                <InputPassword
+                                                    name="confirmPassword"
+                                                    placeholder="Confirm Password"
+                                                    value={values.confirmPassword}
+                                                    onChange={handleChange}
+                                                />
+                                            </div>
+                                            {touched.confirmPassword && errors.confirmPassword && (
+                                                <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
+                                            )}
+                                        </div>
+
+                                    </>
+                                )}
+
+                                {activeStep === 1 && (
+                                    <>
+                                        <InputField
+                                            icon={<FaStore size={22} />}
+                                            name="businessName"
+                                            placeholder="Business Name"
+                                            value={values.businessName}
+                                            onChange={handleChange}
+                                            error={touched.businessName && errors.businessName}
+                                        />
+                                        <InputField
+                                            icon={<IoNewspaperOutline size={22} />}
+                                            name="businessDescription"
+                                            placeholder="Business Description"
+                                            value={values.businessDescription}
+                                            onChange={handleChange}
+                                        />
+
+                                        <div className="flex flex-col gap-1">
+                                            <MapSearchField
+                                                value={values.streetAddress}
+                                                onChange={(data) => handlePlaceChanged(data, setFieldValue)}
+                                            />
+                                            {touched.streetAddress && errors.streetAddress && (
+                                                <p className="text-red-500 text-sm mt-1">{errors.streetAddress}</p>
+                                            )}
+                                        </div>
+
+                                        <InputField
+                                            icon={<MdPhone size={22} />}
+                                            name="businessPhone"
+                                            placeholder="Business Phone"
+                                            value={values.businessPhone}
+                                            onChange={handleChange}
+                                            error={touched.businessPhone && errors.businessPhone}
+                                        />
+                                        <InputField
+                                            icon={<GrServices size={22} />}
+                                            name="operatingHours"
+                                            placeholder="Operating Hours"
+                                            value={values.operatingHours}
+                                            onChange={handleChange}
+                                        />
+                                    </>
+                                )}
+
+                                {activeStep === 2 && (
+                                    <>
+                                        <FileUploadField
+                                            label="Upload Registration Doc"
+                                            files={businessRegistrationDoc}
+                                            setFiles={setBusinessRegistrationDoc}
+                                            maxFiles={1}
+                                        />
+                                        <FileUploadField
+                                            label="Upload ID"
+                                            files={businessNICPhoto}
+                                            setFiles={setBusinessNICPhoto}
+                                            maxFiles={2}
+                                        />
+                                        <FileUploadField
+                                            label="Business Photos"
+                                            files={businessPhotos}
+                                            setFiles={setBusinessPhotos}
+                                            maxFiles={4}
+                                        />
+                                        <FileUploadField
+                                            label="Featured Image"
+                                            files={businessFeaturedImage}
+                                            setFiles={setBusinessFeaturedImage}
+                                            maxFiles={1}
+                                        />
+                                        <ButtonSquare
+                                            className="w-full bg-brown-A43 text-background p-[20px] font-extrabold text-[14px] font-manrope"
+                                            variant="secondary"
+                                            type="submit"
+                                            disabled={isLoading}
+                                        >
+                                            {isLoading ? "Signing Up..." : "Sign Up"}
+                                        </ButtonSquare>
+                                    </>
+                                )}
+
+                                {activeStep < totalSteps - 1 && (
+                                    <button
+                                        type="submit"
+                                        className="w-full bg-brown-A43 text-white font-bold py-2 rounded hover:bg-brown-700"
+                                    >
+                                        Continue
+                                    </button>
+                                )}
+                            </Form>
                         )}
-
-                        {activeStep === 1 && (
-                            <>
-                                <InputField
-                                    icon={<FaStore size={22} />}
-                                    name="businessName"
-                                    placeholder="Business Name"
-                                    value={formData.businessName}
-                                    onChange={handleChange}
-                                    error={errors.businessName}
-                                />
-                                <InputField
-                                    icon={<IoNewspaperOutline size={22} />}
-                                    name="businessDescription"
-                                    placeholder="Business Description"
-                                    value={formData.businessDescription}
-                                    onChange={handleChange}
-                                />
-
-
-                                <div className="flex gap-3 items-center">
-
-                                    <MapSearchField value={formData.streetAddress} onChange={handlePlaceChanged} />
-
-                                    {errors.streetAddress && (
-                                        <p className="text-red-500 text-sm mt-1">
-                                            {errors.streetAddress}
-                                        </p>
-                                    )}
-                                </div>
-
-                                <InputField
-                                    icon={<MdPhone size={22} />}
-                                    name="businessPhone"
-                                    placeholder="Business Phone"
-                                    value={formData.businessPhone}
-                                    onChange={handleChange}
-                                    error={errors.businessPhone}
-                                />
-                                <InputField
-                                    icon={<GrServices size={22} />}
-                                    name="operatingHours"
-                                    placeholder="Operating Hours"
-                                    value={formData.operatingHours}
-                                    onChange={handleChange}
-                                />
-                            </>
-                        )}
-
-                        {activeStep === 2 && (
-                            <>
-                                <FileUploadField
-                                    label="Upload Registration Doc"
-                                    files={businessRegistrationDoc}
-                                    setFiles={setBusinessRegistrationDoc}
-                                    error={errors.businessRegistrationDoc}
-                                    maxFiles={1}
-                                />
-                                <FileUploadField
-                                    label="Upload ID"
-                                    files={businessNICPhoto}
-                                    setFiles={setBusinessNICPhoto}
-                                    error={errors.businessNICPhoto}
-                                    maxFiles={2}
-                                />
-                                <FileUploadField
-                                    label="Business Photos"
-                                    files={businessPhotos}
-                                    setFiles={setBusinessPhotos}
-                                    error={errors.businessPhotos}
-                                    maxFiles={4}
-                                />
-                                <FileUploadField
-                                    label="Featured Image"
-                                    files={businessFeaturedImage}
-                                    setFiles={setBusinessFeaturedImage}
-                                    error={errors.businessFeaturedImage}
-                                    maxFiles={1}
-                                />
-                                <ButtonSquare
-                                    className="w-full bg-brown-A43 text-background p-[20px] font-extrabold text-[14px] font-manrope"
-                                    variant="secondary"
-                                    type="submit"
-                                >
-                                    Sign Up
-                                </ButtonSquare>
-                            </>
-                        )}
-
-                        {activeStep < totalSteps - 1 && (
-                            <button
-                                type="button"
-                                onClick={handleNext}
-                                className="w-full bg-brown-A43 text-white font-bold py-2 rounded hover:bg-brown-700"
-                            >
-                                Continue
-                            </button>
-                        )}
-                    </form>
+                    </Formik>
 
                     <div className="inline-flex items-center justify-center w-full relative mt-6">
                         <hr className="w-[99%] h-1 bg-blueEC border-0 rounded-sm" />
@@ -378,7 +368,7 @@ const SignupClient = () => {
                         <p className="text-blueB8 text-[15px] font-poppins font-semibold">
                             Already have an account?{" "}
                             <Link
-                                to="/signin-client"
+                                to={`/login/1`}
                                 className="text-brown-A43 font-semibold hover:underline"
                             >
                                 Login
@@ -403,7 +393,7 @@ const SignupClient = () => {
     );
 };
 
-// 🔹 Input Field
+// 🔹 Input Field Component
 const InputField = ({ icon, error, ...props }) => (
     <div className="p-[10px] border border-white-E9 rounded-[5px]">
         <div className="flex gap-3 items-center">
@@ -417,10 +407,7 @@ const InputField = ({ icon, error, ...props }) => (
     </div>
 );
 
-// 🔹 Multiple File Upload Field
-
-export default SignupClient;
-
+export default StylistSignUpPage;
 
 
 

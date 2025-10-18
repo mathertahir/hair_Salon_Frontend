@@ -81,7 +81,7 @@ const ForgotPassword = () => {
                                     value={formData.email}
                                     onChange={handleChange}
                                     placeholder='Email'
-                                    required
+                                    required={true}
                                 />
 
                             </div>

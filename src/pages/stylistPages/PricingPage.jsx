@@ -7,7 +7,7 @@ const PricingPage = () => {
     return (
         <div className='bg-background'>
             <div className='container'>
-                <div className='py-20  flex flex-col gap-4 '>
+                <div className='  flex flex-col gap-4 '>
                     <div className='flex flex-col justify-center items-center gap-6'>
                         <h1 className='md:text-[60px] text-[20px]   font-bold text-black-14 font-playfair'>Transparent Pricing</h1>
                         <p className='text-[20px] font-normal font-playfair text-black-14'>Pricing built for people just like you.</p>
@@ -15,21 +15,21 @@ const PricingPage = () => {
 
 
                     <div className='grid  grid-cols-12  gap-y-10   lg:gap-x-10 items-stretch w-full'>
-                        <div className='lg:col-span-4 col-span-12  flex-1 '  >
+                        <div className='lg:col-span-5 col-span-12  flex-1 '  >
                             <div className='flex flex-col gap-6 h-full'>
                                 <div className='flex flex-col gap-6'>
                                     <h1 className='md:text-[40px] text-[20px]   font-bold text-black-14 font-playfair'>Free</h1>
                                     <p className='text-[20px] font-normal font-playfair text-black-14'>Limtless possibilites.</p>
                                 </div>
 
-                                <div className='p-[57px]  bg-white-F3  hover:bg-brown-A43 rounded-[30px] h-full flex flex-col group transition-colors duration-300 ease-in-out'>
+                                <div className='p-[20px]  bg-white-F3  hover:bg-brown-A43 rounded-[30px] h-full flex flex-col group transition-colors duration-300 ease-in-out justify-center'>
 
 
                                     <div className='flex flex-col gap-20 flex-1'>
                                         <div className='flex flex-col gap-10 '>
                                             <div className='flex flex-col gap-3'>
                                                 <p className='md:text-[40px] text-[20px]   font-bold text-black-14 font-playfair group-hover:text-background transition-colors duration-300 ease-in-out'>$0/mo</p>
-                                                <p className='text-[20px] font-normal font-playfair text-black-14 group-hover:text-background transition-colors duration-300 ease-in-out'>Try it as long as you like</p>
+                                                <p className='text-[15px] font-normal font-playfair text-black-14 group-hover:text-background transition-colors duration-300 ease-in-out'>Enjoy your first month — absolutely free!</p>
                                             </div>
 
                                             <div>
@@ -67,7 +67,7 @@ const PricingPage = () => {
 
                             </div>
                         </div>
-                        <div className='lg:col-span-8 col-span-12  flex-1'>
+                        <div className='lg:col-span-7 col-span-12  flex-1'>
 
 
                             <div className='flex flex-col gap-6 h-full'>

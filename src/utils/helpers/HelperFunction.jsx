@@ -1,11 +1,14 @@
 import { ToastService } from "../ToastService";
 
 export const handleApiError = (error) => {
+
+  console.log(error, "Comming Error")
   const messages = error.response?.data?.responseMessage;
+  console.log(messages, "Comming Message")
 
   if (Array.isArray(messages)) {
     messages.forEach((message) => {
-      ToastService.error(message);
+      ToastService.error(`${message}`);
     });
   } else if (messages) {
     ToastService.error(messages);

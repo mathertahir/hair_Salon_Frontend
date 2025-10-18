@@ -98,7 +98,7 @@ const SignupClient = () => {
 
                     <div className='flex flex-col   md:gap-[104px] gap-[60px]'>
                         <div className='flex gap-10  sm:flex-row flex-col items-center justify-center'>
-                            <Link to="/signin-client" className='w-full sm:w-auto'>
+                            <Link to="/login" className='w-full sm:w-auto'>
                                 <ButtonSquare className=' px-[32px] py-[11px] flex justify-center items-center border-white-E9 border-[2px]  rounded-[8px] w-full sm:w-auto' variant='outline' >
                                     <div className=' w-[24px] h-[24px]'>
                                         <img src={google} className='w-full h-full object-fill'></img>
@@ -108,7 +108,7 @@ const SignupClient = () => {
                                 </ButtonSquare>
                             </Link>
 
-                            <Link to="/signin-client" className='w-full sm:w-auto'>      <ButtonSquare className=' px-[32px] py-[11px] flex justify-center items-center border-white-E9 border-[2px]  rounded-[8px] w-full sm:w-auto' variant='outline' >
+                            <Link to="/login" className='w-full sm:w-auto'>      <ButtonSquare className=' px-[32px] py-[11px] flex justify-center items-center border-white-E9 border-[2px]  rounded-[8px] w-full sm:w-auto' variant='outline' >
                                 <div className=' w-[24px] h-[24px]'>
                                     <img src={facebook} className='w-full h-full object-fill'></img>
                                 </div>
@@ -120,7 +120,7 @@ const SignupClient = () => {
 
 
                         <div className='flex gap-[6px] justify-center items-center'>
-                            <p className='text-blueB8 text-[15px] font-poppins font-semibold'>Already have an account? <Link to="/signin-client" className='hover:-translate-y-[2px] text-brown-A43 font-semibold font-poppins'>Login</Link></p>
+                            <p className='text-blueB8 text-[15px] font-poppins font-semibold'>Already have an account? <Link to="/login" className='hover:-translate-y-[2px] text-brown-A43 font-semibold font-poppins'>Login</Link></p>
                         </div>
                     </div>
 

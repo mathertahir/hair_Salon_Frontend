@@ -33,6 +33,8 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("user");
         localStorage.removeItem("auth_token");
         localStorage.removeItem("roleType");
+        localStorage.removeItem("businessProfile");
+
         setUser(null);
         setAuthToken(null);
     };
@@ -45,9 +47,12 @@ export const AuthProvider = ({ children }) => {
     const handleRoleType = (roleType) => {
         localStorage.setItem("roleType", roleType);
     };
+    const handleBusinessProfile = (businessInfo) => {
+        localStorage.setItem("businessProfile", JSON.stringify(businessInfo));
+    }
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, updateUser, handleRoleType, authToken }}>
+        <AuthContext.Provider value={{ user, login, logout, updateUser, handleRoleType, authToken, handleBusinessProfile }}>
             {/* Show loading screen or children only after auth state is initialized */}
             {isAuthInitialized ? children : ""}
         </AuthContext.Provider>

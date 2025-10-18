@@ -9,6 +9,9 @@ import {
   FaUserPlus,
 } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
+import { MdOutlinePerson2 } from "react-icons/md";
+import { IoMdBusiness } from "react-icons/io";
+import { GiSaloon } from "react-icons/gi";
 
 const BusinessSideBar = ({ open, setOpen }) => {
   const location = useLocation(); // ✅ Get current route path
@@ -32,7 +35,7 @@ const BusinessSideBar = ({ open, setOpen }) => {
                 : "text-gray-900 hover:bg-gray-100"
                 }`}
             >
-              <FaTachometerAlt
+              <MdOutlinePerson2
                 className={`mr-3 ${isActive("/business/profile") ? "text-white" : "text-gray-500"
                   }`}
               />
@@ -49,7 +52,7 @@ const BusinessSideBar = ({ open, setOpen }) => {
                 : "text-gray-900 hover:bg-gray-100"
                 }`}
             >
-              <FaUsers
+              <IoMdBusiness
                 className={`mr-3 ${isActive("/business/businessProfile") || isActive("/business/businessProfileEdit")
                   ? "text-white"
                   : "text-gray-500"
@@ -60,17 +63,37 @@ const BusinessSideBar = ({ open, setOpen }) => {
           </li>
 
 
-          <li>
+          {/* <li>
             <Link
-              to="/business/products"
+              to="/business/services"
               onClick={() => setOpen(false)}
-              className={`flex items-center p-2 rounded-lg transition-colors ${isActive("/business/products")
+              className={`flex items-center p-2 rounded-lg transition-colors ${isActive("/business/services") || isActive("/business/viewService/:id?")
                 ? "bg-brown-A43 text-white"
                 : "text-gray-900 hover:bg-gray-100"
                 }`}
             >
               <FaBoxOpen
-                className={`mr-3 ${isActive("/business/products")
+                className={`mr-3 ${isActive("/business/services")
+                  ? "text-white"
+                  : "text-gray-500"
+                  }`}
+              />
+              <span>Services</span>
+            </Link>
+          </li> */}
+          <li>
+            <Link
+              to="/business/services"
+              onClick={() => setOpen(false)}
+              className={`flex items-center p-2 rounded-lg transition-colors ${isActive("/business/services") ||
+                window.location.pathname.startsWith("/business/viewService/")
+                ? "bg-brown-A43 text-white"
+                : "text-gray-900 hover:bg-gray-100"
+                }`}
+            >
+              <GiSaloon
+                className={`mr-3 ${isActive("/business/services") ||
+                  window.location.pathname.startsWith("/business/viewService/")
                   ? "text-white"
                   : "text-gray-500"
                   }`}
@@ -79,7 +102,8 @@ const BusinessSideBar = ({ open, setOpen }) => {
             </Link>
           </li>
 
-          <li>
+
+          {/* <li>
             <Link
               to="/business/bookings"
               onClick={() => setOpen(false)}
@@ -96,7 +120,7 @@ const BusinessSideBar = ({ open, setOpen }) => {
               />
               <span>Bookings</span>
             </Link>
-          </li>
+          </li> */}
 
           <li>
             <Link
@@ -116,6 +140,45 @@ const BusinessSideBar = ({ open, setOpen }) => {
               <span>Subscription</span>
             </Link>
           </li>
+
+
+          {/* <li>
+            <Link
+              to="/business/profile-under-review"
+              onClick={() => setOpen(false)}
+              className={`flex items-center p-2 rounded-lg transition-colors ${isActive("/business/profile-under-review")
+                ? "bg-brown-A43 text-white"
+                : "text-gray-900 hover:bg-gray-100"
+                }`}
+            >
+              <FaUsers
+                className={`mr-3 ${isActive("/business/profile-under-review")
+                  ? "text-white"
+                  : "text-gray-500"
+                  }`}
+              />
+              <span>Under Review</span>
+            </Link>
+          </li> */}
+          {/* 
+          <li>
+            <Link
+              to="/business/viewService/:id?"
+              onClick={() => setOpen(false)}
+              className={`flex items-center p-2 rounded-lg transition-colors ${isActive("/business/viewService/:id?")
+                ? "bg-brown-A43 text-white"
+                : "text-gray-900 hover:bg-gray-100"
+                }`}
+            >
+              <FaUsers
+                className={`mr-3 ${isActive("/business/viewService/:id?")
+                  ? "text-white"
+                  : "text-gray-500"
+                  }`}
+              />
+              <span>Subscription</span>
+            </Link>
+          </li> */}
         </ul>
       </div>
     </aside>

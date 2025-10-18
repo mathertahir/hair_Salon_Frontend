@@ -7,16 +7,28 @@ import facebook from "../assets/fb.png";
 import signup from "../assets/SignUp.png";
 import resetPassword from "../assets/reset.png";
 import { Link } from "react-router-dom";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import useAPI from "../services/baseUrl/useApiHook";
+
+import { handleApiError } from '../utils/helpers/HelperFunction';
+import { ToastService } from '../utils/ToastService';
 
 const OTP = () => {
+
+  const API = useAPI();
   const [otpValues, setOtpValues] = useState(["", "", "", ""]);
   const [timeLeft, setTimeLeft] = useState(30);
   const [isTimerActive, setIsTimerActive] = useState(true);
   const inputRefs = useRef([]);
-  const { id, email } = useParams();
+  const [searchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
+  // Gets query params
+  const email = searchParams.get('email');
+  const { id } = useParams();
+  const url = id === "0" ? "api/auth/login" : "api/auth/business/resetPassword";
 
   console.log(id, "id", "email", email)
+
   // Timer effect
   useEffect(() => {
     let interval = null;
@@ -40,12 +52,13 @@ const OTP = () => {
   };
 
   // Resend OTP function
-  const handleResendOTP = () => {
+  const handleResendOTP = async () => {
     setTimeLeft(30);
     setIsTimerActive(true);
     setOtpValues(["", "", "", ""]);
     inputRefs.current[0]?.focus();
     // Add your resend OTP logic here
+    await handleForgotPassword()
     console.log("Resending OTP...");
   };
 
@@ -129,6 +142,40 @@ const OTP = () => {
   const isOtpComplete = () => {
     return otpValues.every((value) => value !== "");
   };
+
+  const handleForgotPassword = async (e) => {
+    e?.preventDefault(); // prevent page reload
+    setIsLoading(true);
+    let usermail = email
+    try {
+      const response = await API.post(url, {
+        email: email,
+      });
+
+
+      const responseMessage = response.data?.responseMessage?.[0] || "";
+      console.log(responseMessage, "Comming Message")
+      console.log("ToastService:", ToastService)
+      ToastService.success(`${responseMessage}`)
+
+
+
+
+
+
+
+    } catch (error) {
+      handleApiError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
+
+
+
+
   return (
     <div className="bg-background">
       <div className="flex flex-col md:flex-row 2xl:gap-x-[140px] gap-x-[30px] mx-0 px-0">
@@ -187,9 +234,10 @@ const OTP = () => {
               </div>
             </div>
 
-            <Link to={"/resetPassword"}>
+            <Link
+              to={`/resetPassword?verificationCode=${otpValues.join("")}&id=${id}`}
+            >
               <ButtonSquare
-                type="submit"
                 className={`w-full p-[20px] font-extrabold text-[14px] font-manrope ${isOtpComplete()
                   ? "bg-brown-A43 text-background"
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -200,6 +248,7 @@ const OTP = () => {
                 {isOtpComplete() ? "Verify Code" : "Enter 4-digit code"}
               </ButtonSquare>
             </Link>
+
           </form>
 
           <div className="inline-flex items-center justify-center w-full relative ">
@@ -219,7 +268,7 @@ const OTP = () => {
                 <p className="text-blueB8 text-[15px] font-poppins font-semibold">
                   Didn't receive the code?{" "}
                 </p>{" "}
-                <p className="hover:-translate-y-[2px] text-brown-A43 font-semibold font-poppins cursor-pointer">
+                <p className="hover:-translate-y-[2px] text-brown-A43 font-semibold font-poppins cursor-pointer" onClick={handleResendOTP}>
                   Resend Code
                 </p>
               </div>
@@ -228,10 +277,10 @@ const OTP = () => {
               <p className="text-blueB8 text-[15px] font-poppins font-semibold">
                 Don't have an account?{" "}
                 <Link
-                  to="/signup-client"
+                  to={id === "0" ? "/signup-client" : "/stylist-signup"}
                   className="hover:-translate-y-[2px] text-brown-A43 font-semibold font-poppins"
                 >
-                  SignIn
+                  Sign Up
                 </Link>
               </p>
             </div>
