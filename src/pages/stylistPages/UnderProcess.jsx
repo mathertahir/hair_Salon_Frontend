@@ -3,7 +3,7 @@ import review from '../../assets/profileunderreview.png'
 import { useParams, Link } from 'react-router-dom'
 import { ButtonSquare } from '../../components/ui/buttonSquare'
 
-const ProfileUnderReview = () => {
+const ProfileUnderProcess = () => {
     const { id } = useParams()
     return (
         <div className=' h-full'>
@@ -13,10 +13,10 @@ const ProfileUnderReview = () => {
                         <img src={review} alt="review" className='object-fit w-full' />
                     </div>
                     <div className="   md:text-[30px] text-[15px]  md:text-[35px]  xl:text-[50px] font-poppins font-extrabold text-black"> Profile Under Review</div>
-                    <p className='   md:text-[30px] text-[15px] font-poppins font-normal text-gray-55 text-center'>Thank you choosing for Crownity. Your Profile is under Review. Once Admin will verify then you will be able to use .</p>
+                    <p className='   md:text-[30px] text-[15px] font-poppins font-normal text-gray-55 text-center'>Thank you so much for choosing crownity. Your profile is successfully submitted and and you are ready to go</p>
                     <div className='w-full'>
-                        <Link to="/business/approved">
-                            <ButtonSquare className='w-full bg-brown-A43 text-background  p-[32px]  font-extrabold text-[14px] font-manrope' variant='secondary' >Continue</ButtonSquare>
+                        <Link to="/">
+                            <ButtonSquare className='w-full bg-brown-A43 text-background  p-[32px]  font-extrabold text-[14px] font-manrope' variant='secondary' >Visit the Site</ButtonSquare>
                         </Link>
                     </div>
                 </div>
@@ -26,4 +26,4 @@ const ProfileUnderReview = () => {
     )
 }
 
-export default ProfileUnderReview       
+export default ProfileUnderProcess      

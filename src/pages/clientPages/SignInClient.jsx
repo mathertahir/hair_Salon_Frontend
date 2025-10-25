@@ -51,6 +51,8 @@ const SignInClient = () => {
             const user = response.data?.responseData?.data.user;
             const roleType = response.data?.responseData?.data.user.roleType;
             const businessProfile = response.data?.responseData?.businessProfile
+            const subscription = response.data?.responseData?.subscription
+
 
             console.log(businessProfile)
             const responseMessage = response.data?.responseMessage[0];
@@ -60,6 +62,8 @@ const SignInClient = () => {
                 auth.handleRoleType(roleType);
                 if (id === "1") {
                     auth.handleBusinessProfile(businessProfile)
+                    auth.handleUserSubscription(subscription)
+
                 }
                 toast.success(`${responseMessage}`);
                 navigate("/");

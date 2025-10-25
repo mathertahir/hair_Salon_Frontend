@@ -18,9 +18,13 @@ export const handleApiError = (error) => {
 };
 
 export const formatDate = (dateString) => {
+  console.log("commingDate", dateString);
   const date = new Date(dateString);
+
   const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
+  const monthName = date.toLocaleString("default", { month: "short" });
   const year = date.getFullYear();
-  return `${day}-${month}-${year}`;
+
+  return `${day}-${monthName}-${year}`;
 };
+

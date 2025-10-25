@@ -1,165 +1,240 @@
-import React, { useState } from 'react'
+// import React, { useState, useContext } from "react";
+// import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
+// import useAPI from "../../services/baseUrl/useApiHook";
+// import { AuthContext } from "../../services/context/AuthContext";
+// import { ToastService } from "../../utils/ToastService";
+// import { useNavigate } from "react-router-dom";
 
-import mastercard from '../../assets/mastercard.png'
-import { ButtonSquare } from '../../components/ui/buttonSquare'
-import { Link } from 'react-router-dom'
-import { FaCross } from 'react-icons/fa'
-import { RxCross1 } from "react-icons/rx";
-import review from '../../assets/profileunderreview.png'
-import congratulation from '../../assets/congrats.png'
-const PaymentForm = () => {
+// const PaymentForm = () => {
+//     const stripe = useStripe();
+//     const elements = useElements();
+//     const API = useAPI();
+//     const { authToken, user } = useContext(AuthContext);
+//     const navigate = useNavigate();
 
-    const [isOpen, setIsOpen] = useState(false);
-    const [activebtn, setActivebtn] = useState(2);
+//     const [loading, setLoading] = useState(false);
+//     const [cardholder, setCardholder] = useState("");
 
-    const handleroleType = () => {
-        localStorage.setItem("roleType", "2");
-        localStorage.setItem('token', '1234567890');
+//     const handleSubmit = async (e) => {
+//         e.preventDefault();
+//         if (!stripe || !elements) return;
 
+//         setLoading(true);
+//         try {
+//             // Confirm the setup (no redirect)
+//             const result = await stripe.confirmSetup({
+//                 elements,
+//                 confirmParams: {
+//                     payment_method_data: {
+//                         billing_details: { name: cardholder || user?.name || "Unknown" },
+//                     },
+//                 },
+//                 redirect: "if_required",
+//             });
+
+//             if (result.error) {
+//                 ToastService.error(result.error.message);
+//                 setLoading(false);
+//                 return;
+//             }
+
+//             const setupIntent = result.setupIntent;
+//             if (setupIntent?.status === "succeeded") {
+//                 const stripePaymentMethodId = setupIntent.payment_method;
+
+//                 // Save the card to your backend
+//                 await API.post(
+//                     "/api/business/payment/card",
+//                     {
+//                         stripeCustomerId: user?.stripeCustomerId,
+//                         stripePaymentMethodId,
+//                     },
+//                     { headers: { Authorization: authToken } }
+//                 );
+
+//                 ToastService.success("Card saved successfully!");
+//                 navigate("/business/subscription");
+
+//             } else {
+//                 ToastService.error("Setup incomplete. Please try again.");
+//             }
+//         } catch (err) {
+//             console.error(err);
+//             ToastService.error("Error saving card");
+//         } finally {
+//             setLoading(false);
+//         }
+//     };
+
+//     return (
+//         <form onSubmit={handleSubmit} className="space-y-6">
+//             <div>
+//                 <label className="block text-sm font-medium text-gray-700 mb-2">
+//                     Cardholder Name
+//                 </label>
+//                 <input
+//                     type="text"
+//                     value={cardholder}
+//                     onChange={(e) => setCardholder(e.target.value)}
+//                     placeholder="Enter your full name"
+//                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-indigo-100"
+//                     required
+//                 />
+//             </div>
+
+//             <div>
+//                 <label className="block text-sm font-medium text-gray-700 mb-2">
+//                     Payment Details
+//                 </label>
+//                 <div className="border border-gray-200 rounded-lg p-3">
+//                     <PaymentElement options={{ layout: "tabs" }} />
+//                 </div>
+//             </div>
+
+//             <div className="flex justify-between mt-4">
+//                 <button
+//                     type="button"
+//                     onClick={() => window.history.back()}
+//                     className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg"
+//                     disabled={loading}
+//                 >
+//                     Cancel
+//                 </button>
+
+//                 <button
+//                     type="submit"
+//                     disabled={!stripe || loading}
+//                     className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+//                 >
+//                     {loading ? "Processing..." : "Save Card"}
+//                 </button>
+//             </div>
+//         </form>
+//     );
+// };
+
+// export default PaymentForm;
+
+
+import React, { useState, useContext } from "react";
+import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
+import useAPI from "../../services/baseUrl/useApiHook";
+import { AuthContext } from "../../services/context/AuthContext";
+import { ToastService } from "../../utils/ToastService";
+import { useNavigate } from "react-router-dom";
+
+const PaymentForm = ({ id }) => {
+    const stripe = useStripe();
+    const elements = useElements();
+    const API = useAPI();
+    const { authToken, user } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const [loading, setLoading] = useState(false);
+    const [cardholder, setCardholder] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!stripe || !elements) return;
+
+        setLoading(true);
+        try {
+            const result = await stripe.confirmSetup({
+                elements,
+                confirmParams: {
+                    payment_method_data: {
+                        billing_details: { name: cardholder || user?.name || "Unknown" },
+                    },
+                },
+                redirect: "if_required",
+            });
+
+            if (result.error) {
+                ToastService.error(result.error.message);
+                setLoading(false);
+                return;
+            }
+
+            const setupIntent = result.setupIntent;
+            if (setupIntent?.status === "succeeded") {
+                const stripePaymentMethodId = setupIntent.payment_method;
+
+                // Decide between POST and PUT based on presence of ID
+                const endpoint = "/api/business/payment/card";
+                const payload = {
+                    stripeCustomerId: user?.stripeCustomerId,
+                    stripePaymentMethodId,
+                };
+
+                if (id) {
+                    await API.put(`${endpoint}`, payload, {
+                        headers: { Authorization: authToken },
+                    });
+                    ToastService.success("Card updated successfully!");
+                } else {
+                    await API.post(endpoint, payload, {
+                        headers: { Authorization: authToken },
+                    });
+                    ToastService.success("Card saved successfully!");
+                }
+
+                navigate("/business/subscription");
+            } else {
+                ToastService.error("Setup incomplete. Please try again.");
+            }
+        } catch (err) {
+            console.error(err);
+            ToastService.error("Error saving card");
+        } finally {
+            setLoading(false);
+        }
     };
+
     return (
+        <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Cardholder Name
+                </label>
+                <input
+                    type="text"
+                    value={cardholder}
+                    onChange={(e) => setCardholder(e.target.value)}
+                    placeholder="Enter your full name"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-indigo-100"
+                    required
+                />
+            </div>
 
-        <>
-
-            <div className='bg-background'>
-                <div className='container'>
-                    <div className='py-20  flex flex-col gap-20'>
-                        <div className='flex flex-col justify-center items-center gap-6'>
-                            <h1 className='md:text-[60px] text-[20px]   font-bold text-black-14 font-playfair'>Pay Now</h1>
-                            <p className='text-[20px] font-normal font-playfair text-black-14'>Please add your correct payment detail and buy subscription</p>
-                        </div>
-
-
-                        <div className='w-full'>
-                            <form className='grid grid-cols-12 gap-4 sm:gap-6 md:gap-8'>
-                                <div className='p-[10px] border-[1px] border-white-E9 rounded-[5px] col-span-12'>
-                                    <div className='flex gap-3 items-center'>
-                                        <input
-                                            className="focus:border-none focus:outline-none border-none w-full bg-transparent"
-                                            type="text"
-                                            placeholder='Name'
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className='p-[10px] border-[1px] border-white-E9 rounded-[5px] col-span-12'>
-                                    <div className='flex gap-3 items-center'>
-                                        <div className='text-blueCD'>
-                                            <img src={mastercard} alt="mastercard" className='w-[50px] h-[50px]' />
-                                        </div>
-                                        <input
-                                            className="focus:border-none focus:outline-none border-none w-full bg-transparent"
-                                            type="text"
-                                            placeholder='Card Number'
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className='p-[10px] border-[1px] border-white-E9 rounded-[5px] col-span-12 lg:col-span-6'>
-                                    <div className='flex gap-3 items-center'>
-                                        <input
-                                            className="focus:border-none focus:outline-none border-none w-full bg-transparent"
-                                            type="date"
-                                            placeholder='Expiry Date'
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className='p-[10px] border-[1px] border-white-E9 rounded-[5px] col-span-12 lg:col-span-6'>
-                                    <div className='flex gap-3 items-center'>
-                                        <input
-                                            className="focus:border-none focus:outline-none border-none w-full bg-transparent"
-                                            type="text"
-                                            placeholder='CVV'
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className='col-span-12'>
-
-                                    <ButtonSquare
-                                        type="button"
-                                        className='bg-brown-A43 text-background p-[20px] font-extrabold text-[14px] font-manrope rounded-[8px] w-full'
-                                        variant='secondary'
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            setIsOpen(true);
-                                        }}
-                                    >
-                                        Pay Now
-                                    </ButtonSquare>
-
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-
-                    {isOpen && (
-                        <div
-                            className="fixed inset-0 z-50 flex justify-center items-center bg-black-050 "
-                            onClick={() => setIsOpen(false)} // close on outside click
-                        >
-                            <div
-                                className="relative p-4 w-full max-w-[98%] sm:w-[80%]  lg:w-[80%]  xl:max-w-[80%]  h-[80%]  sm:h-[90%] m-8 bg-background 
-                       rounded-[30px] shadow-sm overflow-y-auto flex flex-col justify-center items-center webkit-scrollbar-none 
-                        "
-                                onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
-                            >
-                                {/* Close button */}
-                                <button
-                                    type="button"
-                                    className="absolute top-3 right-2.5 text-gray-400 bg-transparent 
-                         hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 
-                         inline-flex justify-center items-center 
-                         "
-                                    onClick={() => setIsOpen(false)}
-                                >
-
-                                    <div className='text-red0'>
-                                        <RxCross1
-                                            size={22}
-                                        />
-                                    </div>
-
-                                    <span className="sr-only">Close modal</span>
-                                </button>
-
-                                {/* Modal Content */}
-                                =
-                                <div className='py-20 flex flex-col gap-4 justify-center items-center  px-0  px-[30px] 2xl:px-[100px]  '>
-                                    <div className=' '>
-                                        <img src={congratulation} alt="review" className='object-fit' />
-                                    </div>
-                                    <div className="   md:text-[30px] text-[15px]  md:text-[35px]  xl:text-[50px] font-poppins font-extrabold text-black"> Your Subscription Made</div>
-                                    <p className='   md:text-[25px] text-[15px] font-poppins font-normal text-gray-55 text-center'>Please subscription is made successfully and your are ready to move forward.</p>
-
-                                    <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 w-full'>
-                                        <div className='w-full' onMouseEnter={() => setActivebtn(1)}>
-                                            <Link to="/">
-                                                <ButtonSquare className={`w-full bg-transparent border border-brown-A43 text-brown-A43  py-[32px] px-[110px]  font-extrabold text-[14px] font-manrope ${activebtn === 1 ? 'bg-brown-A43 text-background' : ''} hover:bg-brown-A43 hover:text-background`} variant='secondary' >DISCARD</ButtonSquare>
-                                            </Link>
-                                        </div>
-
-                                        <div className='w-full' onMouseEnter={() => setActivebtn(2)}>
-                                            <Link to="/" onClick={handleroleType} >
-                                                <ButtonSquare className={`w-full bg-transparent border border-brown-A43 text-brown-A43  py-[32px]  px-[110px] font-extrabold text-[14px] font- ${activebtn === 2 ? 'bg-brown-A43 text-background' : ''} hover:bg-brown-A43 hover:text-background`} variant='secondary' >Continue</ButtonSquare>
-                                            </Link>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    )}
-
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Payment Details
+                </label>
+                <div className="border border-gray-200 rounded-lg p-3">
+                    <PaymentElement options={{ layout: "tabs" }} />
                 </div>
-            </div >
+            </div>
 
-        </>
+            <div className="flex justify-between mt-4">
+                <button
+                    type="button"
+                    onClick={() => window.history.back()}
+                    className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg"
+                    disabled={loading}
+                >
+                    Cancel
+                </button>
 
-    )
-}
+                <button
+                    type="submit"
+                    disabled={!stripe || loading}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+                >
+                    {loading ? "Processing..." : id ? "Update Card" : "Save Card"}
+                </button>
+            </div>
+        </form>
+    );
+};
 
-export default PaymentForm
+export default PaymentForm;

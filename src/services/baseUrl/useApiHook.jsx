@@ -33,6 +33,7 @@ const useAPI = () => {
                 localStorage.removeItem('auth_token');
                 localStorage.removeItem('user');
                 // Redirect to the login page
+                navigate('/')
             }
             return Promise.reject(error);
         }

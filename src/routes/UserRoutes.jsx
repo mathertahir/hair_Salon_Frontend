@@ -32,6 +32,8 @@ import BusinessProfile from "../pages/stylistPages/BusinessProfile.jsx";
 import BusinessProfileEdit from "../pages/stylistPages/BusinessProfileEdit.jsx";
 import ServicesPage from "../pages/stylistPages/ServicesPage.jsx";
 import ViewServicePage from "../pages/stylistPages/ViewServicePage.jsx";
+import PaymentPage from "../pages/stylistPages/PaymentPage.jsx";
+import ProtectedRoute from "../pages/stylistPages/ProtectedRoute.jsx";
 
 // Temporary placeholder components
 const Profile = () => (
@@ -93,16 +95,28 @@ const UserRoutes = () => {
 
         {
           path: "subscription",
-          element: <SubscriptionPage />,
+          element: (
+            <ProtectedRoute checkType="subscription">
+              <SubscriptionPage />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "services/:id?",
-          element: <ServicesPage />,
+          element: (
+            <ProtectedRoute checkType="subscription">
+              <ServicesPage />
+            </ProtectedRoute>
+          ),
         },
 
         {
           path: "viewService/:id?",
-          element: <ViewServicePage />,
+          element: (
+            <ProtectedRoute checkType="subscription">
+              <ViewServicePage />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "profile",
@@ -123,6 +137,8 @@ const UserRoutes = () => {
         { path: "profile-under-review", element: <ProfileUnderReview /> },
         { path: "approved", element: <ApprovedPage /> },
         { path: "pricing", element: <PricingPage /> },
+
+        { path: "payment-page/:id?", element: <PaymentPage /> },
       ],
     },
   ]);

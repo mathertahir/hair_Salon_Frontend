@@ -142,26 +142,9 @@ const BusinessSideBar = ({ open, setOpen }) => {
           </li>
 
 
+
+
           {/* <li>
-            <Link
-              to="/business/profile-under-review"
-              onClick={() => setOpen(false)}
-              className={`flex items-center p-2 rounded-lg transition-colors ${isActive("/business/profile-under-review")
-                ? "bg-brown-A43 text-white"
-                : "text-gray-900 hover:bg-gray-100"
-                }`}
-            >
-              <FaUsers
-                className={`mr-3 ${isActive("/business/profile-under-review")
-                  ? "text-white"
-                  : "text-gray-500"
-                  }`}
-              />
-              <span>Under Review</span>
-            </Link>
-          </li> */}
-          {/* 
-          <li>
             <Link
               to="/business/viewService/:id?"
               onClick={() => setOpen(false)}
