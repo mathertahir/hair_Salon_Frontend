@@ -3,9 +3,26 @@ import React, { createContext, useState, useEffect } from "react";
 export const AuthContext = createContext(undefined);
 
 export const AuthProvider = ({ children }) => {
+    const getInitial = (key) => {
+        try {
+            const value = localStorage.getItem(key);
+            return value ? JSON.parse(value) : null;
+        } catch {
+            return null;
+        }
+    };
+
+
     const [user, setUser] = useState(null);
     const [authToken, setAuthToken] = useState(null);
-    const [isAuthInitialized, setIsAuthInitialized] = useState(false); // Track auth initialization
+    const [isAuthInitialized, setIsAuthInitialized] = useState(false);
+    const [location, setLocation] = useState(() => getInitial('user_location') || {
+        name: 'Toronto',
+        address: 'Toronto, ON, Canada',
+        lat: 43.78270459824506,
+        lng: -79.67251148412838
+    });
+    // Track auth initialization
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
@@ -57,8 +74,13 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("subscriptionInfo", JSON.stringify(Info));
     }
 
+    const handleUserLocation = (Info) => {
+        localStorage.setItem("user_location", JSON.stringify(Info));
+    }
+
+
     return (
-        <AuthContext.Provider value={{ user, login, logout, updateUser, handleRoleType, authToken, handleBusinessProfile, handleUserSubscription }}>
+        <AuthContext.Provider value={{ user, login, logout, updateUser, handleRoleType, authToken, handleBusinessProfile, handleUserSubscription, handleUserLocation }}>
             {/* Show loading screen or children only after auth state is initialized */}
             {isAuthInitialized ? children : ""}
         </AuthContext.Provider>

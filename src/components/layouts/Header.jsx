@@ -14,6 +14,8 @@ import {
   FiGlobe,
   FiLogOut,
 } from "react-icons/fi";
+import { CiLocationOn } from "react-icons/ci";
+import { MdLocationOn } from "react-icons/md";
 import profile from "../../assets/profile.png";
 import logo from "../../assets/logo.png";
 import dummyImage from "../../assets/avatar.webp";
@@ -28,6 +30,7 @@ import { Navigate } from "react-router-dom";
 import { handleApiError } from "../../utils/helpers/HelperFunction";
 import useAPI from "../../services/baseUrl/useApiHook";
 import { toast } from "react-toastify";
+import LocationModal from "../LocationModal.jsx";
 const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
   // const { user } = useContext(AuthContext);
   const auth = useContext(AuthContext);
@@ -38,6 +41,12 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
   console.log(location.pathname, "Current Location");
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const roleType = auth?.user?.roleType;
+  const [isLocationOpen, setIsLocationOpen] = useState(false);
+  const [userLocation, setUserLocation] = useState(
+    localStorage.getItem("userLocation")
+      ? JSON.parse(localStorage.getItem("userLocation"))
+      : null
+  );
 
   const apiUrl = roleType === "1" ? "/api/auth/business/logout" : "/api/auth/logout";
 
@@ -78,11 +87,85 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
   const profilePhoto = auth?.user?.profilePhoto?.url || dummyImage;
   // useEffect for profile menu or other logic can go here, but do not set selectedLang here
   const id = 1;
+
+
+  useEffect(() => {
+    if (!userLocation) {
+      checkLocationPermission();
+    }
+  }, []);
+
+  // ✅ Check browser permission for geolocation
+  const checkLocationPermission = async () => {
+    if (!navigator.permissions) {
+      // Fallback: directly try to request
+      requestGeolocation();
+      return;
+    }
+
+    try {
+      const result = await navigator.permissions.query({ name: "geolocation" });
+      if (result.state === "granted") {
+        requestGeolocation();
+      } else if (result.state === "prompt") {
+        requestGeolocation(); // show browser popup
+      } else if (result.state === "denied") {
+        setIsLocationOpen(true); // open custom modal if denied
+      }
+
+      result.onchange = () => {
+        if (result.state === "denied") setIsLocationOpen(true);
+      };
+    } catch (error) {
+      console.error("Permission check failed:", error);
+      setIsLocationOpen(true);
+    }
+  };
+
+  // ✅ Ask for location using browser
+  const requestGeolocation = () => {
+    if (!navigator.geolocation) {
+      setIsLocationOpen(true);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
+
+        // Reverse geocode using OpenStreetMap
+        const res = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+        );
+        const data = await res.json();
+
+        const detected = {
+          name: data?.address?.city || "Unknown",
+          address: data?.display_name || "Unknown Location",
+          lat: latitude,
+          lng: longitude,
+        };
+
+        localStorage.setItem("userLocation", JSON.stringify(detected));
+        setUserLocation(detected);
+      },
+      () => {
+        // user denied or failed to detect → open modal
+        setIsLocationOpen(true);
+      }
+    );
+  };
+
+  // 🟢 Callback when location is updated from modal
+  const handleLocationChange = (locationData) => {
+    setUserLocation(locationData);
+    localStorage.setItem("userLocation", JSON.stringify(locationData));
+  };
   return (
     <>
       <div className="bg-white-FD">
         <div className="container">
-          <header className="py-[25px]   flex items-center justify-between   z-50">
+          <header className="py-[25px]   flex items-center justify-between gap-5   z-50">
             {/* Mobile Menu Button */}
 
             <div className="flex md:hidden">
@@ -96,7 +179,10 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
             </div>
 
             {/* Logo */}
+
             <div className="flex-1 flex  items-center hidden md:block">
+
+
               <Link to="/" className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-brown-31 rounded-lg flex items-center justify-center">
                   <div className="w-6 h-6 bg-black rounded-sm ">
@@ -104,7 +190,21 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                   </div>
                 </div>
               </Link>
+
             </div>
+
+            <button
+              onClick={() => setIsLocationOpen(true)}
+              className="flex items-center gap-2 text-gray-700 hover:text-brown-A43"
+            >
+
+
+              {userLocation
+                ? userLocation.name
+                : "Detect your location"}
+
+              <div className="text-brown-A43 ">    <MdLocationOn size={24} /></div>
+            </button>
 
             {/* Right Side - Language Selector and User Menu */}
             <div className="flex items-center space-x-9 w-full justify-end">
@@ -132,6 +232,21 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                       <div className="absolute bottom-0 left-0 w-full h-0.5 bg-foreground active-tab-border"></div>
                     )}
                   </Link>
+
+                  <Link
+                    to="/userServices"
+                    className={`relative text-sm font-medium transition-colors pb-2 ${isActive("/about")
+                      ? "text-foreground"
+                      : "text-black hover:text-foreground"
+                      }`}
+                  >
+                    Services
+                    {isActive("/userServices") && (
+                      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-foreground active-tab-border"></div>
+                    )}
+                  </Link>
+
+
                   <Link
                     to="/contact"
                     className={`relative text-sm font-medium transition-colors pb-2 ${isActive("/contact")
@@ -433,6 +548,17 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
           >
             About Us
           </Link>
+
+          <Link
+            to="/userServices"
+            onClick={closeSidebar}
+            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${isActive("/userServices")
+              ? "bg-brown-31 text-background"
+              : "text-foreground hover:bg-gray-100"
+              }`}
+          >
+            Services
+          </Link>
           <Link
             to="/contact"
             onClick={closeSidebar}
@@ -453,6 +579,12 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
         {/* Sidebar User Section */}
         <div className="px-6 py-4 border-t border-light-brown-11p mt-auto"></div>
       </aside>
+
+      <LocationModal
+        visible={isLocationOpen}
+        onClose={() => setIsLocationOpen(false)}
+        onLocationChange={handleLocationChange}
+      />
     </>
   );
 };

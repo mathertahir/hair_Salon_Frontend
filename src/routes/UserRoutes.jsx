@@ -35,6 +35,8 @@ import ViewServicePage from "../pages/stylistPages/ViewServicePage.jsx";
 import PaymentPage from "../pages/stylistPages/PaymentPage.jsx";
 import ProtectedRoute from "../pages/stylistPages/ProtectedRoute.jsx";
 
+import PublicServicesPage from "../pages/clientPages/PublicServicesPage.jsx";
+
 // Temporary placeholder components
 const Profile = () => (
   <div className="p-6">
@@ -81,6 +83,7 @@ const UserRoutes = () => {
         { path: "stylist-booking-info/:id", element: <StylistBookingInfo /> },
         { path: "salon-detailed-info/:id", element: <SalonDetailedInfo /> },
         { path: "profile-setup/:id?", element: <ProfileSetup /> },
+        { path: "userServices", element: <PublicServicesPage /> }
       ],
     },
 
