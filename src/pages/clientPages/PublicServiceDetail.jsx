@@ -189,7 +189,7 @@ const PublicServiceDetail = () => {
                             </div>
 
 
-                            <Link to={`/booking`} >
+                            <Link to={`/booking/${service?._id}`} >
                                 <ButtonSquare className='w-full bg-brown-A43 text-background  p-[32px]  font-extrabold text-[14px] font-manrope' variant='secondary' >Start Booking</ButtonSquare>
                             </Link>
                         </div>

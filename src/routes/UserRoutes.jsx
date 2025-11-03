@@ -68,7 +68,7 @@ const UserRoutes = () => {
         { path: "settings", element: <Settings /> },
         { path: "salon-detail/:id", element: <SalonDetailPage /> },
         { path: "serviceDetail/:id?", element: <PublicServiceDetail /> },
-        { path: "booking", element: <BookingPage /> },
+        { path: "booking/:id?", element: <BookingPage /> },
         { path: "booking-confirm/:id", element: <BookingConfirmPage /> },
         { path: "role/:id?", element: <RoleSelection /> },
         { path: "signup-client", element: <SignupClient /> },

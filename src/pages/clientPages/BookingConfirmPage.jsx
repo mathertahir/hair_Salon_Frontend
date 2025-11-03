@@ -12,11 +12,12 @@ const BookingConfirmPage = () => {
           <div className=' '>
             <img src={confirm} alt="confirm" className='object-fit' />
           </div>
-          <div className="   md:text-[30px] text-[15px]  md:text-[35px]  xl:text-[50px] font-poppins font-extrabold text-black"> Booking ID: {id}</div>
-          <p className='   md:text-[30px] text-[15px] font-poppins font-normal text-gray-55 text-center'>Thank you so much for choosing crownity. Your booking is successfully completed and and you are ready to go</p>
+          <div className="   md:text-[30px] text-[15px]  md:text-[35px]  text-center font-poppins font-extrabold text-brown-A43"> Booking ID </div>
+          <div className="   md:text-[30px] text-[15px]  md:text-[35px]  text-center font-poppins font-extrabold text-black-14"> {id}</div>
+          <div className='   md:text-[30px] text-[15px] font-poppins font-normal text-gray-55 text-center'>Thank you so much for choosing crownity. Your booking is successfully completed and and you are ready to go</div>
           <div className='w-full'>
             <Link to="/">
-              <ButtonSquare className='w-full bg-brown-A43 text-background  p-[32px]  font-extrabold text-[14px] font-manrope' variant='secondary' >View In Calendar</ButtonSquare>
+              <ButtonSquare className='w-full bg-brown-A43 text-background  p-[32px]  font-extrabold text-[14px] font-manrope' variant='secondary' >Home</ButtonSquare>
             </Link>
           </div>
         </div>
