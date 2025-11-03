@@ -359,6 +359,19 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                         </Link>
                       </div>
 
+                      <div
+                        className={`${roleType == "0" ? "block" : "hidden"}`}
+                      >
+                        <Link
+                          to={`/user/profile`}
+                          onClick={closeProfileMenu}
+                        >
+                          <p className="text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300">
+                            Dashboard
+                          </p>
+                        </Link>
+                      </div>
+
                       <div onClick={closeProfileMenu}>
                         {" "}
                         <p
@@ -377,7 +390,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                 className={`flex items-center space-x-4 md:hidden ${token?.length > 0 ? "hidden" : "block"
                   }`}
               >
-                <Link to={"/role/3"}>
+                <Link to={"/role/0"}>
                   <ButtonSquare
                     variant="outline"
                     className=" text-base  font-bold font-manrope"

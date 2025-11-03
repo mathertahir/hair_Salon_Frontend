@@ -64,14 +64,14 @@ const HairstylistCard = ({
                         </div>
 
                         {/* <Link to={`/salon-detail/${id}`}> */}
-                        <Link to={`/salon-detail/${id}`} onClick={onBookNow}>
+                        <Link to={`/serviceDetail/${id}`} onClick={onBookNow}>
 
                             <ButtonSquare
                                 variant='outline'
                                 className='w-full p-4 text-base font-playfair font-bold text-brown-A43 hover:bg-brown-A43 hover:text-background border-brown-A43 hover:border-none mt-auto'
                                 onClick={onBookNow}
                             >
-                                Book Now
+                                View Detail
                             </ButtonSquare>
                         </Link>
                     </div>

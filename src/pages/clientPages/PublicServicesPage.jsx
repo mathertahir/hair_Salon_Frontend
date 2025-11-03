@@ -186,7 +186,7 @@ const PublicServicesPage = () => {
                 return;
             }
 
-            const response = await API.get("/api/user/services/viewAll/list", {
+            const response = await API.get("/api/user/services/list", {
                 params: {
                     latitude: userLocation.lat,
                     longitude: userLocation.lng,

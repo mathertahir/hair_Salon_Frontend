@@ -36,6 +36,9 @@ import PaymentPage from "../pages/stylistPages/PaymentPage.jsx";
 import ProtectedRoute from "../pages/stylistPages/ProtectedRoute.jsx";
 
 import PublicServicesPage from "../pages/clientPages/PublicServicesPage.jsx";
+import UserProfile from "../pages/clientPages/UserProfile.jsx";
+import UserLayout from "../components/layouts/UserLayout.jsx";
+import PublicServiceDetail from "../pages/clientPages/PublicServiceDetail.jsx";
 
 // Temporary placeholder components
 const Profile = () => (
@@ -64,6 +67,7 @@ const UserRoutes = () => {
         { path: "profile", element: <Profile /> },
         { path: "settings", element: <Settings /> },
         { path: "salon-detail/:id", element: <SalonDetailPage /> },
+        { path: "serviceDetail/:id?", element: <PublicServiceDetail /> },
         { path: "booking", element: <BookingPage /> },
         { path: "booking-confirm/:id", element: <BookingConfirmPage /> },
         { path: "role/:id?", element: <RoleSelection /> },
@@ -142,6 +146,30 @@ const UserRoutes = () => {
         { path: "pricing", element: <PricingPage /> },
 
         { path: "payment-page/:id?", element: <PaymentPage /> },
+      ],
+    },
+
+
+    {
+      path: "/user",
+      element: <UserLayout />,
+      children: [
+        {
+          index: true,
+          element: <UserProfile />,
+        },
+
+
+
+
+
+        {
+          path: "profile",
+          element: <UserProfile />,
+        },
+
+
+
       ],
     },
   ]);
