@@ -41,6 +41,8 @@ import UserLayout from "../components/layouts/UserLayout.jsx";
 import PublicServiceDetail from "../pages/clientPages/PublicServiceDetail.jsx";
 import ClientBookingsList from "../pages/clientPages/ClientBookingsList.jsx";
 import ClientBookingDetail from "../pages/clientPages/ClientBookingDetail.jsx";
+import StylistBookingDetail from "../pages/stylistPages/StylistBookingDetail.jsx";
+import StylistBookingList from "../pages/stylistPages/StylistBookingList.jsx";
 
 // Temporary placeholder components
 const Profile = () => (
@@ -148,6 +150,8 @@ const UserRoutes = () => {
         { path: "pricing", element: <PricingPage /> },
 
         { path: "payment-page/:id?", element: <PaymentPage /> },
+        { path: "bookings", element: <StylistBookingList /> },
+        { path: "bookingDetails/:id", element: <StylistBookingDetail /> },
       ],
     },
 

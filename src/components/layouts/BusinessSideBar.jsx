@@ -141,6 +141,25 @@ const BusinessSideBar = ({ open, setOpen }) => {
             </Link>
           </li>
 
+          <li>
+            <Link
+              to="/business/bookings"
+              onClick={() => setOpen(false)}
+              className={`flex items-center p-2 rounded-lg transition-colors ${isActive("/business/bookings") || location.pathname.includes("/business/bookingDetails")
+                ? "bg-brown-A43 text-white"
+                : "text-gray-900 hover:bg-gray-100"
+                }`}
+            >
+              <FaTasks
+                className={`mr-3 ${isActive("/business/bookings") || location.pathname.includes("/business/bookingDetails")
+                  ? "text-white"
+                  : "text-gray-500"
+                  }`}
+              />
+              <span>Bookings</span>
+            </Link>
+          </li>
+
 
 
 

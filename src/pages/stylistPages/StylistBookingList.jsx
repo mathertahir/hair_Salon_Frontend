@@ -1,3 +1,4 @@
+
 import React, { useContext, useEffect, useState } from "react";
 import useAPI from "../../services/baseUrl/useApiHook";
 import { AuthContext } from "../../services/context/AuthContext";
@@ -10,9 +11,9 @@ import { FaTrash, FaEdit } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
 import { Link } from "react-router-dom";
-import FilterDropdown from '../../components/FilterDropdown';// ✅ Make sure this exists
+import FilterDropdown from '../../components/FilterDropdown';
 
-const ClientBookingsList = () => {
+const StylistBookingList = () => {
     const API = useAPI();
     const { authToken } = useContext(AuthContext);
 
@@ -36,7 +37,7 @@ const ClientBookingsList = () => {
     const fetchUserBookings = async () => {
         setLoading(true);
         try {
-            let url = `/api/user/booking/list?page=${currentPage}&limit=${limit}`;
+            let url = `/api/business/booking/list?page=${currentPage}&limit=${limit}`;
             if (selectedFilter !== null) url += `&active=${selectedFilter}`;
             if (bookingDate) url += `&bookingDate=${bookingDate}`;
 
@@ -61,7 +62,7 @@ const ClientBookingsList = () => {
     // ✅ Delete Booking
     const handleDelete = async () => {
         try {
-            await API.delete(`/api/user/booking/${selectedBookingId}`, {
+            await API.delete(`/api/business/booking/${selectedBookingId}`, {
                 headers: { Authorization: authToken },
             });
             ToastService.success("Booking deleted successfully!");
@@ -78,7 +79,7 @@ const ClientBookingsList = () => {
     const handleUpdateBooking = async (id, status) => {
         try {
             await API.put(
-                `/api/user/booking/${id}`,
+                `/api/business/booking/${id}`,
                 { bookingStatus: status },
                 { headers: { Authorization: authToken } }
             );
@@ -181,17 +182,26 @@ const ClientBookingsList = () => {
                                     <td className="px-6 py-4 flex items-center gap-3">
                                         {/* ✅ View Detail */}
                                         <Link
-                                            to={`/user/bookingDetails/${booking._id}`}
+                                            to={`/business/bookingDetails/${booking._id}`}
                                             className="text-brown-A43"
                                         >
                                             <FaRegEye size={18} />
                                         </Link>
 
                                         {/* ✅ Approve */}
-
+                                        {booking.bookingStatus === 0 && (
+                                            <button
+                                                onClick={() =>
+                                                    handleUpdateBooking(booking._id, 1)
+                                                }
+                                                className="text-green-600 hover:text-green-800"
+                                            >
+                                                <FaEdit size={18} />
+                                            </button>
+                                        )}
 
                                         {/* ✅ Complete */}
-                                        {booking.bookingStatus === 1 && (
+                                        {booking.active === 1 && (
                                             <button
                                                 onClick={() =>
                                                     handleUpdateBooking(booking._id, 2)
@@ -203,15 +213,7 @@ const ClientBookingsList = () => {
                                         )}
 
                                         {/* ✅ Delete */}
-                                        <button
-                                            onClick={() => {
-                                                setSelectedBookingId(booking._id);
-                                                setDeleteModalOpen(true);
-                                            }}
-                                            className="text-red-600 hover:text-red-800"
-                                        >
-                                            <FaTrash size={18} />
-                                        </button>
+
                                     </td>
                                 </tr>
                             ))
@@ -236,47 +238,9 @@ const ClientBookingsList = () => {
             />
 
             {/* ✅ Delete Modal */}
-            {deleteModalOpen && (
-                <div className="fixed inset-0 z-50 flex justify-center items-center bg-black-050">
-                    <div
-                        className="relative p-4 w-full max-w-md bg-white rounded-lg shadow-lg"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <button
-                            type="button"
-                            className="absolute top-3 right-3 text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
-                            onClick={() => setDeleteModalOpen(false)}
-                        >
-                            <RxCross1 size={20} />
-                        </button>
 
-                        <div className="p-5 text-center">
-                            <h3 className="mb-5 text-lg font-normal text-gray-600">
-                                Are you sure you want to delete this booking?
-                            </h3>
-
-                            <div className="flex justify-center gap-3">
-                                <button
-                                    onClick={handleDelete}
-                                    type="button"
-                                    className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5"
-                                >
-                                    Yes, Delete
-                                </button>
-                                <button
-                                    onClick={() => setDeleteModalOpen(false)}
-                                    type="button"
-                                    className="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
-    );
-};
+    )
+}
 
-export default ClientBookingsList;
+export default StylistBookingList
