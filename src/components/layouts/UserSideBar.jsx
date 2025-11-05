@@ -17,6 +17,7 @@ const UserSideBar = ({ open, setOpen }) => {
   const location = useLocation(); // ✅ Get current route path
 
   const isActive = (path) => location.pathname === path;
+  
   return (
     <aside
       className={`fixed top-0 left-0 z-40 w-64 h-screen pt-16 transition-transform ${open ? "translate-x-0" : "-translate-x-full"
@@ -46,21 +47,20 @@ const UserSideBar = ({ open, setOpen }) => {
             <Link
               to="/user/bookings"
               onClick={() => setOpen(false)}
-              className={`flex items-center p-2 rounded-lg transition-colors ${isActive("/user/bookings")
+              className={`flex items-center p-2 rounded-lg transition-colors ${isActive("/user/bookings") || location.pathname.includes("/user/bookingDetails")
                 ? "bg-brown-A43 text-white"
                 : "text-gray-900 hover:bg-gray-100"
                 }`}
             >
-              <MdOutlinePerson2
-                className={`mr-3 ${isActive("/user/bookings") ? "text-white" : "text-gray-500"
+              <FaTasks
+                className={`mr-3 ${isActive("/user/bookings") || location.pathname.includes("/user/bookingDetails")
+                  ? "text-white"
+                  : "text-gray-500"
                   }`}
               />
               <span>Bookings</span>
             </Link>
           </li>
-
-
-
 
           {/* <li>
             <Link

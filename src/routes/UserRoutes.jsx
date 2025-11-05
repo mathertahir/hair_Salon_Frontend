@@ -40,6 +40,7 @@ import UserProfile from "../pages/clientPages/UserProfile.jsx";
 import UserLayout from "../components/layouts/UserLayout.jsx";
 import PublicServiceDetail from "../pages/clientPages/PublicServiceDetail.jsx";
 import ClientBookingsList from "../pages/clientPages/ClientBookingsList.jsx";
+import ClientBookingDetail from "../pages/clientPages/ClientBookingDetail.jsx";
 
 // Temporary placeholder components
 const Profile = () => (
@@ -171,6 +172,10 @@ const UserRoutes = () => {
         {
           path: "bookings",
           element: <ClientBookingsList />,
+        },
+        {
+          path: "bookingDetails/:id",
+          element: <ClientBookingDetail />,
         }
 
 

@@ -181,7 +181,7 @@ const ClientBookingsList = () => {
                                     <td className="px-6 py-4 flex items-center gap-3">
                                         {/* ✅ View Detail */}
                                         <Link
-                                            to={`/user/booking/${booking._id}`}
+                                            to={`/user/bookingDetails/${booking._id}`}
                                             className="text-brown-A43"
                                         >
                                             <FaRegEye size={18} />
