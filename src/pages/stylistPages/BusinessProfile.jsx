@@ -97,6 +97,14 @@ const BusinessProfile = () => {
                         {businessProfile?.operatingHours}
                     </p>
                 </div>
+                <div className="flex flex-col xs:flex-row justify-between xs:items-center gap-2 flex-wrap">
+                    <h1 className="md:text-[25px] text-[14px] font-bold text-black-14 font-manrope">
+                        Business Operating Days
+                    </h1>
+                    <p className="text-[14px] md:text-[20px] font-medium font-manrope text-brown-A43">
+                        {businessProfile?.operatingDays}
+                    </p>
+                </div>
 
                 <div className="flex flex-col xs:flex-row justify-between xs:items-center gap-2 flex-wrap">
                     <h1 className="md:text-[25px] text-[14px] font-bold text-black-14 font-manrope">

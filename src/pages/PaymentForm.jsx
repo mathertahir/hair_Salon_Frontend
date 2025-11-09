@@ -1,11 +1,14 @@
+
+
+
 // import React, { useState, useContext } from "react";
 // import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
-// import useAPI from "../../services/baseUrl/useApiHook";
-// import { AuthContext } from "../../services/context/AuthContext";
-// import { ToastService } from "../../utils/ToastService";
+// import useAPI from "../services/baseUrl/useApiHook";
+// import { AuthContext } from "../services/context/AuthContext";
+// import { ToastService } from "../utils/ToastService";
 // import { useNavigate } from "react-router-dom";
 
-// const PaymentForm = () => {
+// const PaymentForm = ({ id }) => {
 //     const stripe = useStripe();
 //     const elements = useElements();
 //     const API = useAPI();
@@ -21,7 +24,6 @@
 
 //         setLoading(true);
 //         try {
-//             // Confirm the setup (no redirect)
 //             const result = await stripe.confirmSetup({
 //                 elements,
 //                 confirmParams: {
@@ -42,19 +44,26 @@
 //             if (setupIntent?.status === "succeeded") {
 //                 const stripePaymentMethodId = setupIntent.payment_method;
 
-//                 // Save the card to your backend
-//                 await API.post(
-//                     "/api/business/payment/card",
-//                     {
-//                         stripeCustomerId: user?.stripeCustomerId,
-//                         stripePaymentMethodId,
-//                     },
-//                     { headers: { Authorization: authToken } }
-//                 );
+//                 // Decide between POST and PUT based on presence of ID
+//                 const endpoint = "/api/business/payment/card";
+//                 const payload = {
+//                     stripeCustomerId: user?.stripeCustomerId,
+//                     stripePaymentMethodId,
+//                 };
 
-//                 ToastService.success("Card saved successfully!");
+//                 if (id) {
+//                     await API.put(`${endpoint}`, payload, {
+//                         headers: { Authorization: authToken },
+//                     });
+//                     ToastService.success("Card updated successfully!");
+//                 } else {
+//                     await API.post(endpoint, payload, {
+//                         headers: { Authorization: authToken },
+//                     });
+//                     ToastService.success("Card saved successfully!");
+//                 }
+
 //                 navigate("/business/subscription");
-
 //             } else {
 //                 ToastService.error("Setup incomplete. Please try again.");
 //             }
@@ -106,7 +115,7 @@
 //                     disabled={!stripe || loading}
 //                     className="px-4 py-2 bg-blue-600 text-white rounded-lg"
 //                 >
-//                     {loading ? "Processing..." : "Save Card"}
+//                     {loading ? "Processing..." : id ? "Update Card" : "Save Card"}
 //                 </button>
 //             </div>
 //         </form>
@@ -118,12 +127,12 @@
 
 import React, { useState, useContext } from "react";
 import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
-import useAPI from "../../services/baseUrl/useApiHook";
-import { AuthContext } from "../../services/context/AuthContext";
-import { ToastService } from "../../utils/ToastService";
+import useAPI from "../services/baseUrl/useApiHook";
+import { AuthContext } from "../services/context/AuthContext";
+import { ToastService } from "../utils/ToastService";
 import { useNavigate } from "react-router-dom";
 
-const PaymentForm = ({ id }) => {
+const PaymentForm = ({ id, bookingData }) => {
     const stripe = useStripe();
     const elements = useElements();
     const API = useAPI();
@@ -132,6 +141,9 @@ const PaymentForm = ({ id }) => {
 
     const [loading, setLoading] = useState(false);
     const [cardholder, setCardholder] = useState("");
+
+
+    console.log(bookingData, "Comming Booking Data")
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -159,7 +171,26 @@ const PaymentForm = ({ id }) => {
             if (setupIntent?.status === "succeeded") {
                 const stripePaymentMethodId = setupIntent.payment_method;
 
-                // Decide between POST and PUT based on presence of ID
+                // 🧠 CASE 1: Booking Payment
+                if (bookingData?.id) {
+                    const payload = {
+                        stripePaymentMethodId,
+                        rating: bookingData.rating,
+                        comment: bookingData.comment,
+                    };
+
+                    await API.post(
+                        `/api/user/booking/${bookingData.id}/processPayment`,
+                        payload,
+                        { headers: { Authorization: authToken } }
+                    );
+
+                    ToastService.success("Booking payment successful!");
+                    navigate("/user/bookings");
+                    return;
+                }
+
+                // 💳 CASE 2: Save or Update Card
                 const endpoint = "/api/business/payment/card";
                 const payload = {
                     stripeCustomerId: user?.stripeCustomerId,
@@ -167,7 +198,7 @@ const PaymentForm = ({ id }) => {
                 };
 
                 if (id) {
-                    await API.put(`${endpoint}`, payload, {
+                    await API.put(endpoint, payload, {
                         headers: { Authorization: authToken },
                     });
                     ToastService.success("Card updated successfully!");
@@ -184,7 +215,7 @@ const PaymentForm = ({ id }) => {
             }
         } catch (err) {
             console.error(err);
-            ToastService.error("Error saving card");
+            ToastService.error("Error processing payment");
         } finally {
             setLoading(false);
         }
@@ -230,7 +261,13 @@ const PaymentForm = ({ id }) => {
                     disabled={!stripe || loading}
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg"
                 >
-                    {loading ? "Processing..." : id ? "Update Card" : "Save Card"}
+                    {loading
+                        ? "Processing..."
+                        : bookingData?.id
+                            ? "Pay for Booking"
+                            : id
+                                ? "Update Card"
+                                : "Save Card"}
                 </button>
             </div>
         </form>

@@ -20,7 +20,7 @@ import StylistSignUpPage from "../pages/stylistPages/StylistSignUpPage.jsx";
 import ProfileUnderReview from "../pages/stylistPages/ProfileUnderReview.jsx";
 import ApprovedPage from "../pages/stylistPages/ApprovedPage.jsx";
 import PricingPage from "../pages/stylistPages/PricingPage.jsx";
-import PaymentForm from "../pages/stylistPages/PaymentForm.jsx";
+import PaymentForm from "../pages/PaymentForm.jsx";
 import StylistBookingPage from "../pages/stylistPages/StylistBookingPage.jsx";
 import StylistBookingInfo from "../pages/stylistPages/StylistBookingInfo.jsx";
 import SalonDetailedInfo from "../pages/stylistPages/SalonDetailedInfo.jsx";
@@ -32,7 +32,7 @@ import BusinessProfile from "../pages/stylistPages/BusinessProfile.jsx";
 import BusinessProfileEdit from "../pages/stylistPages/BusinessProfileEdit.jsx";
 import ServicesPage from "../pages/stylistPages/ServicesPage.jsx";
 import ViewServicePage from "../pages/stylistPages/ViewServicePage.jsx";
-import PaymentPage from "../pages/stylistPages/PaymentPage.jsx";
+import PaymentPage from "../pages/PaymentPage.jsx";
 import ProtectedRoute from "../pages/stylistPages/ProtectedRoute.jsx";
 
 import PublicServicesPage from "../pages/clientPages/PublicServicesPage.jsx";
@@ -43,6 +43,7 @@ import ClientBookingsList from "../pages/clientPages/ClientBookingsList.jsx";
 import ClientBookingDetail from "../pages/clientPages/ClientBookingDetail.jsx";
 import StylistBookingDetail from "../pages/stylistPages/StylistBookingDetail.jsx";
 import StylistBookingList from "../pages/stylistPages/StylistBookingList.jsx";
+import StylistConnectAccountInfo from "../pages/stylistPages/StylistConnectAccountInfo.jsx";
 
 // Temporary placeholder components
 const Profile = () => (
@@ -91,7 +92,7 @@ const UserRoutes = () => {
         { path: "stylist-booking-info/:id", element: <StylistBookingInfo /> },
         { path: "salon-detailed-info/:id", element: <SalonDetailedInfo /> },
         { path: "profile-setup/:id?", element: <ProfileSetup /> },
-        { path: "userServices", element: <PublicServicesPage /> }
+        { path: "userServices", element: <PublicServicesPage /> },
       ],
     },
 
@@ -152,9 +153,12 @@ const UserRoutes = () => {
         { path: "payment-page/:id?", element: <PaymentPage /> },
         { path: "bookings", element: <StylistBookingList /> },
         { path: "bookingDetails/:id", element: <StylistBookingDetail /> },
+        {
+          path: "connectAccountInfo",
+          element: <StylistConnectAccountInfo />,
+        },
       ],
     },
-
 
     {
       path: "/user",
@@ -164,10 +168,6 @@ const UserRoutes = () => {
           index: true,
           element: <UserProfile />,
         },
-
-
-
-
 
         {
           path: "profile",
@@ -180,10 +180,9 @@ const UserRoutes = () => {
         {
           path: "bookingDetails/:id",
           element: <ClientBookingDetail />,
-        }
+        },
 
-
-
+        { path: "payment-page/:id?", element: <PaymentPage /> },
       ],
     },
   ]);

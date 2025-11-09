@@ -32,6 +32,7 @@ const BusinessProfileEdit = () => {
         businessName: "",
         businessDescription: "",
         operatingHours: "",
+        operatingDays: "",
         businessPhone: "",
         longitude: "",
         latitude: "",
@@ -251,6 +252,18 @@ const BusinessProfileEdit = () => {
                     />
                 </div>
 
+
+                <div className="col-span-12 lg:col-span-6">
+                    <label className="text-[14px] font-bold font-manrop text-brown-A43">Operating Days :</label>
+                    <input
+                        type="text"
+                        value={formData.operatingDays}
+                        onChange={(e) => setFormData({ ...formData, operatingDays: e.target.value })}
+                        className="p-[10px] border border-white-E9 rounded-[5px] w-full focus:outline-none bg-transparent"
+                        placeholder="Mon - Fri"
+                    />
+                </div>
+
                 {/* ✅ Contact */}
                 <div className="col-span-12 lg:col-span-6">
                     <label className="text-[14px] font-bold font-manrop text-brown-A43">Business Contact :</label>
@@ -264,7 +277,7 @@ const BusinessProfileEdit = () => {
                 </div>
 
                 {/* ✅ Location Search */}
-                <div className="col-span-12 lg:col-span-6">
+                <div className="col-span-12 ">
                     <label className="text-[14px] font-bold font-manrop text-brown-A43">Location :</label>
                     <MapSearchField value={formData.streetAddress} onChange={handleMapChange} />
                 </div>

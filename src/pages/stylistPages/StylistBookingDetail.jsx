@@ -52,13 +52,13 @@ const StylistBookingDetail = () => {
         );
     }
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4  ">
             <div><GoBack /></div>
 
             <p className="text-brown-A43 font-playfair font-bold sm:text-[30px] text-[20px]">
                 Booking Info
             </p>
-            <div className="flex flex-col gap-6 h-full">
+            <div className="flex flex-col gap-6 h-full w-full">
                 {/* ===== Subscription Status ===== */}
                 <div className="flex flex-col xs:flex-row justify-between xs:items-center gap-2 flex-wrap">
                     <div className="flex flex-col gap-6">
@@ -101,15 +101,20 @@ const StylistBookingDetail = () => {
                         {booking?.bookingUser?.name}
                     </p>
                 </div>
-                <div className="flex flex-col xs:flex-row justify-between xs:items-center gap-2 flex-wrap">
+                <div className="flex flex-col   gap-2 ">
                     <div className="flex flex-col gap-6">
                         <h1 className="md:text-[25px] text-[14px] font-bold text-black-14 font-manrope">
                             Booking Special Request
                         </h1>
+
                     </div>
                     <p className="text-[14px] md:text-[20px] font-medium font-manrope text-brown-A43">
                         {booking?.bookingMessage}
                     </p>
+
+
+
+
                 </div>
 
                 <div className="flex flex-col xs:flex-row justify-between xs:items-center gap-2 flex-wrap">

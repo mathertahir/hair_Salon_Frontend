@@ -7,7 +7,8 @@ import { ToastService } from "../../utils/ToastService";
 import { formatDate, handleApiError } from "../../utils/helpers/HelperFunction";
 import { AuthContext } from "../../services/context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import SubscriptionSkeleton from "../../components/ui/SubscriptionSkeleton"; // 👈 Add this import
+import SubscriptionSkeleton from "../../components/ui/SubscriptionSkeleton";
+ // 👈 Add this import
 
 const SubscriptionPage = () => {
     const API = useAPI();

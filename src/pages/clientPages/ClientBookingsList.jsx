@@ -9,12 +9,15 @@ import { PhotoProvider, PhotoView } from "react-photo-view";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FilterDropdown from '../../components/FilterDropdown';// ✅ Make sure this exists
+import RatingStar from "../../components/ui/RatingStar";
+import review from '../../assets/review.webp'
 
 const ClientBookingsList = () => {
     const API = useAPI();
     const { authToken } = useContext(AuthContext);
+
 
     const [loading, setLoading] = useState(true);
     const [bookings, setBookings] = useState([]);
@@ -25,6 +28,20 @@ const ClientBookingsList = () => {
     const [bookingDate, setBookingDate] = useState("");
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedBookingId, setSelectedBookingId] = useState(null);
+    const [isCompleteBooking, setIsCompleteBooking] = useState(false)
+    const [activeTab, setActiveTab] = useState(null)
+    const [isOpen, setIsOpen] = useState(false);
+    const [activebtn, setActivebtn] = useState(2);
+    const navigate = useNavigate();
+
+    const [rating, setRating] = useState(3);
+    const [comment, setComment] = useState("");
+
+
+    const toggleTab = (tabIndex) => {
+        setActiveTab(activeTab === tabIndex ? null : tabIndex)
+    }
+
 
     const filterItems = [
         { key: 0, label: "Pending" },
@@ -75,21 +92,11 @@ const ClientBookingsList = () => {
     };
 
     // ✅ Update Booking (approve or mark complete)
-    const handleUpdateBooking = async (id, status) => {
+    const handleProcessPayment = async (id) => {
         try {
-            await API.put(
-                `/api/user/booking/${id}`,
-                { bookingStatus: status },
-                { headers: { Authorization: authToken } }
-            );
-            ToastService.success(
-                status === 1
-                    ? "Booking approved!"
-                    : status === 2
-                        ? "Booking marked as completed!"
-                        : "Booking updated!"
-            );
-            fetchUserBookings();
+
+            setIsCompleteBooking(true)
+            setSelectedBookingId(id)
         } catch (error) {
             handleApiError(error);
         }
@@ -194,7 +201,7 @@ const ClientBookingsList = () => {
                                         {booking.bookingStatus === 1 && (
                                             <button
                                                 onClick={() =>
-                                                    handleUpdateBooking(booking._id, 2)
+                                                    handleProcessPayment(booking._id)
                                                 }
                                                 className="text-blue-600 hover:text-blue-800"
                                             >
@@ -272,6 +279,117 @@ const ClientBookingsList = () => {
                                 </button>
                             </div>
                         </div>
+                    </div>
+                </div>
+            )}
+
+
+            {isCompleteBooking && (
+                <div
+                    className="fixed inset-0 z-50 flex justify-center items-center bg-black-050 "
+                    onClick={() => setIsCompleteBooking(false)} // close on outside click
+                >
+                    <div
+                        className="relative p-4 w-full max-w-[98%] sm:w-[80%]  lg:w-[80%]  xl:max-w-[80%]  h-[80%]  sm:h-[90%] m-8 bg-background 
+                       rounded-[30px] shadow-sm overflow-y-auto flex flex-col justify-center  webkit-scrollbar-none 
+                        "
+                        onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
+                    >
+                        {/* Close button */}
+                        <button
+                            type="button"
+                            className="absolute top-3 right-2.5 text-gray-400 bg-transparent 
+                         hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 
+                         inline-flex justify-center items-center 
+                         "
+                            onClick={() => setIsCompleteBooking(false)}
+                        >
+
+                            <div className='text-red0'>
+                                <RxCross1
+                                    size={22}
+                                />
+                            </div>
+
+                            <span className="sr-only">Close modal</span>
+                        </button>
+
+                        {/* Modal Content */}
+
+                        <div className='py-4 flex flex-col gap-4 justify-center  px-0  px-[30px] 2xl:px-[100px]  '>
+
+                            <div className='flex justify-center'>
+                                <div className='w-[150px] h-[100px]  rounded-lg'>
+                                    <img src={review} alt="review" className='object-fit rounded-lg' />
+                                </div>
+                            </div>
+
+                            <div className="   md:text-[20px] text-[15px]  md:text-[20px]  xl:text-[20px] font-poppins font-extrabold text-black  text-center"> Your Service Completed</div>
+                            <p className='   md:text-[18px] text-[15px] font-poppins font-normal text-gray-55 text-center'>Thanks For choosing us.</p>
+                            <div className='flex flex-col gap-6'>
+
+                                <div className='md:text-[20px] text-[15px]  md:text-[20px]  xl:text-[20px] font-poppins font-extrabold text-black text-center'> Add a Review </div>
+
+                                <div className='flex justify-center '>
+                                    <RatingStar value={rating} onChange={setRating} size={28} color="#fbbf24" />
+                                </div>
+
+                                <div className='p-[10px] border-[1px] border-white-E9 rounded-[5px] '>
+                                    <div className='flex gap-3  '>
+
+                                        <textarea
+                                            className="focus:border-none focus:outline-none border-none w-full bg-transparent"
+                                            placeholder="Add a Review For Better Services"
+                                            rows={3}
+                                            value={comment}
+                                            onChange={(e) => setComment(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 w-full'>
+                                <div className='w-full' onMouseEnter={() => setActivebtn(1)} onClick={(e) => {
+                                    e.stopPropagation();
+                                    setIsCompleteBooking(false);
+                                }}>
+
+                                    <ButtonSquare className={`w-full bg-transparent border border-brown-A43 text-brown-A43  py-[32px] px-[110px]  font-extrabold text-[14px] font-manrope ${activebtn === 1 ? 'bg-brown-A43 text-background' : ''} hover:bg-brown-A43 hover:text-background`} variant='secondary' >Cancel</ButtonSquare>
+
+                                </div>
+
+                                <div
+                                    className="w-full"
+                                    onMouseEnter={() => setActivebtn(2)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setIsCompleteBooking(false);
+
+                                        const bookingData = {
+                                            id: selectedBookingId,
+                                            rating,
+                                            comment,
+                                        };
+
+                                        // ✅ Navigate to payment page with booking data in state
+                                        navigate("/user/payment-page", { state: { bookingData } });
+                                    }}
+                                >
+                                    <ButtonSquare
+                                        className={`w-full bg-transparent border border-brown-A43 text-brown-A43 py-[32px] px-[110px] font-extrabold text-[14px] ${activebtn === 2 ? "bg-brown-A43 text-background" : ""
+                                            } hover:bg-brown-A43 hover:text-background`}
+                                        variant="secondary"
+                                    >
+                                        Completed
+                                    </ButtonSquare>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
             )}

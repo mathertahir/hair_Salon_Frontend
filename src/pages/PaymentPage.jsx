@@ -1,19 +1,27 @@
+
+
+
 // import React, { useEffect, useState, useContext } from "react";
 // import { Elements } from "@stripe/react-stripe-js";
 // import { loadStripe } from "@stripe/stripe-js";
 // import PaymentForm from "./PaymentForm";
-// import useAPI from "../../services/baseUrl/useApiHook";
-// import { AuthContext } from "../../services/context/AuthContext";
-// import { ToastService } from "../../utils/ToastService";
+// import useAPI from "../services/baseUrl/useApiHook";
+// import { AuthContext } from "../services/context/AuthContext";
+// import { ToastService } from "../utils/ToastService";
+// import { Link, useNavigate, useParams } from "react-router-dom";
 
-// const stripePromise = await loadStripe(`${process.env.VITE_STRIPE_PUBLISHABLE_KEY}`);
 
-// console.log(stripePromise, "Comming Stripe Promise")
+// console.log("stripeKey", process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY)
+// const stripePromise = await loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+
+// console.log(stripePromise)
 
 // const PaymentPage = () => {
 //     const [clientSecret, setClientSecret] = useState(null);
 //     const API = useAPI();
 //     const { authToken, user } = useContext(AuthContext);
+//     const { id } = useParams();
+
 
 //     useEffect(() => {
 //         const createSetupIntent = async () => {
@@ -45,31 +53,22 @@
 //             fontFamily: "Inter, system-ui, sans-serif",
 //             colorText: "#1a1a1a",
 //         },
-//         rules: {
-//             ".Input": {
-//                 border: "1px solid #e2e8f0",
-//                 padding: "10px",
-//             },
-//             ".Label": {
-//                 fontWeight: "500",
-//             },
-//         },
 //     };
 
 //     const options = { clientSecret, appearance };
 
 //     return (
 //         <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow rounded-2xl">
-//             <h2 className="text-2xl font-bold mb-4 text-center">
-//                 Add Payment Method
-//             </h2>
+//             <h2 className="text-2xl font-bold mb-4 text-center">Add Payment Method</h2>
 //             <p className="text-center text-gray-600 mb-6">
 //                 Enter your card details below to save your payment method.
 //             </p>
 
 //             {clientSecret ? (
 //                 <Elements stripe={stripePromise} options={options}>
-//                     <PaymentForm />
+
+
+//                     {id ? <PaymentForm id={id} /> : <PaymentForm />}
 //                 </Elements>
 //             ) : (
 //                 <p className="text-center text-gray-500">Loading payment form...</p>
@@ -79,28 +78,26 @@
 // };
 
 // export default PaymentPage;
-
-
 import React, { useEffect, useState, useContext } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import PaymentForm from "./PaymentForm";
-import useAPI from "../../services/baseUrl/useApiHook";
-import { AuthContext } from "../../services/context/AuthContext";
-import { ToastService } from "../../utils/ToastService";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import useAPI from "../services/baseUrl/useApiHook";
+import { AuthContext } from "../services/context/AuthContext";
+import { ToastService } from "../utils/ToastService";
+import { useLocation, useParams } from "react-router-dom";
 
-
-console.log("stripeKey", process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY)
-const stripePromise = await loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
-
-console.log(stripePromise)
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
 const PaymentPage = () => {
     const [clientSecret, setClientSecret] = useState(null);
     const API = useAPI();
     const { authToken, user } = useContext(AuthContext);
+
+    // ✅ Capture both route param and bookingData from state
     const { id } = useParams();
+    const { state } = useLocation();
+    const bookingData = state?.bookingData;
 
     useEffect(() => {
         const createSetupIntent = async () => {
@@ -111,8 +108,10 @@ const PaymentPage = () => {
                     { headers: { Authorization: authToken } }
                 );
 
-                const secret = response.data.responseData?.setupIntent?.client_secret;
+                const secret =
+                    response.data.responseData?.setupIntent?.client_secret;
                 if (!secret) throw new Error("No client secret returned from server");
+
                 setClientSecret(secret);
             } catch (error) {
                 console.error(error);
@@ -138,16 +137,28 @@ const PaymentPage = () => {
 
     return (
         <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow rounded-2xl">
-            <h2 className="text-2xl font-bold mb-4 text-center">Add Payment Method</h2>
+            <h2 className="text-2xl font-bold mb-4 text-center">
+                {bookingData
+                    ? "Complete Your Booking Payment"
+                    : id
+                        ? "Update Business Payment Method"
+                        : "Add Payment Method"}
+            </h2>
+
             <p className="text-center text-gray-600 mb-6">
-                Enter your card details below to save your payment method.
+                {bookingData
+                    ? "Please enter your card details to pay for your booking."
+                    : "Enter your card details below."}
             </p>
 
             {clientSecret ? (
                 <Elements stripe={stripePromise} options={options}>
-
-
-                    {id ? <PaymentForm id={id} /> : <PaymentForm />}
+                    {/* ✅ Handle both cases: bookingData OR id */}
+                    {bookingData ? (
+                        <PaymentForm bookingData={bookingData} />
+                    ) : (
+                        <PaymentForm id={id} />
+                    )}
                 </Elements>
             ) : (
                 <p className="text-center text-gray-500">Loading payment form...</p>
@@ -157,3 +168,5 @@ const PaymentPage = () => {
 };
 
 export default PaymentPage;
+
+
