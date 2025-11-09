@@ -110,33 +110,6 @@ const BusinessSideBar = ({ open, setOpen }) => {
             </Link>
           </li>
 
-          <li>
-            <Link
-              to="/business/connectAccountInfo"
-              onClick={() => setOpen(false)}
-              className={`flex items-center p-2 rounded-lg transition-colors ${
-                isActive("/business/connectAccountInfo") ||
-                window.location.pathname.startsWith(
-                  "/business/connectAccountInfo/"
-                )
-                  ? "bg-brown-A43 text-white"
-                  : "text-gray-900 hover:bg-gray-100"
-              }`}
-            >
-              <GiSaloon
-                className={`mr-3 ${
-                  isActive("/business/connectAccountInfo") ||
-                  window.location.pathname.startsWith(
-                    "/business/connectAccountInfo/"
-                  )
-                    ? "text-white"
-                    : "text-gray-500"
-                }`}
-              />
-              <span>Connect Account</span>
-            </Link>
-          </li>
-
           {/* <li>
             <Link
               to="/business/bookings"
@@ -197,6 +170,33 @@ const BusinessSideBar = ({ open, setOpen }) => {
                 }`}
               />
               <span>Bookings</span>
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              to="/business/connectAccountInfo"
+              onClick={() => setOpen(false)}
+              className={`flex items-center p-2 rounded-lg transition-colors ${
+                isActive("/business/connectAccountInfo") ||
+                window.location.pathname.startsWith(
+                  "/business/connectAccountInfo/"
+                )
+                  ? "bg-brown-A43 text-white"
+                  : "text-gray-900 hover:bg-gray-100"
+              }`}
+            >
+              <GiSaloon
+                className={`mr-3 ${
+                  isActive("/business/connectAccountInfo") ||
+                  window.location.pathname.startsWith(
+                    "/business/connectAccountInfo/"
+                  )
+                    ? "text-white"
+                    : "text-gray-500"
+                }`}
+              />
+              <span>Connect Account</span>
             </Link>
           </li>
 
