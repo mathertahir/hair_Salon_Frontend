@@ -3,7 +3,7 @@ import BusinessSideBar from "./BusinessSideBar";
 import { Link, Outlet } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 import logo from "../../assets/logo.png";
-import { FaHome } from "react-icons/fa";
+
 import { TiArrowBackOutline } from "react-icons/ti";
 
 const BusinessLayout = () => {

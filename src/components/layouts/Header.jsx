@@ -1,22 +1,15 @@
 // components/Header.jsx
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "../../components/ui/avatar.jsx";
+
 // import { AuthContext } from '@/services/context/AuthContext';
 import {
   FiX,
   FiMenu,
-  FiUser,
-  FiChevronDown,
-  FiGlobe,
-  FiLogOut,
+
 } from "react-icons/fi";
-import { CiLocationOn } from "react-icons/ci";
+
 import { MdLocationOn } from "react-icons/md";
-import profile from "../../assets/profile.png";
+
 import logo from "../../assets/logo.png";
 import dummyImage from "../../assets/avatar.webp";
 import { Link, useLocation } from "react-router-dom";
@@ -26,7 +19,7 @@ import GoogleTranslate from "../../components/GoogleTranslate.jsx";
 import { ButtonSquare } from "../ui/buttonSquare.jsx";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../services/context/AuthContext";
-import { Navigate } from "react-router-dom";
+
 import { handleApiError } from "../../utils/helpers/HelperFunction";
 import useAPI from "../../services/baseUrl/useApiHook";
 import { toast } from "react-toastify";

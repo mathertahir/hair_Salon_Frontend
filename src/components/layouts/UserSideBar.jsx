@@ -1,12 +1,8 @@
 import React from "react";
 import {
-  FaTachometerAlt,
+
   FaTasks,
-  FaInbox,
-  FaUsers,
-  FaBoxOpen,
-  FaSignInAlt,
-  FaUserPlus,
+
 } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { MdOutlinePerson2 } from "react-icons/md";

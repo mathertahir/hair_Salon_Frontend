@@ -51,7 +51,7 @@ const Layout = () => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar can go here if needed */}
-      <div className="flex flex-col w-full bg-white">
+      <div className ="flex flex-col w-full bg-white">
         <Header
           onBurgerClick={() => setIsSidebarOpen(!isSidebarOpen)}
           isSidebarOpen={isSidebarOpen}
