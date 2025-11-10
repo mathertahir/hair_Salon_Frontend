@@ -1,5 +1,5 @@
 import React from 'react'
-import { FiMapPin, FiStar } from 'react-icons/fi'
+import { FiMapPin } from 'react-icons/fi'
 import { ButtonSquare } from './ui/buttonSquare'
 import { Link } from 'react-router-dom'
 import { FaStar } from "react-icons/fa6";
@@ -43,7 +43,7 @@ const HairstylistCard = ({
 
 
                         </div>
-                        {rating == 0 ? (
+                        {rating === 0 ? (
                             <span className="text-gray-400 font-manrope text-base">No Reviews</span>
                         ) : (
                             <span className="text-base font-manrope font-normal text-brown-A43"> Tolal {reviewCount}</span>

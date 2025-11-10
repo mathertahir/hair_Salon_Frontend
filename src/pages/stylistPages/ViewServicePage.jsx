@@ -40,7 +40,7 @@ const ViewServicePage = () => {
     }, []);
 
 
-    console.log(service, "Service Datail")
+
 
     if (loading) {
         return (
