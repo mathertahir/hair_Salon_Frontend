@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { MdOutlineKeyboardArrowRight, MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { ButtonSquare } from '../../components/ui/buttonSquare'
-import mastercard from '../../assets/mastercard.png'
+
 import { Link } from 'react-router-dom'
 import verified from "../../assets/verificationDocument.png"
 import gallery1 from '../../assets/HG1.png'
 import gallery2 from '../../assets/HG2.png'
 import gallery3 from '../../assets/HG3.png'
 import gallery4 from '../../assets/HG4.png'
-import { FaCheck } from 'react-icons/fa';
+
 import GoBack from '../../components/GoBack'
 
 

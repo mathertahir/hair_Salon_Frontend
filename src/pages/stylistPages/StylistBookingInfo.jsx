@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { MdOutlineKeyboardArrowRight, MdOutlineKeyboardArrowDown } from "react-icons/md";
-import { FaArrowRight } from "react-icons/fa";
-import MyMap from '../../components/MyMap'
-import { FiStar } from 'react-icons/fi'
+
 import { ButtonSquare } from '../../components/ui/buttonSquare'
 import { Link } from 'react-router-dom'
 import userCover from '../../assets/userCover.png'

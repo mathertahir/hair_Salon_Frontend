@@ -4,7 +4,7 @@ import gallery1 from '../../assets/HG1.png'
 import gallery2 from '../../assets/HG2.png'
 import gallery3 from '../../assets/HG3.png'
 import gallery4 from '../../assets/HG4.png'
-import gallery5 from '../../assets/HG5.png'
+
 import StylistBookingCards from '../../components/StylistBookingCards'
 
 const StylistBookingPage = () => {

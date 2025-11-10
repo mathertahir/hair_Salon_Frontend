@@ -5,8 +5,8 @@ import { ToastService } from "../../utils/ToastService";
 import { handleApiError } from "../../utils/helpers/HelperFunction";
 import { ButtonSquare } from "../../components/ui/buttonSquare";
 import Pagination from "../../components/ui/Pagination";
-import { PhotoProvider, PhotoView } from "react-photo-view";
-import { FaTrash, FaEdit } from "react-icons/fa";
+
+import { FaTrash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";

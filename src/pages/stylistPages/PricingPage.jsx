@@ -3,17 +3,14 @@ import { FaCheck } from 'react-icons/fa'
 import { ButtonSquare } from '../../components/ui/buttonSquare'
 import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
-import { ToastService, ToastContainerWrapper } from "../../utils/ToastService";
-import { handleApiError } from "../../utils/helpers/HelperFunction";
+
 import { AuthContext } from "../../services/context/AuthContext";
 
 
 const PricingPage = () => {
     const navigate = useNavigate();
-    const auth = useContext(AuthContext);
-    const [isLoading, setIsLoading] = useState(false);
-    const { authToken, user } = auth;
-    const stripeCustomerId = user?.stripeCustomerId;
+
+
     return (
         <div className='bg-background'>
 

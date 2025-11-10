@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination } from 'swiper/modules'
 import { useNavigate } from "react-router-dom";
 
 // Import Swiper styles
@@ -10,8 +8,8 @@ import 'swiper/css/pagination'
 import useAPI from "../../services/baseUrl/useApiHook";
 import { AuthContext } from "../../services/context/AuthContext";
 import { ToastService } from '../../utils/ToastService';
-import { FiMapPin, FiSearch, FiStar } from 'react-icons/fi'
-import { BiSolidQuoteLeft, BiSolidQuoteRight } from "react-icons/bi";
+import { FiSearch } from 'react-icons/fi'
+
 import { Button } from '../../components/ui/button'
 import heroBg from '../../assets/HeroBG.png'
 import gallery1 from '../../assets/HG1.png'

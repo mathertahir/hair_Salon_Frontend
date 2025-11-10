@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom'
 import { ButtonSquare } from '../../components/ui/buttonSquare'
 
 const ProfileUnderReview = () => {
-    const { id } = useParams()
+
     return (
         <div className=' h-full'>
             <div className='container min-h-auto'>

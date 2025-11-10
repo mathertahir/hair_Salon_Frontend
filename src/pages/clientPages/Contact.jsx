@@ -5,11 +5,11 @@ import home from '../../assets/Home.png'
 import reachBg from '../../assets/bgreach.png'
 import pic from '../../assets/reachoutpic.jpg'
 import { MdOutlinePerson } from "react-icons/md";
-import { IoMdMail } from "react-icons/io";
+
 import { MdForwardToInbox } from "react-icons/md";
 import { IoCallOutline } from "react-icons/io5";
 import { IoBookOutline } from "react-icons/io5";
-import { LiaEditSolid } from "react-icons/lia";
+
 import { ButtonSquare } from '../../components/ui/buttonSquare';
 
 const reachData = [

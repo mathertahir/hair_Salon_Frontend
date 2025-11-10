@@ -3,13 +3,13 @@ import { MdOutlineKeyboardArrowRight, MdOutlineKeyboardArrowDown } from "react-i
 import detail1 from '../../assets/detail1.png'
 import detail2 from '../../assets/detail2.png'
 import detail3 from '../../assets/detail3.png'
-import { FaArrowRight, FaRegUser } from "react-icons/fa";
+
 import MyMap from '../../components/MyMap'
 import { FiStar } from 'react-icons/fi'
 import GoBack from '../../components/GoBack';
 import review from '../../assets/review.webp'
 import { ButtonSquare } from '../../components/ui/buttonSquare';
-import { Link } from 'react-router-dom';
+
 import { RxCross1 } from "react-icons/rx";
 import RatingStar from '../../components/ui/RatingStar';
 

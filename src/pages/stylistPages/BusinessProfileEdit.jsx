@@ -2,7 +2,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import GoBack from "../../components/GoBack";
-import { Link } from "react-router-dom";
+
 import useAPI from "../../services/baseUrl/useApiHook";
 import { AuthContext } from "../../services/context/AuthContext";
 import { ToastService } from "../../utils/ToastService";
@@ -11,7 +11,7 @@ import { ButtonSquare } from "../../components/ui/buttonSquare";
 import { FileUploadField } from "../../components/ui/FileUploadField";
 import MapSearchField from "../../components/ui/MapSearchField";
 import { PhotoProvider, PhotoView } from "react-photo-view";
-import { Navigate } from "react-router-dom";
+
 import "react-photo-view/dist/react-photo-view.css";
 import { RxCross1 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
