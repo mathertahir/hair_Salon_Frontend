@@ -35,7 +35,7 @@ const HairstylistCard = ({
                         <div className='text-brown-A43 flex items-center gap-1'>
 
                             <div><FaStar size={20} fill='#FFBF00' /></div>
-                            {rating == 0 ? (
+                            {rating === 0 ? (
                                 <span className="text-gray-400 font-manrope text-base">No rating</span>
                             ) : (
                                 <span className="text-base font-manrope font-normal text-brown-A43">{rating}</span>
