@@ -20,7 +20,7 @@ const hairstyleOptions = [
     { value: 'Cornrows', label: 'Cornrows' },
     { value: 'Crochet Braids', label: 'Crochet Braids' },
     { value: 'Hair Straightening', label: 'Hair Straightening (Blowout, Silk Press)' },
-    { value: 'Kids Hairstyles', label: "Kids' Hairstyles" },
+    { value: 'Kids Hairstyles', label: "Kids Hairstyles" },
     { value: 'Locs', label: 'Locs' },
     { value: 'Natural Hair Care', label: 'Natural Hair Care' },
     { value: 'Passion Twists', label: 'Passion Twists' },
