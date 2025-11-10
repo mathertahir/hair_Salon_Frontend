@@ -1,12 +1,15 @@
-import React, { useRef } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
+import { useNavigate } from "react-router-dom";
 
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-
+import useAPI from "../../services/baseUrl/useApiHook";
+import { AuthContext } from "../../services/context/AuthContext";
+import { ToastService } from '../../utils/ToastService';
 import { FiMapPin, FiSearch, FiStar } from 'react-icons/fi'
 import { BiSolidQuoteLeft, BiSolidQuoteRight } from "react-icons/bi";
 import { Button } from '../../components/ui/button'
@@ -19,48 +22,117 @@ import gallery5 from '../../assets/HG5.png'
 import subscribeBg from '../../assets/Subscribe.png'
 import HairstylistCard from '../../components/HairstylistCard'
 import TestimonialSwiper from '../../components/TestimonialSwiper'
+import { handleApiError } from '../../utils/helpers/HelperFunction'
+import { Link } from 'react-router-dom'
+import SearchSelect from '../../components/ui/SearchSelect';
 
 const Home = () => {
+
+    const [selectedFilter, setSelectedFilter] = useState(null);
+    const [services, setServices] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [limit, setLimit] = useState(4);
+    const [totalPages, setTotalPages] = useState(1);
+    const [searchParam, setSearchParam] = useState("")
     // Swiper navigation refs
     const swiperRef = useRef(null)
 
-    // Sample hairstylist data
-    const hairstylists = [
-        {
-            id: 1,
-            image: gallery1,
-            name: "Crown by Amara",
-            location: "Brookpark Ext, 27085, North Olmsted, 44070",
-            rating: "4.5",
-            reviewCount: "104"
-        },
-        {
-            id: 2,
-            image: gallery2,
-            name: "The Loc Lounge",
-            location: "2267 Main st, Fort Myers, 33901",
-            rating: "4.5",
-            reviewCount: "104"
-        },
+    const navigate = useNavigate(); // react-router hook
 
-        {
-            id: 3,
-            image: gallery3,
-            name: "Royal Strands Studio",
-            location: "2267 Main st, Fort Myers, 33901,",
-            rating: "4.5",
-            reviewCount: "104"
-        },
-
-        {
-            id: 4,
-            image: gallery4,
-            name: "Royal Strands Studio",
-            location: "2267 Main st, Fort Myers, 33901,",
-            rating: "4.5",
-            reviewCount: "104"
+    const handleSearch = () => {
+        if (!searchParam) {
+            alert("Please select a hairstyle before searching!");
+            return;
         }
-    ]
+        // Navigate to /userServices with searchParam
+        navigate(`/userServices?searchParam=${encodeURIComponent(searchParam)}`);
+    };
+
+
+
+    const API = useAPI();
+    const auth = useContext(AuthContext);
+    const { authToken, user } = auth;
+
+    const [userLocation, setUserLocation] = useState(
+        localStorage.getItem("userLocation")
+            ? JSON.parse(localStorage.getItem("userLocation"))
+            : null
+    );
+
+    const filterItems = [
+        { key: 0, label: "Top Rated" },
+        { key: 1, label: "Near Me" },
+    ];
+
+    const fetchServices = async () => {
+        console.log("Fetching services...");
+        setLoading(true);
+
+        try {
+            if (!userLocation?.lat || !userLocation?.lng) {
+                console.warn("No location found in localStorage!");
+                setLoading(false);
+                return;
+            }
+
+            const response = await API.get("/api/user/services/list", {
+                params: {
+                    latitude: userLocation.lat,
+                    longitude: userLocation.lng,
+                    limit,
+                    page: currentPage,
+                    sortBy: 0,
+                    searchParam: searchParam // Default sort = Top Rated
+                },
+            });
+
+            console.log("API Response:", response.data);
+            const data = response.data.responseData;
+
+            setServices(data?.services || []);
+            setTotalPages(data?.pagination?.totalPages || 1);
+
+            if (response.data?.responseMessage?.[0]) {
+                ToastService.success(response.data?.responseMessage?.[0]);
+            }
+        } catch (err) {
+            handleApiError(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // 🔁 Re-fetch whenever pagination or sorting changes
+    useEffect(() => {
+        fetchServices();
+    }, [currentPage, limit, selectedFilter, userLocation, searchParam]);
+
+
+    useEffect(() => {
+        const handleLocationChange = () => {
+            const newLocation = localStorage.getItem("userLocation")
+                ? JSON.parse(localStorage.getItem("userLocation"))
+                : null;
+            setUserLocation(newLocation);
+        };
+
+        // ✅ Listen to both localStorage events AND our custom event
+        window.addEventListener("userLocationChanged", handleLocationChange);
+        window.addEventListener("storage", handleLocationChange);
+
+        return () => {
+            window.removeEventListener("userLocationChanged", handleLocationChange);
+            window.removeEventListener("storage", handleLocationChange);
+        };
+    }, []);
+
+
+    console.log(services)
+
+    // Sample hairstylist data
+
 
     // Testimonial data
     const testimonials = [
@@ -105,6 +177,25 @@ const Home = () => {
         // Add your booking logic here
     }
 
+    const hairstyleOptions = [
+        { value: 'Braids', label: 'Braids' },
+        { value: 'Bridal Special', label: 'Bridal Special' },
+        { value: 'Cornrows', label: 'Cornrows' },
+        { value: 'Crochet Braids', label: 'Crochet Braids' },
+        { value: 'Hair Straightening', label: 'Hair Straightening (Blowout, Silk Press)' },
+        { value: 'Kids Hairstyles', label: 'Kids’ Hairstyles' },
+        { value: 'Locs', label: 'Locs' },
+        { value: 'Natural Hair Care', label: 'Natural Hair Care' },
+        { value: 'Passion Twists', label: 'Passion Twists' },
+        { value: 'Twists', label: 'Twists' },
+        { value: 'Weave', label: 'Weave' },
+        { value: 'Wigs', label: 'Wigs' },
+        { value: 'Make Up', label: 'Make Up' },
+    ];
+
+
+
+
     return (
         <div>
 
@@ -120,9 +211,62 @@ const Home = () => {
                             </div>
 
 
-                            <div className='bg-background rounded-[60px]  p-[25px] xl:pl-[40px] xl:py-[14px] xl:pr-[14px]'>
+                            <div className='bg-background rounded-[60px] p-[25px] xl:pl-[40px] xl:py-[14px] xl:pr-[14px]'>
                                 <div className='flex flex-col xl:flex-row gap-6 items-stretch'>
-                                    {/* Hairstyle Input Section */}
+                                    {/* Hairstyle Dropdown */}
+                                    {/* <div className='w-full xl:flex-1 flex flex-col justify-between'>
+                                        <p className='font-manrope font-bold xl:text-lg text-base text-brown-A43'>
+                                            What hairstyle are you looking for?
+                                        </p>
+                                        <div className='flex items-center gap-2 border-b border-black-14 pb-2'>
+                                            <select
+                                                className="focus:border-none focus:outline-none border-none w-full bg-transparent"
+                                                value={searchParam}
+                                                onChange={(e) => setSearchParam(e.target.value)}
+                                            >
+                                                <option value="" disabled>
+                                                    Box Braids, Cornrows....
+                                                </option>
+                                                <option value="Braids">Braids</option>
+                                                <option value="Bridal Special">Bridal Special</option>
+                                                <option value="Cornrows">Cornrows</option>
+                                                <option value="Crochet Braids">Crochet Braids</option>
+                                                <option value="Hair Straightening (Blowout, Silk Press)">Hair Straightening (Blowout, Silk Press)</option>
+                                                <option value="Kids’ Hairstyles">Kids’ Hairstyles</option>
+                                                <option value="Locs">Locs</option>
+                                                <option value="Natural Hair Care">Natural Hair Care</option>
+                                                <option value="Passion Twists">Passion Twists</option>
+                                                <option value="Twists">Twists</option>
+                                                <option value="Weave">Weave</option>
+                                                <option value="Wigs">Wigs</option>
+                                                <option value="Make Up">Make Up</option>
+                                            </select>
+                                        </div>
+                                    </div> */}
+
+                                    <SearchSelect
+                                        label="What hairstyle are you looking for?"
+                                        options={hairstyleOptions}
+                                        value={searchParam}
+                                        onChange={setSearchParam}
+                                        placeholder="Box Braids, Cornrows...."
+                                    />
+
+                                    {/* Search Button */}
+                                    <div className='w-full xl:w-auto flex items-center'>
+                                        <Button className=' w-full h-full px-8 py-[16px] bg-brown-A43 text-background hover:bg-brown-A43/90 transition-colors' onClick={handleSearch}>
+                                            <span className='flex items-center gap-2'>
+                                                Search
+                                                <FiSearch className='w-4 h-4' />
+                                            </span>
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* <div className='bg-background rounded-[60px]  p-[25px] xl:pl-[40px] xl:py-[14px] xl:pr-[14px]'>
+                                <div className='flex flex-col xl:flex-row gap-6 items-stretch'>
+                                    Hairstyle Input Section
                                     <div className='w-full xl:flex-1 flex flex-col justify-between'>
                                         <p className='font-manrope font-bold xl:text-lg text-base text-brown-A43'>What hairstyle are you looking for?</p>
                                         <div className='flex items-center gap-2 border-b border-black-14 pb-2'>
@@ -135,7 +279,9 @@ const Home = () => {
                                         </div>
                                     </div>
 
-                                    {/* Location Input Section */}
+
+
+                                    Location Input Section
                                     <div className='w-full xl:flex-1 flex flex-col justify-between'>
                                         <p className='font-manrope font-bold xl:text-lg text-base text-brown-A43'>Where are you located?</p>
                                         <div className='flex items-center gap-2 border-b border-black-14 pb-2'>
@@ -148,7 +294,7 @@ const Home = () => {
                                         </div>
                                     </div>
 
-                                    {/* Search Button Section */}
+                                    Search Button Section
                                     <div className='w-full xl:w-auto flex items-center'>
                                         <Button className=' w-full h-full px-8 py-[16px] bg-brown-A43 text-background hover:bg-brown-A43/90 transition-colors'>
                                             <span className='flex items-center gap-2'>
@@ -158,7 +304,7 @@ const Home = () => {
                                         </Button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div className='col-span-12 md:col-span-3'>
 
@@ -207,22 +353,37 @@ const Home = () => {
                 <div className='container'>
                     <div className='py-20 flex flex-col gap-10 '>
 
-                        <div>                        <p className='font-manrope  text-base font-semibold text-brown-A43 mb-[2px]'>NEARBY Hairstylist</p>
-                            <h2 className=' sm:text-[40px] text-[22px] lg:text-[45px] font-playfair text-brown-31 font-bold leading-none mb-4'>Recommended Hairstylist</h2>
-                            <p className='font-manrope font-normal text-xl text-gray-55'>From braids to locs, find professionals who understand your hair and your style.</p></div>
+
+                        <div className='flex justify-between items-centter'>
+
+                            <div>                        <p className='font-manrope  text-base font-semibold text-brown-A43 mb-[2px]'>NEARBY Hairstylist</p>
+                                <h2 className=' sm:text-[40px] text-[22px] lg:text-[45px] font-playfair text-brown-31 font-bold leading-none mb-4'>Recommended Hairstylist</h2>
+                                <p className='font-manrope font-normal text-xl text-gray-55'>From braids to locs, find professionals who understand your hair and your style.</p></div>
+
+
+                            <div>
+                                <Link to="/userServices">
+                                    <div className="text-[25px] text-brown-A43 font-manrope underline font-bold cursor-pointer">
+                                        View All
+                                    </div>
+                                </Link>
+                            </div>
+                        </div>
+
 
 
                         <div className='grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3   xl:grid-cols-4 gap-4 items-stretch'>
-                            {hairstylists.map((hairstylist) => (
+                            {services.map((hairstylist) => (
                                 <HairstylistCard
-                                    key={hairstylist.id}
-                                    image={hairstylist.image}
-                                    name={hairstylist.name}
-                                    location={hairstylist.location}
-                                    rating={hairstylist.rating}
-                                    reviewCount={hairstylist.reviewCount}
-                                    id={hairstylist.id}
-                                    onBookNow={() => handleBookNow(hairstylist.id)}
+                                    key={hairstylist._id}
+                                    image={hairstylist?.servicePhoto?.url}
+                                    name={hairstylist?.name}
+                                    busines={hairstylist?.business?.name}
+                                    location={hairstylist?.business?.businessLocation?.streetAddress}
+                                    rating={hairstylist?.business?.averageRating}
+                                    reviewCount={hairstylist?.business?.totalReviews}
+                                    id={hairstylist._id}
+                                    price={hairstylist?.price}
                                 />
                             ))}
                         </div>

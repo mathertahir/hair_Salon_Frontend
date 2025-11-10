@@ -2,6 +2,7 @@ import React from 'react'
 import { FiMapPin, FiStar } from 'react-icons/fi'
 import { ButtonSquare } from './ui/buttonSquare'
 import { Link } from 'react-router-dom'
+import { FaStar } from "react-icons/fa6";
 
 const HairstylistCard = ({
     image,
@@ -32,7 +33,8 @@ const HairstylistCard = ({
                     </div>
                     <div className='flex justify-between items-center'>
                         <div className='text-brown-A43 flex items-center gap-1'>
-                            <FiStar className='w-4 h-4' />
+
+                            <div><FaStar size={20} fill='#FFBF00' /></div>
                             {rating == 0 ? (
                                 <span className="text-gray-400 font-manrope text-base">No rating</span>
                             ) : (
@@ -44,7 +46,7 @@ const HairstylistCard = ({
                         {rating == 0 ? (
                             <span className="text-gray-400 font-manrope text-base">No Reviews</span>
                         ) : (
-                            <span className="text-base font-manrope font-normal text-brown-A43">{reviewCount}</span>
+                            <span className="text-base font-manrope font-normal text-brown-A43"> Tolal {reviewCount}</span>
                         )}
                     </div>
 

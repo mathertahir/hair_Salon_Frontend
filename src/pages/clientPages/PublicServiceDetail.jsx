@@ -12,6 +12,8 @@ import { handleApiError } from '../../utils/helpers/HelperFunction'
 import { ButtonSquare } from '../../components/ui/buttonSquare'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
+import { FaStar } from 'react-icons/fa'
+import ReviewSwiper from '../../components/ReviewSwiper'
 
 const PublicServiceDetail = () => {
     const API = useAPI();
@@ -55,7 +57,7 @@ const PublicServiceDetail = () => {
         console.log(location.pathname, "Current Location"); // 👈 works same as router.push("/booking")
     };
 
-    console.log(service)
+    console.log(service?.business?.businessReviews)
     return (
         <div>
             {/* Hero Section */}
@@ -86,12 +88,12 @@ const PublicServiceDetail = () => {
                                 </div>
                                 <div className="flex gap-[20px] items-center">
                                     <div className="flex items-center gap-[10px] text-brown-A43">
-                                        <div>  <FiStar size={24} /></div>
+                                        <div><FaStar size={20} fill='#FFBF00' /></div>
 
-                                        <p className='text-[25px] font-manrope font-normal '>4.5</p>
+                                        <p className='text-[25px] font-manrope font-normal '>{service?.business?.averageRating}</p>
                                     </div>
 
-                                    <div>                        <p className='text-lg font-playfair font-bold text-gray-55'>104 Reviews.</p></div>
+                                    <div>                        <p className='text-lg font-playfair font-bold text-gray-55'>{service?.business?.totalReviews} Reviews.</p></div>
                                 </div>
                             </div>
 
@@ -187,6 +189,16 @@ const PublicServiceDetail = () => {
 
 
                             </div>
+
+
+
+                            <div className='flex flex-col gap-10'>
+                                <p className=' sm:text-[35px] text-[20px] font-playfair font-bold text-brown-A43 text-center'>Business Reviews</p>
+                                <div><ReviewSwiper businessReviews={service?.business?.businessReviews} /></div>
+
+                            </div>
+
+
 
 
                             <Link to={`/booking/${service?._id}`} >

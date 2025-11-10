@@ -137,6 +137,26 @@ const LocationModal = ({ visible, onClose, onLocationChange }) => {
         );
     };
 
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     if (!selectedLocation) {
+    //         alert("Please select a location from the dropdown");
+    //         return;
+    //     }
+
+    //     setLoading(true);
+    //     try {
+    //         await new Promise((resolve) => setTimeout(resolve, 1000));
+    //         onLocationChange(selectedLocation);
+    //         alert("Location updated successfully!");
+    //         onClose();
+    //     } catch (error) {
+    //         alert("Failed to update location");
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!selectedLocation) {
@@ -147,7 +167,16 @@ const LocationModal = ({ visible, onClose, onLocationChange }) => {
         setLoading(true);
         try {
             await new Promise((resolve) => setTimeout(resolve, 1000));
-            onLocationChange(selectedLocation);
+
+            // ✅ Save to localStorage
+            localStorage.setItem("userLocation", JSON.stringify(selectedLocation));
+
+            // ✅ Trigger custom event so other components know location changed
+            window.dispatchEvent(new Event("userLocationChanged"));
+
+            // Optional: callback if parent wants
+            onLocationChange?.(selectedLocation);
+
             alert("Location updated successfully!");
             onClose();
         } catch (error) {
