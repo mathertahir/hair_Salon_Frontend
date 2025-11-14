@@ -20,9 +20,8 @@ const BusinessSideBar = ({ open, setOpen }) => {
 
   return (
     <aside
-      className={`fixed top-0 left-0 z-40 w-64 h-screen pt-16 transition-transform ${
-        open ? "translate-x-0" : "-translate-x-full"
-      } sm:translate-x-0 bg-gray-50 border-r border-gray-200`}
+      className={`fixed top-0 left-0 z-40 w-64 h-screen pt-16 transition-transform ${open ? "translate-x-0" : "-translate-x-full"
+        } sm:translate-x-0 bg-gray-50 border-r border-gray-200`}
       aria-label="Sidebar"
     >
       <div className="h-full px-3 py-4 overflow-y-auto">
@@ -31,16 +30,14 @@ const BusinessSideBar = ({ open, setOpen }) => {
             <Link
               to="/business/profile"
               onClick={() => setOpen(false)}
-              className={`flex items-center p-2 rounded-lg transition-colors ${
-                isActive("/business/profile")
-                  ? "bg-brown-A43 text-white"
-                  : "text-gray-900 hover:bg-gray-100"
-              }`}
+              className={`flex items-center p-2 rounded-lg transition-colors ${isActive("/business/profile")
+                ? "bg-brown-A43 text-white"
+                : "text-gray-900 hover:bg-gray-100"
+                }`}
             >
               <MdOutlinePerson2
-                className={`mr-3 ${
-                  isActive("/business/profile") ? "text-white" : "text-gray-500"
-                }`}
+                className={`mr-3 ${isActive("/business/profile") ? "text-white" : "text-gray-500"
+                  }`}
               />
               <span>Profile</span>
             </Link>
@@ -50,20 +47,18 @@ const BusinessSideBar = ({ open, setOpen }) => {
             <Link
               to="/business/businessProfile"
               onClick={() => setOpen(false)}
-              className={`flex items-center p-2 rounded-lg transition-colors ${
-                isActive("/business/businessProfile") ||
+              className={`flex items-center p-2 rounded-lg transition-colors ${isActive("/business/businessProfile") ||
                 isActive("/business/businessProfileEdit")
-                  ? "bg-brown-A43 text-white"
-                  : "text-gray-900 hover:bg-gray-100"
-              }`}
+                ? "bg-brown-A43 text-white"
+                : "text-gray-900 hover:bg-gray-100"
+                }`}
             >
               <IoMdBusiness
-                className={`mr-3 ${
-                  isActive("/business/businessProfile") ||
+                className={`mr-3 ${isActive("/business/businessProfile") ||
                   isActive("/business/businessProfileEdit")
-                    ? "text-white"
-                    : "text-gray-500"
-                }`}
+                  ? "text-white"
+                  : "text-gray-500"
+                  }`}
               />
               <span>Business Profile</span>
             </Link>
@@ -91,20 +86,18 @@ const BusinessSideBar = ({ open, setOpen }) => {
             <Link
               to="/business/services"
               onClick={() => setOpen(false)}
-              className={`flex items-center p-2 rounded-lg transition-colors ${
-                isActive("/business/services") ||
+              className={`flex items-center p-2 rounded-lg transition-colors ${isActive("/business/services") ||
                 window.location.pathname.startsWith("/business/viewService/")
-                  ? "bg-brown-A43 text-white"
-                  : "text-gray-900 hover:bg-gray-100"
-              }`}
+                ? "bg-brown-A43 text-white"
+                : "text-gray-900 hover:bg-gray-100"
+                }`}
             >
               <GiSaloon
-                className={`mr-3 ${
-                  isActive("/business/services") ||
+                className={`mr-3 ${isActive("/business/services") ||
                   window.location.pathname.startsWith("/business/viewService/")
-                    ? "text-white"
-                    : "text-gray-500"
-                }`}
+                  ? "text-white"
+                  : "text-gray-500"
+                  }`}
               />
               <span>Services</span>
             </Link>
@@ -133,18 +126,16 @@ const BusinessSideBar = ({ open, setOpen }) => {
             <Link
               to="/business/subscription"
               onClick={() => setOpen(false)}
-              className={`flex items-center p-2 rounded-lg transition-colors ${
-                isActive("/business/subscription")
-                  ? "bg-brown-A43 text-white"
-                  : "text-gray-900 hover:bg-gray-100"
-              }`}
+              className={`flex items-center p-2 rounded-lg transition-colors ${isActive("/business/subscription")
+                ? "bg-brown-A43 text-white"
+                : "text-gray-900 hover:bg-gray-100"
+                }`}
             >
               <FaUsers
-                className={`mr-3 ${
-                  isActive("/business/subscription")
-                    ? "text-white"
-                    : "text-gray-500"
-                }`}
+                className={`mr-3 ${isActive("/business/subscription")
+                  ? "text-white"
+                  : "text-gray-500"
+                  }`}
               />
               <span>Subscription</span>
             </Link>
@@ -154,51 +145,24 @@ const BusinessSideBar = ({ open, setOpen }) => {
             <Link
               to="/business/bookings"
               onClick={() => setOpen(false)}
-              className={`flex items-center p-2 rounded-lg transition-colors ${
-                isActive("/business/bookings") ||
+              className={`flex items-center p-2 rounded-lg transition-colors ${isActive("/business/bookings") ||
                 location.pathname.includes("/business/bookingDetails")
-                  ? "bg-brown-A43 text-white"
-                  : "text-gray-900 hover:bg-gray-100"
-              }`}
+                ? "bg-brown-A43 text-white"
+                : "text-gray-900 hover:bg-gray-100"
+                }`}
             >
               <FaTasks
-                className={`mr-3 ${
-                  isActive("/business/bookings") ||
+                className={`mr-3 ${isActive("/business/bookings") ||
                   location.pathname.includes("/business/bookingDetails")
-                    ? "text-white"
-                    : "text-gray-500"
-                }`}
+                  ? "text-white"
+                  : "text-gray-500"
+                  }`}
               />
               <span>Bookings</span>
             </Link>
           </li>
 
-          <li>
-            <Link
-              to="/business/connectAccountInfo"
-              onClick={() => setOpen(false)}
-              className={`flex items-center p-2 rounded-lg transition-colors ${
-                isActive("/business/connectAccountInfo") ||
-                window.location.pathname.startsWith(
-                  "/business/connectAccountInfo/"
-                )
-                  ? "bg-brown-A43 text-white"
-                  : "text-gray-900 hover:bg-gray-100"
-              }`}
-            >
-              <GiSaloon
-                className={`mr-3 ${
-                  isActive("/business/connectAccountInfo") ||
-                  window.location.pathname.startsWith(
-                    "/business/connectAccountInfo/"
-                  )
-                    ? "text-white"
-                    : "text-gray-500"
-                }`}
-              />
-              <span>Connect Account</span>
-            </Link>
-          </li>
+
 
           {/* <li>
             <Link

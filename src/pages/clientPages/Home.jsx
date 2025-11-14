@@ -318,7 +318,7 @@ const Home = () => {
 
                         <div className='flex  flex-col justify-center items-center gap-2'>
                             <h2 className=' sm:text-[40px] text-[22px] lg:text-[45px] font-playfair text-black font-bold'>Your Hairstylist, Just a Click Away 👩🏾‍🦱</h2>
-                            <p className='sm:text-xl text-[16px] font-normal font-manrope text-gray-55 '>Browse trusted Afro/Black hairstylists near you and book with confidence.</p>
+                            <p className='sm:text-xl text-[16px] font-normal font-manrope text-gray-55 '>Browse trusted Afro and curly hairstylists near you and book with confidence.</p>
                         </div>
 
                         <div className='grid grid-cols-12 gap-4'>

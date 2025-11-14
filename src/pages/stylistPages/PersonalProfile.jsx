@@ -37,9 +37,6 @@ const PersonalProfile = () => {
   const profileSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
-    phone: Yup.string()
-      .matches(/^\+?[0-9]{7,15}$/, "Invalid phone number")
-      .required("Phone is required"),
   });
 
   const passwordSchema = Yup.object().shape({
@@ -160,14 +157,7 @@ const PersonalProfile = () => {
             </p>
           </div>
 
-          <div className="flex flex-col xs:flex-row justify-between xs:items-center gap-2 flex-wrap">
-            <h1 className="md:text-[25px] text-[14px] font-bold text-black-14 font-manrope">
-              Phone
-            </h1>
-            <p className="text-[14px] md:text-[20px] font-medium font-manrope text-brown-A43">
-              {userData.phone}
-            </p>
-          </div>
+
         </div>
       </div>
 
@@ -232,7 +222,6 @@ const PersonalProfile = () => {
                 initialValues={{
                   name: userData?.name || "",
                   email: userData?.email || "",
-                  phone: userData?.phone || "",
                   profilePhoto: [],
                   removePhoto: false,
                 }}
@@ -280,20 +269,7 @@ const PersonalProfile = () => {
                     </div>
 
                     {/* Phone */}
-                    <div className="p-[10px] border border-white-E9 rounded-[5px]">
-                      <div className="flex gap-3 items-center">
-                        <FiPhone size={24} className="text-blueCD" />
-                        <Field
-                          className="focus:outline-none border-none w-full bg-transparent"
-                          type="tel"
-                          name="phone"
-                          placeholder="Phone"
-                        />
-                      </div>
-                      {touched.phone && errors.phone && (
-                        <p className="text-red-500 text-sm">{errors.phone}</p>
-                      )}
-                    </div>
+
 
                     {/* File Upload */}
                     <FileUploadField

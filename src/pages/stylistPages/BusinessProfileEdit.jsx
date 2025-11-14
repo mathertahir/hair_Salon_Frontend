@@ -33,7 +33,6 @@ const BusinessProfileEdit = () => {
         businessDescription: "",
         operatingHours: "",
         operatingDays: "",
-        businessPhone: "",
         longitude: "",
         latitude: "",
         state: "",
@@ -265,16 +264,7 @@ const BusinessProfileEdit = () => {
                 </div>
 
                 {/* ✅ Contact */}
-                <div className="col-span-12 lg:col-span-6">
-                    <label className="text-[14px] font-bold font-manrop text-brown-A43">Business Contact :</label>
-                    <input
-                        type="tel"
-                        value={formData.businessPhone}
-                        onChange={(e) => setFormData({ ...formData, businessPhone: e.target.value })}
-                        className="p-[10px] border border-white-E9 rounded-[5px] w-full focus:outline-none bg-transparent"
-                        placeholder="+923001234567"
-                    />
-                </div>
+
 
                 {/* ✅ Location Search */}
                 <div className="col-span-12 ">

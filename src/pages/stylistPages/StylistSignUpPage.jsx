@@ -29,7 +29,6 @@ const StepSchemas = [
         email: Yup.string()
             .email("Enter a valid email")
             .required("Email is required"),
-        phone: Yup.string().required("Phone is required"),
         password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
         confirmPassword: Yup.string()
             .oneOf([Yup.ref("password")], "Passwords do not match")
@@ -38,7 +37,6 @@ const StepSchemas = [
     Yup.object({
         businessName: Yup.string().required("Business name is required"),
         streetAddress: Yup.string().required("Address is required"),
-        businessPhone: Yup.string().required("Business phone is required"),
     }),
     Yup.object(), // file validation handled manually
 ];
@@ -64,13 +62,12 @@ const StylistSignUpPage = () => {
     const initialValues = {
         name: "",
         email: "",
-        phone: "",
         password: "",
         confirmPassword: "",
         businessName: "",
         businessDescription: "",
         operatingHours: "",
-        businessPhone: "",
+        operatingDays: "",
         longitude: "",
         latitude: "",
         state: "",
@@ -176,14 +173,14 @@ const StylistSignUpPage = () => {
                             } else {
                                 // Manual file validation
                                 const fileErrors = {};
-                                if (businessRegistrationDoc.length === 0)
-                                    fileErrors.businessRegistrationDoc = "Registration document is required";
-                                if (businessNICPhoto.length === 0)
-                                    fileErrors.businessNICPhoto = "ID document is required";
-                                if (businessPhotos.length === 0)
-                                    fileErrors.businessPhotos = "Business photo is required";
-                                if (businessFeaturedImage.length === 0)
-                                    fileErrors.businessFeaturedImage = "Featured image is required";
+                                // if (businessRegistrationDoc.length === 0)
+                                //     fileErrors.businessRegistrationDoc = "Registration document is required";
+                                // if (businessNICPhoto.length === 0)
+                                //     fileErrors.businessNICPhoto = "ID document is required";
+                                // if (businessPhotos.length === 0)
+                                //     fileErrors.businessPhotos = "Business photo is required";
+                                // if (businessFeaturedImage.length === 0)
+                                //     fileErrors.businessFeaturedImage = "Featured image is required";
 
                                 if (Object.keys(fileErrors).length > 0) {
                                     ToastService.error("Please upload all required documents.");
@@ -197,99 +194,160 @@ const StylistSignUpPage = () => {
                             <Form className="flex flex-col gap-4">
                                 {activeStep === 0 && (
                                     <>
-                                        <InputField
-                                            icon={<FaRegUser size={22} />}
-                                            name="name"
-                                            placeholder="Name"
-                                            value={values.name}
-                                            onChange={handleChange}
-                                            error={touched.name && errors.name}
-                                        />
-                                        <InputField
-                                            icon={<MdForwardToInbox size={22} />}
-                                            name="email"
-                                            placeholder="Email"
-                                            value={values.email}
-                                            onChange={handleChange}
-                                            error={touched.email && errors.email}
-                                        />
-                                        <InputField
+                                        <div className="flex flex-col gap-3">
+                                            <p className="text-sm font-normal text-brown-A43" >Name</p>
+                                            <InputField
+                                                icon={<FaRegUser size={22} />}
+                                                name="name"
+                                                placeholder="Name"
+                                                value={values.name}
+                                                onChange={handleChange}
+                                                error={touched.name && errors.name}
+                                            />
+                                        </div>
+
+                                        <div className="flex flex-col gap-3">
+                                            <p className="text-sm font-normal text-brown-A43" >Email</p>
+                                            <InputField
+                                                icon={<MdForwardToInbox size={22} />}
+                                                name="email"
+                                                placeholder="Email"
+                                                value={values.email}
+                                                onChange={handleChange}
+                                                error={touched.email && errors.email}
+                                            />
+                                        </div>
+
+
+                                        {/* <InputField
                                             icon={<MdPhone size={22} />}
                                             name="phone"
                                             placeholder="Phone"
                                             value={values.phone}
                                             onChange={handleChange}
                                             error={touched.phone && errors.phone}
-                                        />
+                                        /> */}
 
 
                                         {/* Password Field */}
-                                        <div className="p-[10px] border-[1px] border-white-E9 rounded-[5px]">
-                                            <div className="flex gap-3 items-center">
-                                                <div className="text-blueCD">
-                                                    <LiaKeySolid size={24} />
+                                        <div className="flex flex-col gap-3">
+                                            <p className="text-sm font-normal text-brown-A43" >Password</p>
+                                            <div className="px-[10px] border-[1px] border-white-E9 rounded-[5px]">
+                                                <div className="flex gap-3 items-center">
+                                                    <div className="text-blueCD">
+                                                        <LiaKeySolid size={22} />
+                                                    </div>
+                                                    <InputPassword
+                                                        name="password"
+                                                        placeholder="Password"
+                                                        value={values.password}
+                                                        onChange={handleChange}
+                                                    />
                                                 </div>
-                                                <InputPassword
-                                                    name="password"
-                                                    placeholder="Password"
-                                                    value={values.password}
-                                                    onChange={handleChange}
-                                                />
+                                                {touched.password && errors.password && (
+                                                    <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+                                                )}
                                             </div>
-                                            {touched.password && errors.password && (
-                                                <p className="text-red-500 text-sm mt-1">{errors.password}</p>
-                                            )}
+                                        </div>
+                                        <div className="flex flex-col gap-3">
+                                            <p className="text-sm font-normal text-brown-A43" >Confirm Password</p>
+                                            <div className="p-[10px] border-[1px] border-white-E9 rounded-[5px]">
+                                                <div className="flex gap-3 items-center">
+                                                    <div className="text-blueCD">
+                                                        <LiaKeySolid size={24} />
+                                                    </div>
+                                                    <InputPassword
+                                                        name="confirmPassword"
+                                                        placeholder="Confirm Password"
+                                                        value={values.confirmPassword}
+                                                        onChange={handleChange}
+                                                    />
+                                                </div>
+                                                {touched.confirmPassword && errors.confirmPassword && (
+                                                    <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
+                                                )}
+                                            </div>
                                         </div>
 
+
                                         {/* Confirm Password Field */}
-                                        <div className="p-[10px] border-[1px] border-white-E9 rounded-[5px]">
-                                            <div className="flex gap-3 items-center">
-                                                <div className="text-blueCD">
-                                                    <LiaKeySolid size={24} />
-                                                </div>
-                                                <InputPassword
-                                                    name="confirmPassword"
-                                                    placeholder="Confirm Password"
-                                                    value={values.confirmPassword}
-                                                    onChange={handleChange}
-                                                />
-                                            </div>
-                                            {touched.confirmPassword && errors.confirmPassword && (
-                                                <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
-                                            )}
-                                        </div>
+
 
                                     </>
                                 )}
 
                                 {activeStep === 1 && (
                                     <>
-                                        <InputField
-                                            icon={<FaStore size={22} />}
-                                            name="businessName"
-                                            placeholder="Business Name"
-                                            value={values.businessName}
-                                            onChange={handleChange}
-                                            error={touched.businessName && errors.businessName}
-                                        />
-                                        <InputField
-                                            icon={<IoNewspaperOutline size={22} />}
-                                            name="businessDescription"
-                                            placeholder="Business Description"
-                                            value={values.businessDescription}
-                                            onChange={handleChange}
-                                        />
 
-                                        <div className="flex flex-col gap-1">
-                                            <MapSearchField
-                                                value={values.streetAddress}
-                                                onChange={(data) => handlePlaceChanged(data, setFieldValue)}
+                                        <div className="flex flex-col gap-3">
+                                            <p className="text-sm font-normal text-brown-A43" >Salon Name</p>
+                                            <InputField
+                                                icon={<FaStore size={22} />}
+                                                name="businessName"
+                                                placeholder="Enter Your Salon Name"
+                                                value={values.businessName}
+                                                onChange={handleChange}
+                                                error={touched.businessName && errors.businessName}
                                             />
-                                            {touched.streetAddress && errors.streetAddress && (
-                                                <p className="text-red-500 text-sm mt-1">{errors.streetAddress}</p>
-                                            )}
                                         </div>
 
+
+                                        <div className="flex flex-col gap-3">
+                                            <p className="text-sm font-normal text-brown-A43" >Salon Description</p>
+                                            <TextAreaField
+                                                icon={<IoNewspaperOutline size={22} />}
+                                                name="businessDescription"
+                                                placeholder="Business Description"
+                                                value={values.businessDescription}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+
+                                        <div className="flex flex-col gap-3">
+                                            <p className="text-sm font-normal text-brown-A43" >Enter Your Location</p>
+                                            <div className="flex flex-col gap-1">
+                                                <MapSearchField
+                                                    value={values.streetAddress}
+                                                    onChange={(data) => handlePlaceChanged(data, setFieldValue)}
+                                                />
+                                                {touched.streetAddress && errors.streetAddress && (
+                                                    <p className="text-red-500 text-sm mt-1">{errors.streetAddress}</p>
+                                                )}
+                                            </div>
+                                        </div>
+
+
+
+                                        <div className="flex flex-col gap-3">
+                                            <p className="text-sm font-normal text-brown-A43" >Operating Hours</p>
+                                            <InputField
+                                                icon={<GrServices size={22} />}
+                                                name="operatingHours"
+                                                placeholder="4:00 AM - 5:00 PM"
+                                                value={values.operatingHours}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+
+
+                                        <div className="flex flex-col gap-3">
+                                            <p className="text-sm font-normal text-brown-A43" >Operating Days</p>
+                                            <InputField
+                                                icon={<GrServices size={22} />}
+                                                name="operatingDays"
+                                                placeholder="Mon - Fri"
+                                                value={values.operatingDays}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+
+
+
+
+
+
+
+                                        {/* 
                                         <InputField
                                             icon={<MdPhone size={22} />}
                                             name="businessPhone"
@@ -297,43 +355,57 @@ const StylistSignUpPage = () => {
                                             value={values.businessPhone}
                                             onChange={handleChange}
                                             error={touched.businessPhone && errors.businessPhone}
-                                        />
-                                        <InputField
-                                            icon={<GrServices size={22} />}
-                                            name="operatingHours"
-                                            placeholder="Operating Hours"
-                                            value={values.operatingHours}
-                                            onChange={handleChange}
-                                        />
+                                        /> */}
+
                                     </>
                                 )}
 
                                 {activeStep === 2 && (
                                     <>
-                                        <FileUploadField
-                                            label="Upload Registration Doc"
-                                            files={businessRegistrationDoc}
-                                            setFiles={setBusinessRegistrationDoc}
-                                            maxFiles={1}
-                                        />
-                                        <FileUploadField
-                                            label="Upload ID"
-                                            files={businessNICPhoto}
-                                            setFiles={setBusinessNICPhoto}
-                                            maxFiles={2}
-                                        />
-                                        <FileUploadField
-                                            label="Business Photos"
-                                            files={businessPhotos}
-                                            setFiles={setBusinessPhotos}
-                                            maxFiles={4}
-                                        />
-                                        <FileUploadField
-                                            label="Featured Image"
-                                            files={businessFeaturedImage}
-                                            setFiles={setBusinessFeaturedImage}
-                                            maxFiles={1}
-                                        />
+
+                                        <div className="flex flex-col gap-3">
+                                            <p className="text-sm font-normal text-brown-A43" >{"RegisterationDocument (Optional)"}</p>
+                                            <FileUploadField
+                                                label="Registration Doc (Optional)"
+                                                files={businessRegistrationDoc}
+                                                setFiles={setBusinessRegistrationDoc}
+                                                maxFiles={1}
+                                            />
+                                        </div>
+                                        <div className="flex flex-col gap-3">
+                                            <p className="text-sm font-normal text-brown-A43" >{"NIC Document (Optional)"}</p>
+                                            <FileUploadField
+                                                label="NIC Doc (Optional)"
+                                                files={businessNICPhoto}
+                                                setFiles={setBusinessNICPhoto}
+                                                maxFiles={2}
+                                            />
+                                        </div>
+
+                                        <div className="flex flex-col gap-3">
+                                            <p className="text-sm font-normal text-brown-A43" >{"Salon Photos (Optional)"}</p>
+                                            <FileUploadField
+                                                label="Salon Photos (Optional)"
+                                                files={businessPhotos}
+                                                setFiles={setBusinessPhotos}
+                                                maxFiles={4}
+                                            />
+                                        </div>
+
+
+                                        <div className="flex flex-col gap-3">
+                                            <p className="text-sm font-normal text-brown-A43" >{"Featured Image (Optional)"}</p>
+                                            <FileUploadField
+                                                label="Featured Image (Optional)"
+                                                files={businessFeaturedImage}
+                                                setFiles={setBusinessFeaturedImage}
+                                                maxFiles={1}
+                                            />
+                                        </div>
+
+
+
+
                                         <ButtonSquare
                                             className="w-full bg-brown-A43 text-background p-[20px] font-extrabold text-[14px] font-manrope"
                                             variant="secondary"
@@ -401,6 +473,20 @@ const InputField = ({ icon, error, ...props }) => (
             <input
                 {...props}
                 className="focus:outline-none border-none w-full bg-transparent"
+            />
+        </div>
+        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+    </div>
+);
+
+const TextAreaField = ({ icon, error, ...props }) => (
+    <div className="p-[10px] border border-white-E9 rounded-[5px]">
+        <div className="flex gap-3 items-">
+            <div className="text-blueCD">{icon}</div>
+            <textarea
+                {...props}
+                className="focus:outline-none border-none w-full bg-transparent"
+                rows={3}
             />
         </div>
         {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
