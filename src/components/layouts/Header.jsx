@@ -252,6 +252,18 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                       <div className="absolute bottom-0 left-0 w-full h-0.5 bg-foreground active-tab-border"></div>
                     )}
                   </Link>
+                  <Link
+                    to="/blogs"
+                    className={`relative text-sm font-medium transition-colors pb-2 ${isActive("/contact")
+                      ? "text-foreground"
+                      : "text-black hover:text-foreground"
+                      }`}
+                  >
+                    Blogs
+                    {isActive("/blogs") && (
+                      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-foreground active-tab-border"></div>
+                    )}
+                  </Link>
                 </nav>
 
                 {/* <Select value={language} onValueChange={setLanguage}>

@@ -44,6 +44,8 @@ import ClientBookingDetail from "../pages/clientPages/ClientBookingDetail.jsx";
 import StylistBookingDetail from "../pages/stylistPages/StylistBookingDetail.jsx";
 import StylistBookingList from "../pages/stylistPages/StylistBookingList.jsx";
 import StylistConnectAccountInfo from "../pages/stylistPages/StylistConnectAccountInfo.jsx";
+import BlogsPage from "../pages/BlogsPage.jsx";
+import BlogDetail from "../pages/BlogsDetail.jsx";
 
 // Temporary placeholder components
 const Profile = () => (
@@ -93,6 +95,9 @@ const UserRoutes = () => {
         { path: "salon-detailed-info/:id", element: <SalonDetailedInfo /> },
         { path: "profile-setup/:id?", element: <ProfileSetup /> },
         { path: "userServices", element: <PublicServicesPage /> },
+        { path: "blogs", element: <BlogsPage /> },
+        { path: "blogDetail/:slug?", element: <BlogDetail /> },
+
       ],
     },
 

@@ -42,7 +42,7 @@ const Footer = () => {
                                     <Link to="/" className='text-background  xs:text-base text-sm font-medium font-manrope'>Home</Link>
                                     <Link to="/about" className='text-background xs:text-base text-sm font-medium font-manrope'>About Us</Link>
                                     <Link to="/contact" className='text-background xs:text-base text-sm font-medium font-manrope'>Contact Us</Link>
-                                    <Link to="/blog" className='text-background xs:text-base text-sm font-medium font-manrope'>Blog</Link>
+                                    <Link to="/blogs" className='text-background xs:text-base text-sm font-medium font-manrope'>Blog</Link>
                                     <Link to="/privacy" className='text-background xs:text-base text-sm font-medium font-manrope'>Privacy Policy</Link>
                                 </div>
                             </div>

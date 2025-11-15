@@ -28,3 +28,26 @@ export const formatDate = (dateString) => {
   return `${day}-${monthName}-${year}`;
 };
 
+export const truncateText = (text = "", limit = 15) => {
+  if (!text) return "";
+  return text.length > limit ? text.substring(0, limit) + "..." : text;
+};
+
+
+export const createMarkup = (htmlContent) => {
+  return { __html: htmlContent };
+};
+
+export const formatDateNew = (dateString) => {
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
+
+
+export const sanitizeLinks = (html) => {
+  if (!html) return "";
+  return html.replace(
+    /<a /g,
+    '<a target="_blank" rel="noopener noreferrer" class="text-blue-600 underline" '
+  );
+};

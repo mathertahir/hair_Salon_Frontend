@@ -38,4 +38,7 @@ export default function GoogleTranslate({ closeSidebar }) {
       />
     </div>
   );
+
 }
+
+

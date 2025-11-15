@@ -14,7 +14,16 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
+  <style>
+    /* Prevent Google Translate from breaking layout */
+    body {
+      top: 0px !important;
+    }
 
+    .skiptranslate iframe {
+      visibility: hidden !important;
+    }
+  </style>
   <title>Crownity</title>
 </head>
 
@@ -22,6 +31,8 @@
   <noscript>You need to enable JavaScript to run this app.</noscript>
 
   <div id="root"></div>
+
+
 
 
 

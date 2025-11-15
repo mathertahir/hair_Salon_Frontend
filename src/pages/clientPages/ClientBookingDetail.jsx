@@ -118,16 +118,7 @@ const ClientBookingDetail = () => {
                         {new Date(booking?.bookingDate).toLocaleDateString()}
                     </p>
                 </div>
-                <div className="flex flex-col xs:flex-row justify-between xs:items-center gap-2 flex-wrap">
-                    <div className="flex flex-col gap-6">
-                        <h1 className="md:text-[25px] text-[14px] font-bold text-black-14 font-manrope">
-                            Booking Salon Contact Number
-                        </h1>
-                    </div>
-                    <p className="text-[14px] md:text-[20px] font-medium font-manrope text-brown-A43">
-                        {booking?.business?.phone}
-                    </p>
-                </div>
+
 
                 <div className="flex flex-col xs:flex-row justify-between xs:items-center gap-2 flex-wrap">
                     <div className="flex flex-col gap-6">
