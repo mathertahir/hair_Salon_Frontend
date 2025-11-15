@@ -142,35 +142,6 @@ const Contact = () => {
 
                 </div>
 
-                <div className='p-[24px] border-[1px] border-gray-55 rounded-[5px] '>
-                  <div className='flex gap-3 items-center '>
-                    <div className='text-brown-A43'>
-                      <IoCallOutline size={24} />
-                    </div>
-                    <input
-                      className="focus:border-none focus:outline-none border-none w-full bg-transparent"
-                      type="tel"
-                      placeholder='Phone'
-                    />
-
-                  </div>
-
-                </div>
-
-                <div className='p-[24px] border-[1px] border-gray-55 rounded-[5px] '>
-                  <div className='flex gap-3 items-center '>
-                    <div className='text-brown-A43'>
-                      <IoBookOutline size={24} />
-                    </div>
-                    <input
-                      className="focus:border-none focus:outline-none border-none w-full bg-transparent"
-                      type="text"
-                      placeholder='Service you Need'
-                    />
-
-                  </div>
-
-                </div>
 
                 <div className='p-[24px] border-[1px] border-gray-55 rounded-[5px] '>
                   <div className='flex gap-3 items-start justify-start '>

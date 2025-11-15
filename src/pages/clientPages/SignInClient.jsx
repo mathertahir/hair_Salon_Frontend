@@ -140,12 +140,12 @@ const SignInClient = () => {
 
                     {/* ===== Extra Options ===== */}
                     <div className="flex flex-col gap-[20px]">
-                        {/* <Link
+                        <Link
                             to={`/forgotPassword/${id}`}
                             className="hover:-translate-y-[2px] text-brown-A43 font-semibold font-poppins text-center sm:text-left"
                         >
                             Forgot Password
-                        </Link> */}
+                        </Link>
 
                         {/* Divider */}
                         <div className="inline-flex items-center justify-center w-full relative">

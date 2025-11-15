@@ -22,7 +22,7 @@ const ForgotPassword = () => {
         email: "",
     });
 
-    const url = id === "0" ? "/auth/login" : "api/auth/business/forgotPassword";
+    const url = id === "0" ? "api/auth/forgotPassword" : "api/auth/business/forgotPassword";
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
