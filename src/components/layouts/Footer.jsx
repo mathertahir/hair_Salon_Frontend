@@ -43,7 +43,7 @@ const Footer = () => {
                                     <Link to="/about" className='text-background xs:text-base text-sm font-medium font-manrope'>About Us</Link>
                                     <Link to="/contact" className='text-background xs:text-base text-sm font-medium font-manrope'>Contact Us</Link>
                                     <Link to="/blogs" className='text-background xs:text-base text-sm font-medium font-manrope'>Blog</Link>
-                                    <Link to="/privacy" className='text-background xs:text-base text-sm font-medium font-manrope'>Privacy Policy</Link>
+
                                 </div>
                             </div>
                             <div className='col-span-12 xs:col-span-6        md:col-span-3 flex flex-col gap-[21px] justify-center items-center xs:items-start xs:justify-start'>
@@ -52,7 +52,7 @@ const Footer = () => {
 
                                 <div className='flex flex-col gap-[10px] justify-center items-center xs:items-start xs:justify-start '>
                                     <Link to="/privacy" className='text-background xs:text-base text-sm font-medium font-manrope'>Privacy Policy</Link>
-                                    <Link to="/privacy" className='text-background xs:text-base text-sm font-medium font-manrope'>Terms of Use</Link>
+                                    <Link to="/terms" className='text-background xs:text-base text-sm font-medium font-manrope'>Terms of Use</Link>
 
                                 </div>
                             </div>

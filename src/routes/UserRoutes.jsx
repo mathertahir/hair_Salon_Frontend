@@ -46,6 +46,8 @@ import StylistBookingList from "../pages/stylistPages/StylistBookingList.jsx";
 import StylistConnectAccountInfo from "../pages/stylistPages/StylistConnectAccountInfo.jsx";
 import BlogsPage from "../pages/BlogsPage.jsx";
 import BlogDetail from "../pages/BlogsDetail.jsx";
+import Privacy from "../pages/Privacy.jsx";
+import Terms from "../pages/Terms.jsx";
 
 // Temporary placeholder components
 const Profile = () => (
@@ -97,6 +99,8 @@ const UserRoutes = () => {
         { path: "userServices", element: <PublicServicesPage /> },
         { path: "blogs", element: <BlogsPage /> },
         { path: "blogDetail/:slug?", element: <BlogDetail /> },
+        { path: "privacy", element: <Privacy /> },
+        { path: "terms", element: <Terms /> }
 
       ],
     },
