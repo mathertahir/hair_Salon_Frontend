@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-// import "./GoogleTranslate.css";
+import "./GoogleTranslate.css";
 
 const GoogleTranslate = () => {
   const translateRef = useRef(null);
