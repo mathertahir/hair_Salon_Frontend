@@ -1,111 +1,88 @@
-// import React, { useEffect, useState } from "react";
-// import "./GoogleTranslate.css";
-// import CustomSelectBox from "../components/ui/CustomSelectBox";
-
-// export default function GoogleTranslate({ closeSidebar }) {
-//   const languages = [
-//     { code: "en", name: "English" },
-//     { code: "fr", name: "French" },
-//     { code: "es", name: "Spanish" },
-//   ];
-
-//   const [selectedLang, setSelectedLang] = useState("en");
-//   const [loading, setLoading] = useState(false);
-
-//   const handleChange = (e) => {
-//     const lang = e.target.value;
-//     setSelectedLang(lang);
-//     console.log("Language changed to:", lang);
-//   };
-
-//   const googleTranslateElementInit = () => {
-//     new window.google.translate.TranslateElement(
-//       {
-//         pageLanguage: "en",
-//         autoDisplay: false
-//       },
-//       "google_translate_element"
-//     );
-//   };
-//   useEffect(() => {
-//     var addScript = document.createElement("script");
-//     addScript.setAttribute(
-//       "src",
-//       "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-//     );
-//     document.body.appendChild(addScript);
-//     window.googleTranslateElementInit = googleTranslateElementInit;
-//   }, []);
-//   return (
-//     <div
-//       className={`pb-[8px] fade-translate${loading ? " fade-out" : " fade-in"}`}
-//       style={{ position: "relative" }}
-//     >
-//       {loading && (
-//         <div className="translate-loader">
-//           <div className="spinner"></div>
-//         </div>
-//       )}
-
-//       <CustomSelectBox
-//         languages={languages}
-//         selectedLang={selectedLang}
-//         handleChange={handleChange}
-//         loading={loading}
-//         closeSidebar={closeSidebar}
-//       />
-//     </div>
-
-//   );
-
-// }
-
-import React, { useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "./GoogleTranslate.css";
-import CustomSelectBox from "../components/ui/CustomSelectBox";
 
-export default function GoogleTranslate({ closeSidebar }) {
-  const languages = [
-    { code: "en", name: "English" },
-    { code: "fr", name: "French" },
-    { code: "es", name: "Spanish" },
-  ];
+const GoogleTranslate = () => {
+  const translateRef = useRef(null);
+  const scriptLoadedRef = useRef(false);
+  const translateElementRef = useRef(null);
 
-  const [selectedLang, setSelectedLang] = useState("en");
-  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    // Prevent multiple script loads
+    if (scriptLoadedRef.current) {
+      if (window.google?.translate?.TranslateElement && translateRef.current && !translateElementRef.current) {
+        initializeTranslate();
+      }
+      return;
+    }
 
-  const handleChange = (e) => {
-    const lang = e.target.value;
-    setSelectedLang(lang);
-    setLoading(true);
+    // Check if script is already loaded
+    if (window.google?.translate?.TranslateElement) {
+      scriptLoadedRef.current = true;
+      initializeTranslate();
+      return;
+    }
 
-    // Google dynamic translation URL
-    const url = `https://translate.google.com/translate?sl=en&tl=${lang}&u=${encodeURIComponent(
-      window.location.href
-    )}`;
+    // Define initialization function
+    window.googleTranslateElementInit = () => {
+      scriptLoadedRef.current = true;
+      initializeTranslate();
+    };
 
-    // Redirect to translated page
-    window.location.href = url;
-  };
+    // Load Google Translate script
+    const addScript = document.createElement("script");
+    addScript.src =
+      "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    addScript.async = true;
+    addScript.defer = true;
+    addScript.onerror = () => {
+      console.error("Failed to load Google Translate script");
+      scriptLoadedRef.current = false;
+    };
+
+    // Check if script already exists
+    const existingScript = document.querySelector('script[src*="translate.google.com"]');
+    if (existingScript) {
+      scriptLoadedRef.current = true;
+      setTimeout(() => {
+        if (window.google?.translate?.TranslateElement) {
+          initializeTranslate();
+        }
+      }, 100);
+    } else {
+      document.head.appendChild(addScript);
+    }
+
+    function initializeTranslate() {
+      if (window.google?.translate?.TranslateElement && translateRef.current && !translateElementRef.current) {
+        try {
+          translateElementRef.current = new window.google.translate.TranslateElement(
+            {
+              pageLanguage: "en",
+              includedLanguages: "en,es,fr",
+              layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+              autoDisplay: false,
+            },
+            translateRef.current
+          );
+        } catch (error) {
+          console.error("Error initializing Google Translate:", error);
+        }
+      }
+    }
+
+    // Cleanup
+    return () => {
+      if (translateRef.current) {
+        translateRef.current.innerHTML = "";
+      }
+    };
+  }, []);
 
   return (
-    <div className={`pb-[8px] fade-translate${loading ? " fade-out" : " fade-in"}`}>
-      {loading && (
-        <div className="translate-loader">
-          <div className="spinner"></div>
-        </div>
-      )}
-
-      <CustomSelectBox
-        languages={languages}
-        selectedLang={selectedLang}
-        handleChange={handleChange}
-        loading={loading}
-        closeSidebar={closeSidebar}
-      />
+    <div className="google-translate-container">
+      <div ref={translateRef} id="google_translate_element"></div>
     </div>
   );
-}
+};
 
-
-
+export default GoogleTranslate;
