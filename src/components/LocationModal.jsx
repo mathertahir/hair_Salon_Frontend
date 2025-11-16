@@ -198,7 +198,7 @@ const LocationModal = ({ visible, onClose, onLocationChange }) => {
 
     if (!isLoaded) {
         return (
-            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="fixed inset-0 bg-black-050 flex items-center justify-center z-50">
                 <div className="bg-white rounded-2xl shadow-lg w-[400px] p-6 text-center">
                     <div className="animate-spin border-4 border-gray-300 border-t-green-500 rounded-full w-10 h-10 mx-auto mb-3"></div>
                     <p className="text-gray-600">Loading location services...</p>

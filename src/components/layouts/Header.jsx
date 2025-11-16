@@ -157,7 +157,10 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
   return (
     <>
       <div className="bg-brown-31">
-        <div className=" container flex justify-end  py-5">
+        <div className=" container flex justify-between  items-center  py-[10px]">
+
+          <div>     <h1 className="text-xl font-bold font-playfair text-background">Crownity</h1></div>
+
           <GoogleTranslate />
         </div>
       </div>
