@@ -156,6 +156,9 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
   };
   return (
     <>
+      <div className=" container flex justify-end  py-4">
+        <GoogleTranslate />
+      </div>
 
       <div className="bg-white-FD">
         <div className="container">
@@ -189,7 +192,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
             <button
               onClick={() => setIsLocationOpen(true)}
-              className="flex items-center gap-2 text-gray-700 hover:text-brown-A43"
+              className="flex items-center gap-2 text-gray-700 hover:text-brown-A43 hidden xs:flex"
             >
 
 
@@ -282,7 +285,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                                     </SelectContent>
                                 </Select> */}
 
-                <GoogleTranslate />
+                {/* <GoogleTranslate /> */}
 
                 <div
                   className={`flex items-center space-x-4 ${token?.length > 0 ? "hidden" : "block"
@@ -588,6 +591,22 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
           >
             Contact Us
           </Link>
+
+          <div className="px-4">
+
+            <button
+              onClick={() => setIsLocationOpen(true)}
+              className="flex items-center gap-2 text-gray-700 hover:text-brown-A43 flex xs:hidden"
+            >
+
+
+              {userLocation
+                ? userLocation.name
+                : "Detect your location"}
+
+              <div className="text-brown-A43 ">    <MdLocationOn size={24} /></div>
+            </button>
+          </div>
         </nav>
 
         {/* Sidebar Language Selector */}

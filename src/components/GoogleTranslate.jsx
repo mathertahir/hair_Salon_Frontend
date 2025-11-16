@@ -60,7 +60,7 @@ const GoogleTranslate = () => {
               pageLanguage: "en",
               includedLanguages: "en,es,fr",
               layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-              autoDisplay: false,
+              autoDisplay: true,
             },
             translateRef.current
           );
