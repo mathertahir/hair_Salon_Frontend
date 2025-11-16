@@ -156,13 +156,16 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
   };
   return (
     <>
-      <div className=" container flex justify-end  py-4">
-        <GoogleTranslate />
+      <div className="bg-brown-31">
+        <div className=" container flex justify-end  py-5">
+          <GoogleTranslate />
+        </div>
       </div>
+
 
       <div className="bg-white-FD">
         <div className="container">
-          <header className="py-[25px]   flex items-center justify-between gap-5   z-50">
+          <header className="py-[5px]   flex items-center justify-between gap-5   z-50">
             {/* Mobile Menu Button */}
 
             <div className="flex md:hidden">
