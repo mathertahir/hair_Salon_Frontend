@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import email from '../../assets/call.png'
 import message from '../../assets/message.png'
 import home from '../../assets/Home.png'
 import reachBg from '../../assets/bgreach.png'
 import pic from '../../assets/reachoutpic.jpg'
 import { MdOutlinePerson } from "react-icons/md";
+import useAPI from "../../services/baseUrl/useApiHook";
+import { AuthContext } from "../../services/context/AuthContext";
+import { ToastService } from '../../utils/ToastService'
+import { handleApiError } from '../../utils/helpers/HelperFunction'
+
 
 import { MdForwardToInbox } from "react-icons/md";
 import { IoCallOutline } from "react-icons/io5";
@@ -31,6 +36,52 @@ const reachData = [
 ]
 
 const Contact = () => {
+  const API = useAPI();
+  const auth = useContext(AuthContext);
+
+  const [name, setName] = useState("");
+  const [emailField, setEmailField] = useState("");
+  const [messageField, setMessageField] = useState("");
+  const [loading, setLoading] = useState(false);
+
+
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validation
+    if (!name || !emailField || !messageField) {
+      ToastService.error("Please fill all required fields.");
+      return;
+    }
+
+    const payload = {
+      name,
+      email: emailField,
+      description: messageField,
+      userId: auth?.user?._id || null, // send userId if logged in
+    };
+
+    try {
+      setLoading(true);
+
+      const response = await API.post(`/api/user/contact`, payload);
+
+      const responseMessage =
+        response.data?.responseMessage?.[0] || "Message sent successfully!";
+      ToastService.success(responseMessage);
+
+      // Reset Form Fields
+      setName("");
+      setEmailField("");
+      setMessageField("");
+    } catch (error) {
+      console.error("Contact form failed:", error);
+      handleApiError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div>
       {/* Hero Section */}
@@ -97,7 +148,7 @@ const Contact = () => {
 
       {/* Form Section */}
 
-      <div className='bg-brown-E0'>
+      {/* <div className='bg-brown-E0'>
         <div className='container'>
           <div className='grid grid-12 gap-10  py-20 px-0 md:px-[60px] lg:px-[150px]    2xl:px-[335px]'>
 
@@ -167,6 +218,86 @@ const Contact = () => {
               </div>
             </form>
 
+
+          </div>
+        </div>
+      </div> */}
+      <div className='bg-brown-E0'>
+        <div className='container'>
+          <div className='grid grid-12 gap-10 py-20 px-0 md:px-[60px] lg:px-[150px] 2xl:px-[335px]'>
+
+            <div className='flex justify-center items-center'>
+              <div className='xl:max-w-[500px] flex justify-center items-center'>
+                <div>
+                  <p className='font-manrope text-base font-semibold text-brown-A43 mb-[2px]'>
+                    SCHEDULE YOUR PRESENCE
+                  </p>
+                  <h2 className='sm:text-[40px] text-[22px] lg:text-[45px] font-playfair text-brown-31 font-bold leading-none mb-4'>
+                    Get in touch
+                  </h2>
+                  <p className='font-manrope font-normal text-xl text-gray-55'>
+                    Fill out the form below and our team will respond within 24 hours.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <form className='bg-background rounded-[5px]' onSubmit={handleContactSubmit}>
+              <div className='p-[30px] sm-p-[30px] lg:p-[60px] xl:p-[100px] flex flex-col gap-[16px]'>
+
+                <div className='p-[24px] border-[1px] border-gray-55 rounded-[5px]'>
+                  <div className='flex gap-3 items-center'>
+                    <MdOutlinePerson size={24} className='text-brown-A43' />
+                    <input
+                      className="focus:outline-none w-full bg-transparent"
+                      type="text"
+                      placeholder='Name'
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className='p-[24px] border-[1px] border-gray-55 rounded-[5px]'>
+                  <div className='flex gap-3 items-center'>
+                    <MdForwardToInbox size={24} className='text-brown-A43' />
+                    <input
+                      className="focus:outline-none w-full bg-transparent"
+                      type="email"
+                      placeholder='Email'
+                      value={emailField}
+                      onChange={(e) => setEmailField(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className='p-[24px] border-[1px] border-gray-55 rounded-[5px]'>
+                  <div className='flex gap-3 items-start'>
+                    <IoBookOutline size={24} className='text-brown-A43' />
+                    <textarea
+                      className="focus:outline-none w-full bg-transparent"
+                      placeholder='Service you Need'
+                      rows={4}
+                      value={messageField}
+                      onChange={(e) => setMessageField(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <ButtonSquare
+                  className='w-full bg-brown-A43 text-background p-[32px] font-extrabold text-[14px] font-manrope'
+                  variant='secondary'
+                  type='submit'
+                  disabled={loading}
+                >
+                  {loading ? "Submitting..." : "Submit"}
+                </ButtonSquare>
+
+              </div>
+            </form>
 
           </div>
         </div>
