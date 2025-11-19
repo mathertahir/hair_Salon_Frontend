@@ -185,7 +185,7 @@ const PaymentForm = ({ id, bookingData }) => {
                         { headers: { Authorization: authToken } }
                     );
 
-                    ToastService.success("Booking payment successful!");
+                    // ToastService.success("Booking payment successful!");
                     navigate("/user/bookings");
                     return;
                 }

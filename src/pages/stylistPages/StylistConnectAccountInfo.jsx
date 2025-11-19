@@ -31,7 +31,7 @@ const StylistConnectAccountInfo = () => {
       // Update localStorage user object
       handleStripeStatus(data);
 
-      ToastService.success(response.data?.responseMessage?.[0]);
+      // ToastService.success(response.data?.responseMessage?.[0]);
 
       // 2️⃣ If any Stripe verification is incomplete, regenerate onboarding link
       if (
@@ -45,7 +45,7 @@ const StylistConnectAccountInfo = () => {
         });
 
         setOnboardingUrl(linkResponse.data.responseData.onboardingUrl);
-        ToastService.success(linkResponse.data.responseMessage[0]);
+        // ToastService.success(linkResponse.data.responseMessage[0]);
       }
     } catch (err) {
       handleApiError(err);

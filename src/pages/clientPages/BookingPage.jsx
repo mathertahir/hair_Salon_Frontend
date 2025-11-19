@@ -8,7 +8,7 @@ import { AuthContext } from "../../services/context/AuthContext";
 import { ToastService } from "../../utils/ToastService";
 import { handleApiError } from "../../utils/helpers/HelperFunction";
 import { ButtonSquare } from "../../components/ui/buttonSquare";
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FiAlertCircle } from "react-icons/fi";
 
 const BookingPage = () => {
@@ -37,7 +37,7 @@ const BookingPage = () => {
       .then((response) => {
         const responseMessage = response.data?.responseMessage?.[0];
         setServiceInfo(response.data.responseData.service);
-        ToastService.success(responseMessage);
+        // ToastService.success(responseMessage);
       })
       .catch((error) => {
         console.error("Error fetching service:", error);
@@ -92,7 +92,7 @@ const BookingPage = () => {
 
       const responseMessage =
         response.data?.responseMessage?.[0] || "Booking successful!";
-      ToastService.success(responseMessage);
+      // ToastService.success(responseMessage);
 
       navigate(`/booking-confirm/${id}`);
     } catch (error) {

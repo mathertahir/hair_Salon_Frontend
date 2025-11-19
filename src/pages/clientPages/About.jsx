@@ -54,21 +54,21 @@ const testimonials = [
 const values = [
     {
         id: 1,
-        title: "Expert Hairstylist",
-        description: "We have a team of expert hairstylists who are dedicated to providing the best possible service to our clients.",
+        title: "Trust & Excellence",
+        description: "We connect clients with verified, skilled Afro and curly hairstylists who care about quality, professionalism, and delivering exceptional results every time",
         image: values1
     },
     {
         id: 2,
-        title: "Expert Hairstylist",
-        description: "We have a team of expert hairstylists who are dedicated to providing the best possible service to our clients.",
+        title: "Community & Empowerment",
+        description: "Crownity is more than a platform its a community that celebrates Black beauty, supports hairstylists, and empowers clients to feel confident in their crown",
         image: values2
     },
 
     {
         id: 3,
-        title: "Expert Hairstylist",
-        description: "We have a team of expert hairstylists who are dedicated to providing the best possible service to our clients.",
+        title: "Authenticity & Representation",
+        description: "We take pride in representing diverse textures and styles with authenticity, creating a space where every curl, coil, and braid is valued and celebrated.",
         image: values3
     },
 

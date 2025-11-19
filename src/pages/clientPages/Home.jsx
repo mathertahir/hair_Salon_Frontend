@@ -8,7 +8,7 @@ import 'swiper/css/pagination'
 import useAPI from "../../services/baseUrl/useApiHook";
 import { AuthContext } from "../../services/context/AuthContext";
 import { ToastService } from '../../utils/ToastService';
-import { FiSearch } from 'react-icons/fi'
+import { FiMapPin, FiSearch } from 'react-icons/fi'
 
 import { Button } from '../../components/ui/button'
 import heroBg from '../../assets/HeroBG.png'
@@ -33,19 +33,13 @@ const Home = () => {
     const [limit, setLimit] = useState(4);
     const [totalPages, setTotalPages] = useState(1);
     const [searchParam, setSearchParam] = useState("")
+    const [postalCode, setPostalCode] = useState("");
     // Swiper navigation refs
     const swiperRef = useRef(null)
 
     const navigate = useNavigate(); // react-router hook
 
-    const handleSearch = () => {
-        if (!searchParam) {
-            alert("Please select a hairstyle before searching!");
-            return;
-        }
-        // Navigate to /userServices with searchParam
-        navigate(`/userServices?searchParam=${encodeURIComponent(searchParam)}`);
-    };
+
 
 
 
@@ -93,7 +87,7 @@ const Home = () => {
             setTotalPages(data?.pagination?.totalPages || 1);
 
             if (response.data?.responseMessage?.[0]) {
-                ToastService.success(response.data?.responseMessage?.[0]);
+                // ToastService.success(response.data?.responseMessage?.[0]);
             }
         } catch (err) {
             handleApiError(err);
@@ -191,6 +185,65 @@ const Home = () => {
         { value: 'Make Up', label: 'Make Up' },
     ];
 
+    useEffect(() => {
+        const handleLocationChange = () => {
+            const newLocation = JSON.parse(localStorage.getItem("userLocation"));
+            setUserLocation(newLocation);
+        };
+        window.addEventListener("userLocationChanged", handleLocationChange);
+        window.addEventListener("storage", handleLocationChange);
+        return () => {
+            window.removeEventListener("userLocationChanged", handleLocationChange);
+            window.removeEventListener("storage", handleLocationChange);
+        };
+    }, []);
+
+    // 🔥 Handle postal code → Convert to lat/lng → Save in localStorage
+    const handleSearch = async () => {
+        try {
+            if (!searchParam) {
+                alert("Please select a hairstyle before searching!");
+                return;
+            }
+
+            if (!postalCode.trim()) {
+                alert("Please enter a postal code!");
+                return;
+            }
+
+            // Google Geocode call
+            const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${postalCode}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+            const geocodeRes = await fetch(url);
+            const geocodeData = await geocodeRes.json();
+
+            if (!geocodeData?.results?.length) {
+                ToastService.error("Invalid postal code!");
+                return;
+            }
+
+            const place = geocodeData.results[0];
+            const newLocation = {
+                name: place.formatted_address,
+                address: place.formatted_address,
+                lat: place.geometry.location.lat,
+                lng: place.geometry.location.lng,
+                placeId: place.place_id
+            };
+
+            // Save to localStorage
+            localStorage.setItem("userLocation", JSON.stringify(newLocation));
+
+            // Dispatch event so useEffect re-fetch triggers
+            window.dispatchEvent(new Event("userLocationChanged"));
+
+            // ToastService.success("Location updated successfully!");
+            navigate(`/userServices?searchParam=${encodeURIComponent(searchParam)}`);
+        } catch (error) {
+            console.error(error);
+            ToastService.error("Unable to fetch location!");
+        }
+    };
+
 
 
 
@@ -249,6 +302,20 @@ const Home = () => {
                                         onChange={setSearchParam}
                                         placeholder="Box Braids, Cornrows...."
                                     />
+
+                                    <div className='w-full xl:flex-1 flex flex-col justify-between'>
+                                        <p className='font-manrope font-bold xl:text-lg text-base text-brown-A43'>Where are you located?</p>
+                                        <div className='flex items-center gap-2 border-b border-black-14 pb-2'>
+                                            <input
+                                                type="text"
+                                                value={postalCode}
+                                                onChange={(e) => setPostalCode(e.target.value)}
+                                                className="focus:outline-none border-none w-full bg-transparent"
+                                                placeholder="Enter postal code"
+                                            />
+                                            <FiMapPin className='w-4 h-4 text-gray-500' />
+                                        </div>
+                                    </div>
 
                                     {/* Search Button */}
                                     <div className='w-full xl:w-auto flex items-center'>
@@ -352,7 +419,7 @@ const Home = () => {
                     <div className='py-20 flex flex-col gap-10 '>
 
 
-                        <div className='flex justify-between items-centter'>
+                        <div className='flex justify-between gap-2 flex-wrap items-centter'>
 
                             <div>                        <p className='font-manrope  text-base font-semibold text-brown-A43 mb-[2px]'>NEARBY Hairstylist</p>
                                 <h2 className=' sm:text-[40px] text-[22px] lg:text-[45px] font-playfair text-brown-31 font-bold leading-none mb-4'>Recommended Hairstylist</h2>
@@ -369,22 +436,30 @@ const Home = () => {
                         </div>
 
 
-
-                        <div className='grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3   xl:grid-cols-4 gap-4 items-stretch'>
-                            {services.map((hairstylist) => (
-                                <HairstylistCard
-                                    key={hairstylist._id}
-                                    image={hairstylist?.servicePhoto?.url}
-                                    name={hairstylist?.name}
-                                    busines={hairstylist?.business?.name}
-                                    location={hairstylist?.business?.businessLocation?.streetAddress}
-                                    rating={hairstylist?.business?.averageRating}
-                                    reviewCount={hairstylist?.business?.totalReviews}
-                                    id={hairstylist._id}
-                                    price={hairstylist?.price}
-                                />
-                            ))}
+                        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-stretch'>
+                            {services.length === 0 ? (
+                                <p className="text-center font-bold text-lg col-span-full py-6">
+                                    No nearby services found
+                                </p>
+                            ) : (
+                                services.map((hairstylist) => (
+                                    <HairstylistCard
+                                        key={hairstylist._id}
+                                        image={hairstylist?.servicePhoto?.url}
+                                        name={hairstylist?.name}
+                                        busines={hairstylist?.business?.name}
+                                        location={hairstylist?.business?.businessLocation?.streetAddress}
+                                        rating={hairstylist?.business?.averageRating}
+                                        reviewCount={hairstylist?.business?.totalReviews}
+                                        id={hairstylist._id}
+                                        price={hairstylist?.price}
+                                    />
+                                ))
+                            )}
                         </div>
+
+
+
                     </div>
                 </div>
 
@@ -436,3 +511,5 @@ const Home = () => {
 }
 
 export default Home
+
+

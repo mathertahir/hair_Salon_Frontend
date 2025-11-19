@@ -144,6 +144,25 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
     setUserLocation(locationData);
     localStorage.setItem("userLocation", JSON.stringify(locationData));
   };
+
+
+  useEffect(() => {
+    // 🟢 Event listener
+    const handleLocationChange = () => {
+      const storedLocation = localStorage.getItem("userLocation");
+      if (storedLocation) {
+        setUserLocation(JSON.parse(storedLocation));
+      }
+    };
+
+    // Event listen
+    window.addEventListener("userLocationChanged", handleLocationChange);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("userLocationChanged", handleLocationChange);
+    };
+  }, []);
   return (
     <>
       <div className="bg-brown-31">
@@ -204,9 +223,8 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                 <nav className="hidden md:flex items-center space-x-[46px]">
                   <Link
                     to="/"
-                    className={`relative text-base font-medium transition-colors pb-2 ${
-                      isActive("/") ? "text-foreground" : "text-black"
-                    }`}
+                    className={`relative text-base font-medium transition-colors pb-2 ${isActive("/") ? "text-foreground" : "text-black"
+                      }`}
                   >
                     Home
                     {isActive("/") && (
@@ -215,11 +233,10 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                   </Link>
                   <Link
                     to="/about"
-                    className={`relative text-sm font-medium transition-colors pb-2 ${
-                      isActive("/about")
-                        ? "text-foreground"
-                        : "text-black hover:text-foreground"
-                    }`}
+                    className={`relative text-sm font-medium transition-colors pb-2 ${isActive("/about")
+                      ? "text-foreground"
+                      : "text-black hover:text-foreground"
+                      }`}
                   >
                     About Us
                     {isActive("/about") && (
@@ -229,11 +246,10 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
                   <Link
                     to="/userServices"
-                    className={`relative text-sm font-medium transition-colors pb-2 ${
-                      isActive("/about")
-                        ? "text-foreground"
-                        : "text-black hover:text-foreground"
-                    }`}
+                    className={`relative text-sm font-medium transition-colors pb-2 ${isActive("/about")
+                      ? "text-foreground"
+                      : "text-black hover:text-foreground"
+                      }`}
                   >
                     Services
                     {isActive("/userServices") && (
@@ -243,11 +259,10 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
                   <Link
                     to="/contact"
-                    className={`relative text-sm font-medium transition-colors pb-2 ${
-                      isActive("/contact")
-                        ? "text-foreground"
-                        : "text-black hover:text-foreground"
-                    }`}
+                    className={`relative text-sm font-medium transition-colors pb-2 ${isActive("/contact")
+                      ? "text-foreground"
+                      : "text-black hover:text-foreground"
+                      }`}
                   >
                     Contact Us
                     {isActive("/contact") && (
@@ -256,11 +271,10 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                   </Link>
                   <Link
                     to="/blogs"
-                    className={`relative text-sm font-medium transition-colors pb-2 ${
-                      isActive("/contact")
-                        ? "text-foreground"
-                        : "text-black hover:text-foreground"
-                    }`}
+                    className={`relative text-sm font-medium transition-colors pb-2 ${isActive("/contact")
+                      ? "text-foreground"
+                      : "text-black hover:text-foreground"
+                      }`}
                   >
                     Blog
                     {isActive("/blogs") && (
@@ -287,9 +301,8 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                 {/* <GoogleTranslate /> */}
 
                 <div
-                  className={`flex items-center space-x-4 ${
-                    token?.length > 0 ? "hidden" : "block"
-                  }`}
+                  className={`flex items-center space-x-4 ${token?.length > 0 ? "hidden" : "block"
+                    }`}
                 >
                   <Link to={"/role/0"}>
                     <ButtonSquare
@@ -311,9 +324,8 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                 </div>
 
                 <div
-                  className={`flex items-center space-x-4 ${
-                    token?.length > 0 ? "block" : "hidden"
-                  }  relative`}
+                  className={`flex items-center space-x-4 ${token?.length > 0 ? "block" : "hidden"
+                    }  relative`}
                 >
                   <div
                     onMouseEnter={() => setShowProfileMenu(!showProfileMenu)}
@@ -326,9 +338,8 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                   </div>
 
                   <div
-                    className={`bg-background py-[30px] px-[24px] rounded-[30px] shadow-2xl w-[260px] h-auto absolute top-[50px] right-0 ${
-                      showProfileMenu ? "block" : "hidden"
-                    }`}
+                    className={`bg-background py-[30px] px-[24px] rounded-[30px] shadow-2xl w-[260px] h-auto absolute top-[50px] right-0 ${showProfileMenu ? "block" : "hidden"
+                      }`}
                     onMouseLeave={() => setShowProfileMenu(!showProfileMenu)}
                   >
                     <div className=" flex flex-col gap-[30px]">
@@ -395,9 +406,8 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
               </div>
 
               <div
-                className={`flex items-center space-x-4 md:hidden ${
-                  token?.length > 0 ? "hidden" : "block"
-                }`}
+                className={`flex items-center space-x-4 md:hidden ${token?.length > 0 ? "hidden" : "block"
+                  }`}
               >
                 <Link to={"/role/0"}>
                   <ButtonSquare
@@ -419,9 +429,8 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
               </div>
 
               <div
-                className={`flex items-center space-x-4  md:hidden ${
-                  token?.length > 0 ? "block" : "hidden"
-                }  relative`}
+                className={`flex items-center space-x-4  md:hidden ${token?.length > 0 ? "block" : "hidden"
+                  }  relative`}
               >
                 <div onMouseEnter={() => setShowProfileMenu(!showProfileMenu)}>
                   <img
@@ -432,9 +441,8 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                 </div>
 
                 <div
-                  className={`bg-background py-[30px] px-[24px] rounded-[30px] shadow-2xl w-[260px] h-auto absolute top-[50px] right-0 ${
-                    showProfileMenu ? "block" : "hidden"
-                  }`}
+                  className={`bg-background py-[30px] px-[24px] rounded-[30px] shadow-2xl w-[260px] h-auto absolute top-[50px] right-0 ${showProfileMenu ? "block" : "hidden"
+                    }`}
                   onMouseLeave={() => setShowProfileMenu(!showProfileMenu)}
                 >
                   <div className=" flex flex-col gap-[30px]">
@@ -552,22 +560,20 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
           <Link
             to="/"
             onClick={closeSidebar}
-            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${
-              isActive("/")
-                ? "bg-brown-31 text-background"
-                : "text-foreground hover:bg-gray-100"
-            }`}
+            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${isActive("/")
+              ? "bg-brown-31 text-background"
+              : "text-foreground hover:bg-gray-100"
+              }`}
           >
             Home
           </Link>
           <Link
             to="/about"
             onClick={closeSidebar}
-            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${
-              isActive("/about")
-                ? "bg-brown-31 text-background"
-                : "text-foreground hover:bg-gray-100"
-            }`}
+            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${isActive("/about")
+              ? "bg-brown-31 text-background"
+              : "text-foreground hover:bg-gray-100"
+              }`}
           >
             About Us
           </Link>
@@ -575,22 +581,20 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
           <Link
             to="/userServices"
             onClick={closeSidebar}
-            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${
-              isActive("/userServices")
-                ? "bg-brown-31 text-background"
-                : "text-foreground hover:bg-gray-100"
-            }`}
+            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${isActive("/userServices")
+              ? "bg-brown-31 text-background"
+              : "text-foreground hover:bg-gray-100"
+              }`}
           >
             Services
           </Link>
           <Link
             to="/contact"
             onClick={closeSidebar}
-            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${
-              isActive("/contact")
-                ? "bg-brown-31 text-background"
-                : "text-foreground hover:bg-gray-100"
-            }`}
+            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${isActive("/contact")
+              ? "bg-brown-31 text-background"
+              : "text-foreground hover:bg-gray-100"
+              }`}
           >
             Contact Us
           </Link>
@@ -598,11 +602,10 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
           <Link
             to="/blogs"
             onClick={closeSidebar}
-            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${
-              isActive("/blogs")
-                ? "bg-brown-31 text-background"
-                : "text-foreground hover:bg-gray-100"
-            }`}
+            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${isActive("/blogs")
+              ? "bg-brown-31 text-background"
+              : "text-foreground hover:bg-gray-100"
+              }`}
           >
             Blog
           </Link>

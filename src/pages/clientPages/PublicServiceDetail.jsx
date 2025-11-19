@@ -35,7 +35,7 @@ const PublicServiceDetail = () => {
             .then((response) => {
                 const responseMessage = response.data?.responseMessage?.[0];
                 setServiceInfo(response.data.responseData.service);
-                ToastService.success(responseMessage);
+                // ToastService.success(responseMessage);
             })
             .catch((error) => {
                 console.error('Error fetching business profile:', error);

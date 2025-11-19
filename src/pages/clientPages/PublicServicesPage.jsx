@@ -82,7 +82,7 @@ const PublicServicesPage = () => {
             setTotalPages(data?.pagination?.totalPages || 1);
 
             if (response.data?.responseMessage?.[0]) {
-                ToastService.success(response.data.responseMessage[0]);
+                // ToastService.success(response.data.responseMessage[0]);
             }
         } catch (err) {
             handleApiError(err);
@@ -97,15 +97,14 @@ const PublicServicesPage = () => {
         const param = queryParams.get("searchParam") || "";
         console.log(param.length, "Coming Param");
         setSearchParam(param);
-    }, [queryParams]);
+    }, [queryParams,]);
 
     // 2️⃣ Fetch when searchParam or dependencies change
     useEffect(() => {
-        // ✅ Only fetch if searchParam is set (even if empty string)
-        if (searchParam !== undefined) {
+        if (searchParam !== undefined && userLocation?.lat && userLocation?.lng) {
             fetchServices(searchParam);
         }
-    }, [searchParam, currentPage, limit, selectedFilter]);
+    }, [searchParam, currentPage, limit, selectedFilter])
 
     // Hero Search button
     const handleHeroSearch = () => {

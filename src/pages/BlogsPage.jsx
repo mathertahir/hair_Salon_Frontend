@@ -33,7 +33,7 @@ const BlogsPage = () => {
             setTotalPages(data?.pagination?.totalPages || 1);
 
             if (response.data?.responseMessage?.[0]) {
-                ToastService.success(response.data.responseMessage[0]);
+                // ToastService.success(response.data.responseMessage[0]);
             }
         } catch (err) {
             handleApiError(err);

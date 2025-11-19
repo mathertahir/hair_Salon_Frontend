@@ -27,7 +27,7 @@ const StylistBookingDetail = () => {
             });
             const responseMessage = response.data?.responseMessage?.[0];
             setBooking(response.data.responseData.booking);
-            ToastService.success(responseMessage);
+            // ToastService.success(responseMessage);
         } catch (error) {
             handleApiError(error);
         } finally {

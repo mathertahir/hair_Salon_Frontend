@@ -8,7 +8,7 @@ import { formatDate, handleApiError } from "../../utils/helpers/HelperFunction";
 import { AuthContext } from "../../services/context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import SubscriptionSkeleton from "../../components/ui/SubscriptionSkeleton";
- // 👈 Add this import
+// 👈 Add this import
 
 const SubscriptionPage = () => {
     const API = useAPI();
@@ -45,7 +45,7 @@ const SubscriptionPage = () => {
             const subscription = response.data.responseData.subscription;
             setSubscription(subscription);
             setSubscriptionType(response.data.responseData.subscriptionType);
-            ToastService.success(response.data?.responseMessage?.[0]);
+            // ToastService.success(response.data?.responseMessage?.[0]);
         } catch (err) {
             handleApiError(err);
         } finally {

@@ -24,7 +24,7 @@ const ViewServicePage = () => {
             .then((response) => {
                 const responseMessage = response.data?.responseMessage?.[0];
                 setService(response.data.responseData.service);
-                ToastService.success(responseMessage);
+                // ToastService.success(responseMessage);
             })
             .catch((error) => {
                 console.error('Error fetching Service :', error);

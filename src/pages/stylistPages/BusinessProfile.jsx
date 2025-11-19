@@ -25,7 +25,7 @@ const BusinessProfile = () => {
       .then((response) => {
         const responseMessage = response.data?.responseMessage?.[0];
         setBusinessProfile(response.data.responseData.business);
-        ToastService.success(responseMessage);
+        // ToastService.success(responseMessage);
       })
       .catch((error) => {
         console.error("Error fetching business profile:", error);

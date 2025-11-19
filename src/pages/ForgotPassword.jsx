@@ -45,7 +45,7 @@ const ForgotPassword = () => {
             const responseMessage = response.data?.responseMessage?.[0] || "";
             console.log(responseMessage, "Comming Message")
             console.log("ToastService:", ToastService)
-            ToastService.success(`${responseMessage}`)
+            // ToastService.success(`${responseMessage}`)
 
             console.log("Navigating to:", `/otp/${id}?email=${encodeURIComponent(usermail)}`);
             navigate(`/otp/${id}?email=${encodeURIComponent(usermail)}`)

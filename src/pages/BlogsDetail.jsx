@@ -21,7 +21,7 @@ const BlogDetail = () => {
             const response = await API.get(`/api/user/blog/slug/${slug}`);
             setBlog(response.data.responseData.blog);
             if (response.data?.responseMessage?.[0]) {
-                ToastService.success(response.data.responseMessage[0]);
+                // ToastService.success(response.data.responseMessage[0]);
             }
         } catch (err) {
             handleApiError(err);

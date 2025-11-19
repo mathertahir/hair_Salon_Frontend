@@ -2,6 +2,7 @@ import React from "react";
 import footerLogo from "../../assets/footerlogo.png";
 import { FiFacebook, FiTwitter, FiLinkedin, FiInstagram } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { FaTiktok } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -14,21 +15,36 @@ const Footer = () => {
                 <img src={footerLogo} alt="logo" />
               </div>
 
-              <div className="flex    space-x-2  items-center">
-                <div className="w-10 h-10 border-[1px] border-brown-97  rounded-[2px] flex justify-center items-center items-background text-background font-bold">
+              <div className="flex space-x-2 items-center">
+                <a
+                  href="https://www.facebook.com/profile.php?id=61578696089193"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 border-[1px] border-brown-97 rounded-[2px] flex justify-center items-center text-background font-bold"
+                >
                   <FiFacebook />
-                </div>
+                </a>
 
-                <div className="w-10 h-10 border-[1px] border-brown-97 rounded-[2px]  flex justify-center items-center items-background text-background font-bold">
-                  <FiTwitter />
-                </div>
-                <div className="w-10 h-10 border-[1px] border-brown-97  rounded-[2px] flex justify-center items-center items-background text-background font-bold">
-                  <FiLinkedin />
-                </div>
-                <div className="w-10 h-10 border-[1px] border-brown-97  rounded-[2px] flex justify-center items-center items-background text-background font-bold">
+                <a
+                  href="https://www.instagram.com/mycrownity/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 border-[1px] border-brown-97 rounded-[2px] flex justify-center items-center text-background font-bold"
+                >
                   <FiInstagram />
-                </div>
+                </a>
+
+                <a
+                  href="https://www.tiktok.com/@mycrownity?_r=1&_t=ZS-91XO8Suf459"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 border-[1px] border-brown-97 rounded-[2px] flex justify-center items-center text-background font-bold"
+                >
+                  {/* You can use a TikTok icon here, if you have one */}
+                  <FaTiktok />
+                </a>
               </div>
+
             </div>
 
             <div className="grid grid-cols-12  gap-y-6 md:gap-y-0 ">
@@ -95,15 +111,15 @@ const Footer = () => {
                     Address :
                   </div>
                   <div className="col-span-9 text-xs xs:text-base  font-medium text-background font-manrope flex  items-center">
-                    Mariendalsvej 50D 2 2000 Frederiksberg
+                    Canada
                   </div>
 
                   {/* Mail */}
                   <div className="col-span-3 text-sm xs:text-base  font-bold text-background font-manrope flex  items-start">
-                    Mail :
+                    Emaill :
                   </div>
                   <div className="col-span-9 text-sm xs:text-base  font-medium text-background font-manrope flex  items-start">
-                    support@servicemarket.com
+                    contact@crownity.com
                   </div>
 
                   {/* Phone */}
