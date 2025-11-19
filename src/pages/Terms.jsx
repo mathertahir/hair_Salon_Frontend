@@ -1,166 +1,213 @@
-import React from 'react'
+import React from "react";
 
 const Terms = () => {
-    return (
-        <div className="min-h-screen bg-brown-E0 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8 md:p-12">
-                <h1 className="text-4xl font-bold text-gray-900 mb-2">Terms and Conditions</h1>
-                <p className="text-gray-600 mb-8">Last updated: {new Date().toLocaleDateString()}</p>
+  return (
+    <div className="min-h-screen bg-brown-E0 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8 md:p-12">
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          Terms & Conditions — Crownity Beauté
+        </h1>
+        <p className="text-gray-600 mb-8">
+          Last updated: {new Date().toLocaleDateString()}
+        </p>
 
-                <div className="prose prose-lg max-w-none">
-                    <p className="text-gray-700 mb-8">
-                        Welcome to our hair salon. These Terms and Conditions govern your use of our website and services.
-                        By accessing or using our services, you agree to be bound by these terms. Please read them carefully
-                        before making any appointments or using our services.
-                    </p>
+        <div className="prose prose-lg max-w-none">
+          <p className="text-gray-700 mb-8">
+            Welcome to Crownity Beauté. These Terms & Conditions (“Terms”)
+            govern your use of our platform and website. By using Crownity, you
+            agree to these Terms. If you do not agree with any part of these
+            Terms, you must stop using the platform immediately.
+          </p>
 
-                    <div className="space-y-8">
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Acceptance of Terms</h2>
-                            <p className="text-gray-700">
-                                By accessing and using our website or booking services with us, you accept and agree to be bound
-                                by the terms and provision of this agreement. If you do not agree to these terms, please do not
-                                use our services.
-                            </p>
-                        </section>
+          <div className="space-y-8">
+            {/* 1 */}
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                1. Description of the Service
+              </h2>
+              <p className="text-gray-700">
+                Crownity is a marketplace and connection platform that allows
+                hairstylists (“Stylists”) to create profiles and for clients
+                (“Users”) to find hairstylists in their area. Crownity is not a
+                salon and does not provide hairstyling services. All hairstyling
+                services are provided independently by Stylists outside of
+                Crownity.
+              </p>
+            </section>
 
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. Service Description</h2>
-                            <p className="text-gray-700">
-                                We provide professional hair salon services including haircuts, styling, coloring, treatments,
-                                and related beauty services. All services are subject to availability and may vary based on
-                                location and stylist expertise.
-                            </p>
-                        </section>
+            {/* 2 */}
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                2. Accounts
+              </h2>
+              <p className="text-gray-700">
+                To use the platform, you must provide accurate and complete
+                information. You are responsible for maintaining the
+                confidentiality of your login credentials and for all activity
+                under your account. We may suspend or terminate any account that
+                violates these Terms.
+              </p>
+            </section>
 
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">3. Booking and Appointments</h2>
-                            <p className="text-gray-700">
-                                Appointments can be booked through our website, phone, or in-person. We require advance booking
-                                for most services. Cancellations must be made at least 24 hours in advance to avoid cancellation
-                                fees. Late arrivals may result in shortened service time.
-                            </p>
-                        </section>
+            {/* 3 */}
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                3. Hairstylist Subscription
+              </h2>
+              <p className="text-gray-700 mb-3">
+                Stylists who register on Crownity must pay a monthly
+                subscription fee of <strong>$19.99 CAD</strong>
+                to maintain an active profile.
+              </p>
+              <ul className="list-disc pl-6 text-gray-700 space-y-1">
+                <li>Payments are processed through Stripe</li>
+                <li>Fees are non-refundable unless required by law</li>
+                <li>Failure to pay may result in suspension of the profile</li>
+              </ul>
+            </section>
 
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. Payment Terms</h2>
-                            <p className="text-gray-700">
-                                Payment is due at the time of service completion. We accept cash, credit cards, and debit cards.
-                                Prices are subject to change without notice. All prices are in the local currency and include
-                                applicable taxes unless otherwise stated.
-                            </p>
-                        </section>
+            {/* 4 */}
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                4. No Client Payments on Crownity
+              </h2>
+              <p className="text-gray-700">
+                Clients do not make payments through Crownity. Any payment
+                arrangements between clients and stylists occur separately
+                outside the platform. Crownity is not responsible for any
+                payment disputes or disagreements between clients and stylists.
+              </p>
+            </section>
 
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. Cancellation and Refund Policy</h2>
-                            <p className="text-gray-700">
-                                Cancellations made less than 24 hours before the appointment may be subject to a cancellation fee
-                                of up to 50% of the service cost. No-shows will be charged the full service fee. Refunds are
-                                provided only for services not rendered due to salon error.
-                            </p>
-                        </section>
+            {/* 5 */}
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                5. User Responsibilities
+              </h2>
+              <p className="text-gray-700 font-semibold mb-2">
+                Users agree to:
+              </p>
+              <ul className="list-disc pl-6 text-gray-700 space-y-1 mb-4">
+                <li>Provide accurate information</li>
+                <li>Use the platform legally and respectfully</li>
+                <li>Not upload harmful, offensive, or copyrighted material</li>
+                <li>Not attempt to hack, misuse, or disrupt the platform</li>
+              </ul>
+              <p className="text-gray-700 font-semibold mb-2">
+                Stylists agree to:
+              </p>
+              <ul className="list-disc pl-6 text-gray-700 space-y-1">
+                <li>Deliver services professionally</li>
+                <li>Provide truthful profile information and photos</li>
+                <li>
+                  Follow all local laws, regulations, and licensing requirements
+                </li>
+                <li>Take full responsibility for their business activities</li>
+              </ul>
+            </section>
 
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Service Satisfaction</h2>
-                            <p className="text-gray-700">
-                                We strive to provide excellent service. If you are not satisfied with your service, please inform
-                                us within 48 hours. We will work with you to address any concerns. Adjustments may be offered
-                                at our discretion within 7 days of the original service.
-                            </p>
-                        </section>
+            {/* 6 */}
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                6. Crownity’s Role (Important)
+              </h2>
+              <p className="text-gray-700 mb-2">Crownity functions only as:</p>
+              <ul className="list-disc pl-6 text-gray-700 space-y-1 mb-4">
+                <li>A directory</li>
+                <li>A listing service</li>
+                <li>A connection platform</li>
+              </ul>
+              <p className="text-gray-700">
+                We do <strong>not</strong> guarantee the quality, reliability,
+                availability, or professionalism of stylists. Crownity does not
+                supervise or employ stylists and is not involved in agreements
+                between clients and stylists.
+              </p>
+            </section>
 
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Health and Safety</h2>
-                            <p className="text-gray-700">
-                                For your safety and the safety of our staff, please inform us of any allergies, medical conditions,
-                                or skin sensitivities before your appointment. We reserve the right to refuse service if we
-                                believe it may cause harm to you or others.
-                            </p>
-                        </section>
+            {/* 7 */}
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                7. Liability Disclaimer
+              </h2>
+              <p className="text-gray-700">
+                To the fullest extent permitted by law, Crownity is not liable
+                for damages resulting from the use of the platform. This
+                includes hairstyling results, disputes, cancellations,
+                miscommunications, or losses resulting from meetings outside the
+                platform. Users agree to use the platform at their own risk.
+              </p>
+            </section>
 
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Client Responsibilities</h2>
-                            <p className="text-gray-700">
-                                Clients are responsible for providing accurate information when booking appointments, arriving on time,
-                                and communicating any special requests or concerns. We are not responsible for damage to personal
-                                belongings brought into the salon.
-                            </p>
-                        </section>
+            {/* 8 */}
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                8. Intellectual Property
+              </h2>
+              <p className="text-gray-700">
+                All Crownity branding, logos, images, text, and website content
+                belong to Crownity Beauté. Stylists retain ownership of the
+                photos they upload but grant Crownity a license to display them
+                on their profiles.
+              </p>
+            </section>
 
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Intellectual Property</h2>
-                            <p className="text-gray-700">
-                                All content on our website, including text, graphics, logos, images, and software, is the property
-                                of our salon and is protected by copyright and trademark laws. You may not reproduce, distribute,
-                                or use our content without written permission.
-                            </p>
-                        </section>
+            {/* 9 */}
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                9. Termination
+              </h2>
+              <p className="text-gray-700">
+                Crownity may suspend or delete accounts that violate these
+                Terms, including but not limited to: fraudulent activity,
+                non-payment, abuse, or misleading information. Users may also
+                request account deletion.
+              </p>
+            </section>
 
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">10. Limitation of Liability</h2>
-                            <p className="text-gray-700">
-                                Our liability for any claims arising from our services is limited to the cost of the service provided.
-                                We are not liable for any indirect, incidental, or consequential damages. We recommend patch tests
-                                for color services to avoid allergic reactions.
-                            </p>
-                        </section>
+            {/* 10 */}
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                10. Changes to the Terms
+              </h2>
+              <p className="text-gray-700">
+                We may update these Terms at any time. Changes take effect when
+                posted on the website. Continued use of the platform after
+                updates signifies acceptance of the revised terms.
+              </p>
+            </section>
 
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">11. Privacy and Data Protection</h2>
-                            <p className="text-gray-700">
-                                Your personal information is handled in accordance with our Privacy Policy. By using our services,
-                                you consent to the collection and use of your information as described in our Privacy Policy.
-                            </p>
-                        </section>
+            {/* 11 */}
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                11. Contact Information
+              </h2>
+              <p className="text-gray-700">
+                If you have questions regarding these Terms, please contact us
+                at{" "}
+                <a
+                  href="mailto:contact@crownity.ca"
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  contact@crownity.ca
+                </a>
+                .
+              </p>
+            </section>
+          </div>
 
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">12. Prohibited Conduct</h2>
-                            <p className="text-gray-700">
-                                You agree not to engage in any conduct that is harmful, offensive, or disruptive to our salon,
-                                staff, or other clients. We reserve the right to refuse service to anyone who violates these
-                                terms or engages in inappropriate behavior.
-                            </p>
-                        </section>
-
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">13. Changes to Terms</h2>
-                            <p className="text-gray-700">
-                                We reserve the right to modify these terms at any time. Changes will be effective immediately
-                                upon posting on our website. Your continued use of our services after changes are posted
-                                constitutes acceptance of the modified terms.
-                            </p>
-                        </section>
-
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">14. Gift Cards and Promotions</h2>
-                            <p className="text-gray-700">
-                                Gift cards are valid for one year from the date of purchase and cannot be redeemed for cash.
-                                Promotional offers and discounts cannot be combined unless otherwise stated. We reserve the
-                                right to modify or cancel promotions at any time.
-                            </p>
-                        </section>
-
-                        <section>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">15. Contact Information</h2>
-                            <p className="text-gray-700">
-                                If you have any questions about these Terms and Conditions, please contact us at
-                                <a href="mailto:terms@hairsalon.com" className="text-blue-600 hover:text-blue-800 ml-1">terms@hairsalon.com</a>
-                                or visit our contact page for more information.
-                            </p>
-                        </section>
-                    </div>
-
-                    <div className="mt-12 pt-8 border-t border-gray-200">
-                        <p className="text-sm text-gray-500">
-                            By using our website and services, you acknowledge that you have read, understood, and agree to be
-                            bound by these Terms and Conditions. If you do not agree to these terms, please discontinue use
-                            of our services immediately.
-                        </p>
-                    </div>
-                </div>
-            </div>
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <p className="text-sm text-gray-500">
+              By using the Crownity platform, you acknowledge that you have
+              read, understood, and agree to be bound by these Terms &
+              Conditions. If you do not agree, please discontinue use of the
+              platform immediately.
+            </p>
+          </div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default Terms
+export default Terms;

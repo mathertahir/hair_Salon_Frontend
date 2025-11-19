@@ -2,11 +2,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 // import { AuthContext } from '@/services/context/AuthContext';
-import {
-  FiX,
-  FiMenu,
-
-} from "react-icons/fi";
+import { FiX, FiMenu } from "react-icons/fi";
 
 import { MdLocationOn } from "react-icons/md";
 
@@ -41,7 +37,8 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
       : null
   );
 
-  const apiUrl = roleType === "1" ? "/api/auth/business/logout" : "/api/auth/logout";
+  const apiUrl =
+    roleType === "1" ? "/api/auth/business/logout" : "/api/auth/logout";
 
   // const getInitials = (firstName, lastName) => {
   //     if (!firstName && !lastName) return 'U';
@@ -64,23 +61,16 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
       .catch(function (error) {
         handleApiError(error);
       });
-
-
-
-
   };
 
   const closeProfileMenu = () => {
     setShowProfileMenu(false);
   };
 
-
-
   const token = localStorage.getItem("auth_token");
   const profilePhoto = auth?.user?.profilePhoto?.url || dummyImage;
   // useEffect for profile menu or other logic can go here, but do not set selectedLang here
   const id = 1;
-
 
   useEffect(() => {
     if (!userLocation) {
@@ -158,13 +148,16 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
     <>
       <div className="bg-brown-31">
         <div className=" container flex justify-between  items-center  py-[10px]">
-
-          <div>     <h1 className="text-xl font-bold font-playfair text-background">Crownity</h1></div>
+          <div>
+            {" "}
+            <h1 className="text-xl font-bold font-playfair text-background">
+              Crownity
+            </h1>
+          </div>
 
           <GoogleTranslate />
         </div>
       </div>
-
 
       <div className="bg-white-FD">
         <div className="container">
@@ -184,8 +177,6 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
             {/* Logo */}
 
             <div className="flex-1 flex  items-center hidden md:block">
-
-
               <Link to="/" className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-brown-31 rounded-lg flex items-center justify-center">
                   <div className="w-6 h-6 bg-black rounded-sm ">
@@ -193,20 +184,18 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                   </div>
                 </div>
               </Link>
-
             </div>
 
             <button
               onClick={() => setIsLocationOpen(true)}
               className="flex items-center gap-2 text-gray-700 hover:text-brown-A43 hidden xs:flex"
             >
+              {userLocation ? userLocation.name : "Detect your location"}
 
-
-              {userLocation
-                ? userLocation.name
-                : "Detect your location"}
-
-              <div className="text-brown-A43 ">    <MdLocationOn size={24} /></div>
+              <div className="text-brown-A43 ">
+                {" "}
+                <MdLocationOn size={24} />
+              </div>
             </button>
 
             {/* Right Side - Language Selector and User Menu */}
@@ -215,8 +204,9 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                 <nav className="hidden md:flex items-center space-x-[46px]">
                   <Link
                     to="/"
-                    className={`relative text-base font-medium transition-colors pb-2 ${isActive("/") ? "text-foreground" : "text-black"
-                      }`}
+                    className={`relative text-base font-medium transition-colors pb-2 ${
+                      isActive("/") ? "text-foreground" : "text-black"
+                    }`}
                   >
                     Home
                     {isActive("/") && (
@@ -225,10 +215,11 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                   </Link>
                   <Link
                     to="/about"
-                    className={`relative text-sm font-medium transition-colors pb-2 ${isActive("/about")
-                      ? "text-foreground"
-                      : "text-black hover:text-foreground"
-                      }`}
+                    className={`relative text-sm font-medium transition-colors pb-2 ${
+                      isActive("/about")
+                        ? "text-foreground"
+                        : "text-black hover:text-foreground"
+                    }`}
                   >
                     About Us
                     {isActive("/about") && (
@@ -238,10 +229,11 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
 
                   <Link
                     to="/userServices"
-                    className={`relative text-sm font-medium transition-colors pb-2 ${isActive("/about")
-                      ? "text-foreground"
-                      : "text-black hover:text-foreground"
-                      }`}
+                    className={`relative text-sm font-medium transition-colors pb-2 ${
+                      isActive("/about")
+                        ? "text-foreground"
+                        : "text-black hover:text-foreground"
+                    }`}
                   >
                     Services
                     {isActive("/userServices") && (
@@ -249,13 +241,13 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                     )}
                   </Link>
 
-
                   <Link
                     to="/contact"
-                    className={`relative text-sm font-medium transition-colors pb-2 ${isActive("/contact")
-                      ? "text-foreground"
-                      : "text-black hover:text-foreground"
-                      }`}
+                    className={`relative text-sm font-medium transition-colors pb-2 ${
+                      isActive("/contact")
+                        ? "text-foreground"
+                        : "text-black hover:text-foreground"
+                    }`}
                   >
                     Contact Us
                     {isActive("/contact") && (
@@ -264,12 +256,13 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                   </Link>
                   <Link
                     to="/blogs"
-                    className={`relative text-sm font-medium transition-colors pb-2 ${isActive("/contact")
-                      ? "text-foreground"
-                      : "text-black hover:text-foreground"
-                      }`}
+                    className={`relative text-sm font-medium transition-colors pb-2 ${
+                      isActive("/contact")
+                        ? "text-foreground"
+                        : "text-black hover:text-foreground"
+                    }`}
                   >
-                    Blogs
+                    Blog
                     {isActive("/blogs") && (
                       <div className="absolute bottom-0 left-0 w-full h-0.5 bg-foreground active-tab-border"></div>
                     )}
@@ -294,8 +287,9 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                 {/* <GoogleTranslate /> */}
 
                 <div
-                  className={`flex items-center space-x-4 ${token?.length > 0 ? "hidden" : "block"
-                    }`}
+                  className={`flex items-center space-x-4 ${
+                    token?.length > 0 ? "hidden" : "block"
+                  }`}
                 >
                   <Link to={"/role/0"}>
                     <ButtonSquare
@@ -317,8 +311,9 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                 </div>
 
                 <div
-                  className={`flex items-center space-x-4 ${token?.length > 0 ? "block" : "hidden"
-                    }  relative`}
+                  className={`flex items-center space-x-4 ${
+                    token?.length > 0 ? "block" : "hidden"
+                  }  relative`}
                 >
                   <div
                     onMouseEnter={() => setShowProfileMenu(!showProfileMenu)}
@@ -331,8 +326,9 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                   </div>
 
                   <div
-                    className={`bg-background py-[30px] px-[24px] rounded-[30px] shadow-2xl w-[260px] h-auto absolute top-[50px] right-0 ${showProfileMenu ? "block" : "hidden"
-                      }`}
+                    className={`bg-background py-[30px] px-[24px] rounded-[30px] shadow-2xl w-[260px] h-auto absolute top-[50px] right-0 ${
+                      showProfileMenu ? "block" : "hidden"
+                    }`}
                     onMouseLeave={() => setShowProfileMenu(!showProfileMenu)}
                   >
                     <div className=" flex flex-col gap-[30px]">
@@ -377,10 +373,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                       <div
                         className={`${roleType == "0" ? "block" : "hidden"}`}
                       >
-                        <Link
-                          to={`/user/profile`}
-                          onClick={closeProfileMenu}
-                        >
+                        <Link to={`/user/profile`} onClick={closeProfileMenu}>
                           <p className="text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300">
                             Dashboard
                           </p>
@@ -402,8 +395,9 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
               </div>
 
               <div
-                className={`flex items-center space-x-4 md:hidden ${token?.length > 0 ? "hidden" : "block"
-                  }`}
+                className={`flex items-center space-x-4 md:hidden ${
+                  token?.length > 0 ? "hidden" : "block"
+                }`}
               >
                 <Link to={"/role/0"}>
                   <ButtonSquare
@@ -425,8 +419,9 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
               </div>
 
               <div
-                className={`flex items-center space-x-4  md:hidden ${token?.length > 0 ? "block" : "hidden"
-                  }  relative`}
+                className={`flex items-center space-x-4  md:hidden ${
+                  token?.length > 0 ? "block" : "hidden"
+                }  relative`}
               >
                 <div onMouseEnter={() => setShowProfileMenu(!showProfileMenu)}>
                   <img
@@ -437,8 +432,9 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                 </div>
 
                 <div
-                  className={`bg-background py-[30px] px-[24px] rounded-[30px] shadow-2xl w-[260px] h-auto absolute top-[50px] right-0 ${showProfileMenu ? "block" : "hidden"
-                    }`}
+                  className={`bg-background py-[30px] px-[24px] rounded-[30px] shadow-2xl w-[260px] h-auto absolute top-[50px] right-0 ${
+                    showProfileMenu ? "block" : "hidden"
+                  }`}
                   onMouseLeave={() => setShowProfileMenu(!showProfileMenu)}
                 >
                   <div className=" flex flex-col gap-[30px]">
@@ -460,10 +456,7 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
                     </div> */}
 
                     <div className={`${roleType == "0" ? "hidden" : "block"}`}>
-                      <Link
-                        to={`/business/profile`}
-                        onClick={closeProfileMenu}
-                      >
+                      <Link to={`/business/profile`} onClick={closeProfileMenu}>
                         <p className="text-black font-bold font-manrope text-[18px] hover:translate-y-[1px] transition-all duration-300">
                           Dashboard
                         </p>
@@ -559,20 +552,22 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
           <Link
             to="/"
             onClick={closeSidebar}
-            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${isActive("/")
-              ? "bg-brown-31 text-background"
-              : "text-foreground hover:bg-gray-100"
-              }`}
+            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${
+              isActive("/")
+                ? "bg-brown-31 text-background"
+                : "text-foreground hover:bg-gray-100"
+            }`}
           >
             Home
           </Link>
           <Link
             to="/about"
             onClick={closeSidebar}
-            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${isActive("/about")
-              ? "bg-brown-31 text-background"
-              : "text-foreground hover:bg-gray-100"
-              }`}
+            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${
+              isActive("/about")
+                ? "bg-brown-31 text-background"
+                : "text-foreground hover:bg-gray-100"
+            }`}
           >
             About Us
           </Link>
@@ -580,37 +575,49 @@ const Header = ({ onBurgerClick, isSidebarOpen = false }) => {
           <Link
             to="/userServices"
             onClick={closeSidebar}
-            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${isActive("/userServices")
-              ? "bg-brown-31 text-background"
-              : "text-foreground hover:bg-gray-100"
-              }`}
+            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${
+              isActive("/userServices")
+                ? "bg-brown-31 text-background"
+                : "text-foreground hover:bg-gray-100"
+            }`}
           >
             Services
           </Link>
           <Link
             to="/contact"
             onClick={closeSidebar}
-            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${isActive("/contact")
-              ? "bg-brown-31 text-background"
-              : "text-foreground hover:bg-gray-100"
-              }`}
+            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${
+              isActive("/contact")
+                ? "bg-brown-31 text-background"
+                : "text-foreground hover:bg-gray-100"
+            }`}
           >
             Contact Us
           </Link>
 
-          <div className="px-4">
+          <Link
+            to="/blogs"
+            onClick={closeSidebar}
+            className={`block px-4 py-3 rounded-lg text-sm font-manrope font-medium transition-colors ${
+              isActive("/blogs")
+                ? "bg-brown-31 text-background"
+                : "text-foreground hover:bg-gray-100"
+            }`}
+          >
+            Blog
+          </Link>
 
+          <div className="px-4">
             <button
               onClick={() => setIsLocationOpen(true)}
               className="flex items-center gap-2 text-gray-700 hover:text-brown-A43 flex xs:hidden"
             >
+              {userLocation ? userLocation.name : "Detect your location"}
 
-
-              {userLocation
-                ? userLocation.name
-                : "Detect your location"}
-
-              <div className="text-brown-A43 ">    <MdLocationOn size={24} /></div>
+              <div className="text-brown-A43 ">
+                {" "}
+                <MdLocationOn size={24} />
+              </div>
             </button>
           </div>
         </nav>
