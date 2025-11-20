@@ -15,35 +15,57 @@ const Footer = () => {
                 <img src={footerLogo} alt="logo" />
               </div>
 
-              <div className="flex space-x-2 items-center">
-                <a
-                  href="https://www.facebook.com/profile.php?id=61578696089193"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 border-[1px] border-brown-97 rounded-[2px] flex justify-center items-center text-background font-bold"
-                >
-                  <FiFacebook />
-                </a>
 
-                <a
-                  href="https://www.instagram.com/mycrownity/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 border-[1px] border-brown-97 rounded-[2px] flex justify-center items-center text-background font-bold"
-                >
-                  <FiInstagram />
-                </a>
+              <div className="flex space-x-3 items-center">
+                {/* Facebook */}
+                <div className="group relative">
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61578696089193"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 border-[1px] border-brown-97 rounded-[2px] flex justify-center items-center text-background font-bold cursor-pointer 
+      hover:bg-brown-97 hover:text-white duration-200 transform hover:scale-110"
+                  >
+                    <FiFacebook />
+                  </a>
+                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 pointer-events-none duration-200 whitespace-nowrap">
+                    Facebook
+                  </span>
+                </div>
 
-                <a
-                  href="https://www.tiktok.com/@mycrownity?_r=1&_t=ZS-91XO8Suf459"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 border-[1px] border-brown-97 rounded-[2px] flex justify-center items-center text-background font-bold"
-                >
-                  {/* You can use a TikTok icon here, if you have one */}
-                  <FaTiktok />
-                </a>
+                {/* Instagram */}
+                <div className="group relative">
+                  <a
+                    href="https://www.instagram.com/mycrownity/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 border-[1px] border-brown-97 rounded-[2px] flex justify-center items-center text-background font-bold cursor-pointer 
+      hover:bg-brown-97 hover:text-white duration-200 transform hover:scale-110"
+                  >
+                    <FiInstagram />
+                  </a>
+                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 pointer-events-none duration-200 whitespace-nowrap">
+                    Instagram
+                  </span>
+                </div>
+
+                {/* TikTok */}
+                <div className="group relative">
+                  <a
+                    href="https://www.tiktok.com/@mycrownity?_r=1&_t=ZS-91XO8Suf459"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 border-[1px] border-brown-97 rounded-[2px] flex justify-center items-center text-background font-bold cursor-pointer 
+      hover:bg-brown-97 hover:text-white duration-200 transform hover:scale-110"
+                  >
+                    <FaTiktok />
+                  </a>
+                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 pointer-events-none duration-200 whitespace-nowrap">
+                    TikTok
+                  </span>
+                </div>
               </div>
+
 
             </div>
 
