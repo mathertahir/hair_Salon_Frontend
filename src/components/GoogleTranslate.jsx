@@ -140,11 +140,11 @@ const GoogleTranslate = () => {
     }
 
     // Cleanup on unmount
-    return () => {
-      if (translateRef.current) {
-        translateRef.current.innerHTML = "";
-      }
-    };
+    // return () => {
+    //   if (translateRef.current) {
+    //     translateRef.current.innerHTML = "";
+    //   }
+    // };
   }, []);
 
   return (
