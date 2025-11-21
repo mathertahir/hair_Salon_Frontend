@@ -208,7 +208,7 @@ const LocationModal = ({ visible, onClose, onLocationChange }) => {
     }
 
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black-050 flex items-center justify-center z-50">
             <div className="bg-white rounded-2xl shadow-xl w-[420px] p-6 relative">
                 {/* Close button */}
                 <button
