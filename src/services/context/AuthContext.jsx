@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [authToken, setAuthToken] = useState(null);
   const [isAuthInitialized, setIsAuthInitialized] = useState(false);
+  const [userSubscription, setUserSubscription] = useState(null);
   const [location, setLocation] = useState(
     () =>
       getInitial("user_location") || {
@@ -29,6 +30,11 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("auth_token");
+    const storedSubscription = localStorage.getItem("subscriptionInfo");
+
+    if (storedSubscription) {
+      setUserSubscription(JSON.parse(storedSubscription));
+    }
 
     if (storedUser && storedToken) {
       setUser(JSON.parse(storedUser));
@@ -71,6 +77,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const handleUserSubscription = (Info) => {
+    console.log("Storing subscription info:", Info);
     localStorage.setItem("subscriptionInfo", JSON.stringify(Info));
   };
 
@@ -101,10 +108,12 @@ export const AuthProvider = ({ children }) => {
         updateUser,
         handleRoleType,
         authToken,
+
         handleBusinessProfile,
         handleUserSubscription,
         handleUserLocation,
         handleStripeStatus,
+        userSubscription,
       }}
     >
       {/* Show loading screen or children only after auth state is initialized */}
