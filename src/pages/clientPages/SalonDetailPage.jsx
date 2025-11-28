@@ -1,7 +1,7 @@
 import React from 'react'
-import detail1 from '../../assets/detail1.png'
-import detail2 from '../../assets/detail2.png'
-import detail3 from '../../assets/detail3.png'
+import detail1 from '../../assets/detail1.webp'
+import detail2 from '../../assets/detail2.webp'
+import detail3 from '../../assets/detail3.webp'
 import { FiStar } from 'react-icons/fi'
 import MyMap from '../../components/MyMap'
 

@@ -5,7 +5,7 @@ import { ButtonSquare } from "../components/ui/buttonSquare";
 import google from "../assets/google.png";
 import facebook from "../assets/fb.png";
 import signup from "../assets/SignUp.png";
-import resetPassword from "../assets/reset.png";
+import resetPassword from "../assets/reset.webp";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import useAPI from "../services/baseUrl/useApiHook";

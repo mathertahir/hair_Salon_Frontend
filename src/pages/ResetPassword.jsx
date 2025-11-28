@@ -110,7 +110,7 @@
 import React, { useState } from 'react'
 import { LiaKeySolid } from "react-icons/lia";
 import { ButtonSquare } from '../components/ui/buttonSquare'
-import resetPasswordImg from "../assets/reset.png"
+import resetPasswordImg from "../assets/reset.webp"
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import useAPI from "../services/baseUrl/useApiHook";
 import { handleApiError } from '../utils/helpers/HelperFunction';
