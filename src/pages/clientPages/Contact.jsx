@@ -25,7 +25,7 @@ const reachData = [
   {
     icon: message,
     title: "Drop Us :",
-    description: "support@Crownity.com",
+    description: "contact@mycrownity.com",
   },
   // {
   //   icon: email,
