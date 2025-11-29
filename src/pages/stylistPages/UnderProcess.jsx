@@ -1,5 +1,5 @@
 import React from 'react'
-import review from '../../assets/profileunderreview.webp'
+import review from '../../assets/profileunderreview.png'
 import { useParams, Link } from 'react-router-dom'
 import { ButtonSquare } from '../../components/ui/buttonSquare'
 

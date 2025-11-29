@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { MdOutlineKeyboardArrowRight, MdOutlineKeyboardArrowDown } from "react-icons/md";
-import detail1 from '../../assets/detail1.webp'
-import detail2 from '../../assets/detail2.webp'
-import detail3 from '../../assets/detail3.webp'
+import detail1 from '../../assets/detail1.png'
+import detail2 from '../../assets/detail2.png'
+import detail3 from '../../assets/detail3.png'
 
 import MyMap from '../../components/MyMap'
 import { FiStar } from 'react-icons/fi'

@@ -4,10 +4,10 @@ import { ButtonSquare } from '../../components/ui/buttonSquare'
 
 import { Link } from 'react-router-dom'
 import verified from "../../assets/verificationDocument.webp"
-import gallery1 from '../../assets/HG1.webp'
-import gallery2 from '../../assets/HG2.webp'
-import gallery3 from '../../assets/HG3.webp'
-import gallery4 from '../../assets/HG4.webp'
+import gallery1 from '../../assets/HG1.png'
+import gallery2 from '../../assets/HG2.png'
+import gallery3 from '../../assets/HG3.png'
+import gallery4 from '../../assets/HG4.png'
 
 import GoBack from '../../components/GoBack'
 

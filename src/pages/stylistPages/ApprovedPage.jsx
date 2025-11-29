@@ -1,5 +1,5 @@
 import React from 'react'
-import approved from '../../assets/approved.webp'
+import approved from '../../assets/approved.png'
 import { useParams, Link } from 'react-router-dom'
 import { ButtonSquare } from '../../components/ui/buttonSquare'
 

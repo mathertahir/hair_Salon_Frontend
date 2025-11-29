@@ -1,5 +1,5 @@
 import React from 'react'
-import confirm from '../../assets/confirm.webp'
+import confirm from '../../assets/confirm.png'
 import { useParams, Link } from 'react-router-dom'
 import { ButtonSquare } from '../../components/ui/buttonSquare'
 

@@ -11,13 +11,13 @@ import { ToastService } from "../../utils/ToastService";
 import { FiMapPin, FiSearch } from "react-icons/fi";
 
 import { Button } from "../../components/ui/button";
-import heroBg from "../../assets/HeroBG.webp";
-import gallery1 from "../../assets/HG1.webp";
-import gallery2 from "../../assets/HG2.webp";
-import gallery3 from "../../assets/HG3.webp";
-import gallery4 from "../../assets/HG4.webp";
-import gallery5 from "../../assets/HG5.webp";
-import subscribeBg from "../../assets/Subscribe.webp";
+import heroBg from "../../assets/HeroBG.png";
+import gallery1 from "../../assets/HG1.png";
+import gallery2 from "../../assets/HG2.png";
+import gallery3 from "../../assets/HG3.png";
+import gallery4 from "../../assets/HG4.png";
+import gallery5 from "../../assets/HG5.png";
+import subscribeBg from "../../assets/Subscribe.png";
 import HairstylistCard from "../../components/HairstylistCard";
 import TestimonialSwiper from "../../components/TestimonialSwiper";
 import { handleApiError } from "../../utils/helpers/HelperFunction";
@@ -399,23 +399,23 @@ const Home = () => {
 
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-12 lg:col-span-4 flex ">
-                <div className="rounded-t-3xl lg:rounded-l-2xl w-full">
+                <div className="rounded-t-3xl lg:rounded-l-2xl w-full ">
                   <img
                     src={gallery1}
                     alt="gallery"
-                    className="w-full h-full object-cover  rounded-t-3xl lg:rounded-l-3xl"
+                    className="w-full h-full object-cover  rounded-t-3xl  lg:rounded-l-3xl"
                   />
                 </div>
               </div>
               <div className="col-span-12 lg:col-span-8  grid grid-cols-2 gap-4">
-                <div>
+                <div className="h-full">
                   <img
                     src={gallery2}
                     alt="gallery"
                     className="w-full h-full object-cover "
                   />
                 </div>
-                <div>
+                <div className="h-full">
                   <img
                     src={gallery3}
                     alt="gallery"

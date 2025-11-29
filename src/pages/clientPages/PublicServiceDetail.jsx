@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
-import detail1 from "../../assets/detail1.webp";
-import detail2 from "../../assets/detail2.webp";
-import detail3 from "../../assets/detail3.webp";
+import detail1 from "../../assets/detail1.png";
+import detail2 from "../../assets/detail2.png";
+import detail3 from "../../assets/detail3.png";
 
 import MyMap from "../../components/MyMap";
 import useAPI from "../../services/baseUrl/useApiHook";
