@@ -398,8 +398,8 @@ const Home = () => {
             </div>
 
             <div className="grid grid-cols-12 gap-4">
-              <div className="col-span-12 lg:col-span-4 flex ">
-                <div className="rounded-t-3xl lg:rounded-l-2xl w-full ">
+              <div className="col-span-12 lg:col-span-4 flex aspect-auto">
+                <div className="rounded-t-3xl lg:rounded-l-2xl w-full h-full">
                   <img
                     src={gallery1}
                     alt="gallery"
@@ -408,28 +408,28 @@ const Home = () => {
                 </div>
               </div>
               <div className="col-span-12 lg:col-span-8  grid grid-cols-2 gap-4">
-                <div className="h-full">
+                <div className="aspect-[6/4]">
                   <img
                     src={gallery2}
                     alt="gallery"
                     className="w-full h-full object-cover "
                   />
                 </div>
-                <div className="h-full">
+                <div className="aspect-[6/4]">
                   <img
                     src={gallery3}
                     alt="gallery"
                     className="w-full h-full object-cover lg:rounded-tr-3xl"
                   />
                 </div>
-                <div className="">
+                <div className="aspect-[6/4]">
                   <img
                     src={gallery4}
                     alt="gallery"
                     className="w-full h-full object-cover rounded-bl-3xl lg:rounded-bl-none"
                   />
                 </div>
-                <div className="rounded-br-3xl">
+                <div className="aspect-[6/4] rounded-br-3xl">
                   <img
                     src={gallery5}
                     alt="gallery"
@@ -511,11 +511,11 @@ const Home = () => {
         <div className="container">
           <div className="py-20">
             <div className="grid   grid-cols-1 lg:grid-cols-2 gap-8 md:gap-14  px-[20px]  md:px-[60px]  2xl:px-[120px]">
-              <div className=" h-full w-full rounded-3xl">
+              <div className="aspect-[4/3] rounded-3xl">
                 <img
                   src={subscribeBg}
                   alt="subscribe"
-                  className="h-full w-full object-cover rounded-3xl"
+                  className="w-full h-full object-cover rounded-3xl"
                 />
               </div>
 

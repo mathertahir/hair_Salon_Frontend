@@ -63,7 +63,7 @@ const PublicServiceDetail = () => {
         <div className="container">
           <div className="py-[40px] ">
             <div className="grid grid-cols-12 gap-[20px] mb-[31px]">
-              <div className="col-span-12 md:col-span-8 rounded-3xl">
+              <div className="col-span-12 md:col-span-8 rounded-3xl aspect-auto">
                 <img
                   src={detail1}
                   alt="detail1"
@@ -72,14 +72,14 @@ const PublicServiceDetail = () => {
               </div>
 
               <div className="col-span-12 md:col-span-4 grid grid-cols-1 gap-[20px]">
-                <div className="rounded-3xl">
+                <div className="rounded-3xl aspect-[7/4]">
                   <img
                     src={detail2}
                     alt="detail2"
                     className="w-full h-full object-cover rounded-3xl"
                   />
                 </div>
-                <div className="rounded-3xl">
+                <div className="rounded-3xl aspect-[7/4]">
                   <img
                     src={detail3}
                     alt="detail3"
@@ -235,11 +235,18 @@ const PublicServiceDetail = () => {
                 <p className=" sm:text-[35px] text-[20px] font-playfair font-bold text-brown-A43 text-center">
                   Business Reviews
                 </p>
-                <div>
-                  <ReviewSwiper
-                    businessReviews={service?.business?.businessReviews}
-                  />
-                </div>
+
+                {service?.business?.businessReviews.length === 0 ? (
+                  <p className="text-gray-500 text-center">
+                    No reviews available for this business.
+                  </p>
+                ) : (
+                  <div>
+                    <ReviewSwiper
+                      businessReviews={service?.business?.businessReviews}
+                    />
+                  </div>
+                )}
               </div>
 
               <Link to={`/booking/${service?._id}`}>
