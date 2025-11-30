@@ -397,9 +397,9 @@ const Home = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-12 gap-4">
-              <div className="col-span-12 lg:col-span-4 flex aspect-auto">
-                <div className="rounded-t-3xl lg:rounded-l-2xl w-full h-full">
+            {/* <div className="grid grid-cols-12 gap-4">
+              <div className="col-span-12 lg:col-span-4 flex ">
+                <div className="rounded-t-3xl lg:rounded-l-2xl w-full aspect-auto">
                   <img
                     src={gallery1}
                     alt="gallery"
@@ -436,6 +436,37 @@ const Home = () => {
                     className="w-full h-full object-cover rounded-br-3xl"
                   />
                 </div>
+              </div>
+            </div> */}
+
+            <div className="grid grid-cols-12 gap-4">
+              <div className="col-span-12 lg:col-span-4 flex">
+                <div className="rounded-t-3xl lg:rounded-l-2xl w-full aspect-[4/3] overflow-hidden">
+                  <img
+                    src={gallery1}
+                    alt="gallery"
+                    className="w-full h-full object-cover rounded-t-3xl lg:rounded-l-3xl"
+                  />
+                </div>
+              </div>
+
+              <div className="col-span-12 lg:col-span-8 grid grid-cols-2 gap-4">
+                {[gallery2, gallery3, gallery4, gallery5].map((img, idx) => (
+                  <div
+                    key={idx}
+                    className={`aspect-[6/4] ${
+                      idx === 1 ? "lg:rounded-tr-3xl" : ""
+                    } ${idx === 2 ? "rounded-bl-3xl lg:rounded-bl-none" : ""} ${
+                      idx === 3 ? "rounded-br-3xl" : ""
+                    } overflow-hidden`}
+                  >
+                    <img
+                      src={img}
+                      alt="gallery"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
