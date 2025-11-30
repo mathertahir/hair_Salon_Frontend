@@ -237,7 +237,7 @@ const About = () => {
 
       {/* Jouney Section */}
 
-      <div className="bg-background">
+      {/* <div className="bg-background">
         <div className="grid grid-cols-1  gap-[40px] lg:gap-[100px]  xl:gap-[100px]  lg:grid-cols-2 py-36 ">
           <div className=" pl-[1rem] sm:pl-[2rem]  lg:pl-[3rem] xl:pl-[4rem]   2xl:pl-[5rem]   3xl:pl-[120px]  pb-[160px]  flex flex-col gap-[35px items-start]  order-2 lg:order-1 ">
             <div>
@@ -296,6 +296,83 @@ const About = () => {
               ></video>
 
               <div className="absolute top-[50%]  left-[50%] translate-x-[-50%] translate-y-[-50%]  flex justify-center items-center">
+                <div
+                  className="w-[70px] h-[70px] rounded-full bg-background flex justify-center items-center text-brown-A43 cursor-pointer hover:bg-gray-100 transition-colors"
+                  onClick={togglePlayPause}
+                >
+                  {isPlaying ? <FaPause size={30} /> : <FaPlay size={30} />}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> */}
+
+      <div className="bg-background">
+        <div className="grid grid-cols-1  gap-[40px] lg:gap-[100px]  xl:gap-[100px]  lg:grid-cols-2 py-36 ">
+          <div className=" pl-[1rem] sm:pl-[2rem]  lg:pl-[3rem] xl:pl-[4rem]   2xl:pl-[5rem]   3xl:pl-[120px]  pb-[160px]  flex flex-col gap-[35px items-start]  order-2 lg:order-1 ">
+            <div>
+              <p className="font-manrope  text-sm font-semibold text-brown-A43  mb-[2px]  text-center lg:text-left">
+                What Includest
+              </p>
+              <h2 className=" sm:text-[40px] text-[22px] lg:text-[45px] font-playfair text-brown-A43 font-bold leading-none mb-[30px]  text-center lg:text-left ">
+                The start of the journey.
+              </h2>
+              <p className="font-manrope text-base font-semibold text-gray-55  text-left  leading-10 xl:max-w-[700px]">
+                Crownity was founded to solve a challenge many Canadians
+                face—finding the right Afro/Black hairstylist with ease.
+                <br></br> Instead of scrolling through endless social media
+                pages, Crownity brings everything into one place: Hairstylist
+                profiles, services, galleries, pricing, and direct booking.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-8">
+              <p className="sm:text-2xl text-[18px] text-black font-bold text-black-14 font-playfair text-left">
+                Our platform is built on three principles:
+              </p>
+
+              <div className="flex flex-col gap-[30px]">
+                {principleData.map((items, index) => (
+                  <div className="flex gap-[30px]  " key={index}>
+                    <div className="text-brown-A43">
+                      <img src={items.icon} alt="checkvector" className="" />
+                    </div>
+
+                    <div className="flex flex-col gap-3 items-start ">
+                      <p className="   md:text-[22px] text-[18px] font-bold font-manrope text-black-14">
+                        {" "}
+                        {items.title}
+                      </p>
+                      <p className="md:text-[19px] text-[16px] font-normal font-manrope text-gray-55 text-left">
+                        {items.description}.
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="relative order-1 lg:order-2 px-[1rem] sm:px-0">
+            <div
+              ref={videoContainerRef}
+              className="w-full aspect-[8/9] overflow-hidden rounded-3xl"
+            >
+              <video
+                ref={videoRef}
+                src={video}
+                muted
+                loop
+                autoPlay={false}
+                playsInline
+                className="w-full h-full object-cover"
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+              ></video>
+
+              {/* Play / Pause Button */}
+              <div className="absolute inset-0 flex justify-center items-center">
                 <div
                   className="w-[70px] h-[70px] rounded-full bg-background flex justify-center items-center text-brown-A43 cursor-pointer hover:bg-gray-100 transition-colors"
                   onClick={togglePlayPause}
