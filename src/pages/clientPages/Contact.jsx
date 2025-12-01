@@ -21,17 +21,14 @@ const reachData = [
     icon: home,
     title: "Visit Us :",
     description: "mycrownity.com",
+    linkType: "website",
   },
   {
     icon: message,
     title: "Drop Us :",
     description: "contact@mycrownity.com",
+    linkType: "email",
   },
-  // {
-  //   icon: email,
-  //   title: "Call Us :",
-  //   description: "Call: 1-800-123-9999",
-  // },
 ];
 
 const Contact = () => {
@@ -126,19 +123,37 @@ const Contact = () => {
 
               <div className="flex flex-col gap-10 items-start justify-start text-left">
                 {reachData.map((items, index) => (
-                  <div className="flex gap-6">
+                  <div key={index} className="flex gap-6">
                     <div>
-                      <img src={items.icon} alt="email" />
+                      <img src={items.icon} alt="icon" />
                     </div>
 
                     <div className="flex flex-col gap-1">
-                      <p className="   md:text-[22px] text-[18px] font-bold font-manrope text-black-14">
-                        {" "}
+                      <p className="md:text-[22px] text-[18px] font-bold font-manrope text-black-14">
                         {items.title}
                       </p>
-                      <p className="md:text-[19px] text-[16px] font-normal font-manrope text-gray-55 text-left">
-                        {items.description}.
-                      </p>
+
+                      {items.linkType === "email" ? (
+                        <a
+                          href={`mailto:${items.description}`}
+                          className="md:text-[19px] text-[16px] font-normal font-manrope text-gray-55"
+                        >
+                          {items.description}
+                        </a>
+                      ) : items.linkType === "website" ? (
+                        <a
+                          href={`https://${items.description}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="md:text-[19px] text-[16px] font-normal font-manrope text-gray-55"
+                        >
+                          {items.description}
+                        </a>
+                      ) : (
+                        <p className="md:text-[19px] text-[16px] font-normal font-manrope text-gray-55">
+                          {items.description}
+                        </p>
+                      )}
                     </div>
                   </div>
                 ))}
