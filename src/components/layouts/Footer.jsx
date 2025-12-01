@@ -15,7 +15,6 @@ const Footer = () => {
                 <img src={footerLogo} alt="logo" />
               </div>
 
-
               <div className="flex space-x-3 items-center">
                 {/* Facebook */}
                 <div className="group relative">
@@ -65,8 +64,6 @@ const Footer = () => {
                   </span>
                 </div>
               </div>
-
-
             </div>
 
             <div className="grid grid-cols-12  gap-y-6 md:gap-y-0 ">
@@ -140,8 +137,13 @@ const Footer = () => {
                   <div className="col-span-3 text-sm xs:text-base  font-bold text-background font-manrope flex  items-start">
                     Emaill :
                   </div>
-                  <div className="col-span-9 text-sm xs:text-base  font-medium text-background font-manrope flex  items-start">
-                    contact@crownity.com
+                  <div className="col-span-9 text-sm xs:text-base font-medium text-background font-manrope flex items-start">
+                    <a
+                      href="mailto:contact@mycrownity.com?subject=Support Request&body=Hi Crownity Team,"
+                      className="hover:underline"
+                    >
+                      contact@mycrownity.com
+                    </a>
                   </div>
 
                   {/* Phone */}
