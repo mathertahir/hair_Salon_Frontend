@@ -50,11 +50,144 @@ export const sanitizeLinks = (html) => {
   );
 };
 
+// export default function useCoiffeurReplacement() {
+//   useEffect(() => {
+//     const phraseReplacements = [
+//       {
+//         // full phrase replacement
+//         pattern:
+//           /Trouvez et réservez des coiffeurs afro\/noirs de confiance partout au Canada, n'importe quand, n'importe où\./gi,
+//         replacement:
+//           "Trouvez et réservez des coiffeuses afro de confiance partout au Canada, à tout moment.",
+//       },
+//       {
+//         pattern: /Où es-tu situé/gi,
+//         replacement: "Où êtes-vous situé ",
+//       },
+//       {
+//         pattern: /Tresses africaines, tresses collées/gi,
+//         replacement:
+//           "Trouvez une coiffeuse experte en cheveux afro et bouclés près de chez vous, et prenez rendez-vous en toute confiance.",
+//       },
+//       {
+//         pattern:
+//           /Trouvez un Coiffeuse afro et bouclé de confiance près de chez vous et réservez en toute sérénité./gi,
+//         replacement:
+//           "Trouvez une coiffeuse experte en cheveux afro et bouclés près de chez vous, et prenez rendez-vous en toute confiance.",
+//       },
+//       {
+//         pattern: /coiffeuse recommandé/gi,
+//         replacement: "coiffeuses recommandées",
+//       },
+//       {
+//         pattern: /Pages utilitaires/gi,
+//         replacement: "Politiques & Conditions",
+//       },
+//       {
+//         pattern: /politique de confidentialité/gi,
+//         replacement: "Politique de confidentialité",
+//       },
+//       {
+//         pattern:
+//           /Nous mettons en relation nos clients avec des coiffeurs afro et bouclés qualifiés et certifiés, soucieux de la qualité, du professionnalisme et de l'obtention de résultats exceptionnels à chaque fois./gi,
+//         replacement:
+//           "Nous connectons nos clientes à des coiffeuses spécialisées dans les cheveux afro et bouclés, qualifiées, offrant un service professionnel et des résultats exceptionnels.",
+//       },
+//       {
+//         pattern: /les coiffeurs/gi,
+//         replacement: "les coiffeuses",
+//       },
+//       {
+//         pattern: / la Coiffeuse/gi,
+//         replacement: " La coiffeuse",
+//       },
+//       {
+//         pattern: / de coiffeurs/gi,
+//         replacement: " de coiffeuses",
+//       },
+//       {
+//         pattern: /les coiffeurs/gi,
+//         replacement: "les coiffeuses",
+//       },
+//       {
+//         pattern: /Coiffeuse\s*\(\s*se\s*\)/gi,
+//         replacement: "Coiffeuse",
+//       },
+//       {
+//         pattern: /macrownité.com/gi,
+//         replacement: "mycrownity.com",
+//       },
+//       {
+//         pattern: /adresse contact@mycrownity.com/gi,
+//         replacement: "contact@mycrownity.com",
+//       },
+//     ];
+
+//     const wordReplacements = [
+//       { pattern: /\bCoiffeur\b/gi, replacement: "Coiffeuse" },
+//       { pattern: /\bMaison\b/gi, replacement: "Accueil" },
+//       { pattern: /\bCouronne\b/gi, replacement: "Crownity" },
+//       { pattern: /\ble\b/gi, replacement: "la" },
+//       { pattern: /\bidéal\b/gi, replacement: "idéale" },
+
+//     ];
+
+//     const replaceWords = (text) => {
+//       // 1️⃣ Apply full phrase replacements first
+//       phraseReplacements.forEach(({ pattern, replacement }) => {
+//         text = text.replace(pattern, replacement);
+//       });
+
+//       // 2️⃣ Then apply single-word replacements
+//       wordReplacements.forEach(({ pattern, replacement }) => {
+//         text = text.replace(pattern, replacement);
+//       });
+
+//       return text;
+//     };
+
+//     const replaceWordsInNode = (node) => {
+//       const walker = document.createTreeWalker(
+//         node,
+//         NodeFilter.SHOW_TEXT,
+//         null,
+//         false
+//       );
+
+//       let textNode;
+//       while ((textNode = walker.nextNode())) {
+//         textNode.textContent = replaceWords(textNode.textContent);
+//       }
+//     };
+
+//     // Initial replacement
+//     replaceWordsInNode(document.body);
+
+//     // Watch dynamic content (Google Translate + React renders)
+//     const observer = new MutationObserver((mutations) => {
+//       mutations.forEach((mutation) => {
+//         mutation.addedNodes.forEach((node) => {
+//           if (node.nodeType === Node.TEXT_NODE) {
+//             node.textContent = replaceWords(node.textContent);
+//           } else if (node.nodeType === Node.ELEMENT_NODE) {
+//             replaceWordsInNode(node);
+//           }
+//         });
+//       });
+//     });
+
+//     observer.observe(document.body, {
+//       childList: true,
+//       subtree: true,
+//     });
+
+//     return () => observer.disconnect();
+//   }, []);
+// }
 export default function useCoiffeurReplacement() {
   useEffect(() => {
-    const phraseReplacements = [
+    const PHRASE_REPLACEMENTS = [
       {
-        // full phrase replacement
         pattern:
           /Trouvez et réservez des coiffeurs afro\/noirs de confiance partout au Canada, n'importe quand, n'importe où\./gi,
         replacement:
@@ -89,41 +222,22 @@ export default function useCoiffeurReplacement() {
       },
       {
         pattern:
-          /Nous mettons en relation nos clients avec des coiffeurs afro et bouclés qualifiés et certifiés, soucieux de la qualité, du professionnalisme et de l'obtention de résultats exceptionnels à chaque fois./gi,
+          /Nous mettons en relation nos clients avec des coiffeurs afro et bouclés qualifiés et certifiés/gi,
         replacement:
           "Nous connectons nos clientes à des coiffeuses spécialisées dans les cheveux afro et bouclés, qualifiées, offrant un service professionnel et des résultats exceptionnels.",
       },
-      {
-        pattern: /les coiffeurs/gi,
-        replacement: "les coiffeuses",
-      },
-      {
-        pattern: / la Coiffeuse/gi,
-        replacement: " La coiffeuse",
-      },
-      {
-        pattern: / de coiffeurs/gi,
-        replacement: " de coiffeuses",
-      },
-      {
-        pattern: /les coiffeurs/gi,
-        replacement: "les coiffeuses",
-      },
-      {
-        pattern: /Coiffeuse\s*\(\s*se\s*\)/gi,
-        replacement: "Coiffeuse",
-      },
-      {
-        pattern: /macrownité.com/gi,
-        replacement: "mycrownity.com",
-      },
+      { pattern: /les coiffeurs/gi, replacement: "les coiffeuses" },
+      { pattern: / la Coiffeuse/gi, replacement: " La coiffeuse" },
+      { pattern: / de coiffeurs/gi, replacement: " de coiffeuses" },
+      { pattern: /Coiffeuse\s*\(\s*se\s*\)/gi, replacement: "Coiffeuse" },
+      { pattern: /macrownité.com/gi, replacement: "mycrownity.com" },
       {
         pattern: /adresse contact@mycrownity.com/gi,
         replacement: "contact@mycrownity.com",
       },
     ];
 
-    const wordReplacements = [
+    const WORD_REPLACEMENTS = [
       { pattern: /\bCoiffeur\b/gi, replacement: "Coiffeuse" },
       { pattern: /\bMaison\b/gi, replacement: "Accueil" },
       { pattern: /\bCouronne\b/gi, replacement: "Crownity" },
@@ -132,47 +246,65 @@ export default function useCoiffeurReplacement() {
     ];
 
     const replaceWords = (text) => {
-      // 1️⃣ Apply full phrase replacements first
-      phraseReplacements.forEach(({ pattern, replacement }) => {
-        text = text.replace(pattern, replacement);
+      let updated = text;
+      PHRASE_REPLACEMENTS.forEach(({ pattern, replacement }) => {
+        updated = updated.replace(pattern, replacement);
       });
-
-      // 2️⃣ Then apply single-word replacements
-      wordReplacements.forEach(({ pattern, replacement }) => {
-        text = text.replace(pattern, replacement);
+      WORD_REPLACEMENTS.forEach(({ pattern, replacement }) => {
+        updated = updated.replace(pattern, replacement);
       });
-
-      return text;
+      return updated;
     };
 
-    const replaceWordsInNode = (node) => {
-      const walker = document.createTreeWalker(
-        node,
-        NodeFilter.SHOW_TEXT,
-        null,
-        false
-      );
+    const replaceTextNode = (node) => {
+      if (!node || !node.textContent) return;
 
-      let textNode;
-      while ((textNode = walker.nextNode())) {
-        textNode.textContent = replaceWords(textNode.textContent);
+      // Prevent infinite loops
+      if (node.parentElement?.dataset?.translated === "yes") return;
+
+      const updatedText = replaceWords(node.textContent);
+
+      if (updatedText !== node.textContent) {
+        node.textContent = updatedText;
+        node.parentElement.dataset.translated = "yes";
       }
     };
 
-    // Initial replacement
-    replaceWordsInNode(document.body);
+    const walkDOM = (root) => {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      let node;
+      while ((node = walker.nextNode())) {
+        replaceTextNode(node);
+      }
+    };
 
-    // Watch dynamic content (Google Translate + React renders)
+    // FIX TITLE — always Crownity
+    const fixTitle = () => {
+      const titleEl = document.querySelector("title");
+
+      if (titleEl && titleEl.textContent !== "Crownity") {
+        titleEl.textContent = "Crownity";
+      }
+    };
+
+    // First run
+    walkDOM(document.body);
+    fixTitle();
+
+    // Observe changes
     const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
           if (node.nodeType === Node.TEXT_NODE) {
-            node.textContent = replaceWords(node.textContent);
+            replaceTextNode(node);
           } else if (node.nodeType === Node.ELEMENT_NODE) {
-            replaceWordsInNode(node);
+            walkDOM(node);
           }
-        });
-      });
+        }
+      }
+
+      // Also re-fix title if Google Translate changes it
+      fixTitle();
     });
 
     observer.observe(document.body, {
