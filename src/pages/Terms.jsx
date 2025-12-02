@@ -186,10 +186,10 @@ const Terms = () => {
                 If you have questions regarding these Terms, please contact us
                 at{" "}
                 <a
-                  href="mailto:contact@crownity.ca"
-                  className="text-blue-600 hover:text-blue-800"
+                  href="mailto:contact@mycrownity.com"
+                  className="text-blue-600 hover:text-blue-800 ml-1"
                 >
-                  contact@crownity.ca
+                  contact@mycrownity.com
                 </a>
                 .
               </p>

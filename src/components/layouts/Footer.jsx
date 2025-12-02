@@ -157,7 +157,7 @@ const Footer = () => {
         <div className="container">
           <div className="flex items-center justify-center py-[20px]">
             <p className="text-white text-sm font-medium font-manrope">
-              © 2023, ServiceMarket.dk | All rights reserved.
+              © 2026 mycrownity.com | All rights reserved.
             </p>
           </div>
         </div>

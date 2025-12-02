@@ -52,7 +52,100 @@ export const sanitizeLinks = (html) => {
 
 export default function useCoiffeurReplacement() {
   useEffect(() => {
-    const replaceCoiffeurInNode = (node) => {
+    const phraseReplacements = [
+      {
+        // full phrase replacement
+        pattern:
+          /Trouvez et réservez des coiffeurs afro\/noirs de confiance partout au Canada, n'importe quand, n'importe où\./gi,
+        replacement:
+          "Trouvez et réservez des coiffeuses afro de confiance partout au Canada, à tout moment.",
+      },
+      {
+        pattern: /Où es-tu situé/gi,
+        replacement: "Où êtes-vous situé ",
+      },
+      {
+        pattern: /Tresses africaines, tresses collées/gi,
+        replacement:
+          "Trouvez une coiffeuse experte en cheveux afro et bouclés près de chez vous, et prenez rendez-vous en toute confiance.",
+      },
+      {
+        pattern:
+          /Trouvez un Coiffeuse afro et bouclé de confiance près de chez vous et réservez en toute sérénité./gi,
+        replacement:
+          "Trouvez une coiffeuse experte en cheveux afro et bouclés près de chez vous, et prenez rendez-vous en toute confiance.",
+      },
+      {
+        pattern: /coiffeuse recommandé/gi,
+        replacement: "coiffeuses recommandées",
+      },
+      {
+        pattern: /Pages utilitaires/gi,
+        replacement: "Politiques & Conditions",
+      },
+      {
+        pattern: /politique de confidentialité/gi,
+        replacement: "Politique de confidentialité",
+      },
+      {
+        pattern:
+          /Nous mettons en relation nos clients avec des coiffeurs afro et bouclés qualifiés et certifiés, soucieux de la qualité, du professionnalisme et de l'obtention de résultats exceptionnels à chaque fois./gi,
+        replacement:
+          "Nous connectons nos clientes à des coiffeuses spécialisées dans les cheveux afro et bouclés, qualifiées, offrant un service professionnel et des résultats exceptionnels.",
+      },
+      {
+        pattern: /les coiffeurs/gi,
+        replacement: "les coiffeuses",
+      },
+      {
+        pattern: / la Coiffeuse/gi,
+        replacement: " La coiffeuse",
+      },
+      {
+        pattern: / de coiffeurs/gi,
+        replacement: " de coiffeuses",
+      },
+      {
+        pattern: /les coiffeurs/gi,
+        replacement: "les coiffeuses",
+      },
+      {
+        pattern: /Coiffeuse\s*\(\s*se\s*\)/gi,
+        replacement: "Coiffeuse",
+      },
+      {
+        pattern: /macrownité.com/gi,
+        replacement: "mycrownity.com",
+      },
+      {
+        pattern: /adresse contact@mycrownity.com/gi,
+        replacement: "contact@mycrownity.com",
+      },
+    ];
+
+    const wordReplacements = [
+      { pattern: /\bCoiffeur\b/gi, replacement: "Coiffeuse" },
+      { pattern: /\bMaison\b/gi, replacement: "Accueil" },
+      { pattern: /\bCouronne\b/gi, replacement: "Crownity" },
+      { pattern: /\ble\b/gi, replacement: "la" },
+      { pattern: /\bidéal\b/gi, replacement: "idéale" },
+    ];
+
+    const replaceWords = (text) => {
+      // 1️⃣ Apply full phrase replacements first
+      phraseReplacements.forEach(({ pattern, replacement }) => {
+        text = text.replace(pattern, replacement);
+      });
+
+      // 2️⃣ Then apply single-word replacements
+      wordReplacements.forEach(({ pattern, replacement }) => {
+        text = text.replace(pattern, replacement);
+      });
+
+      return text;
+    };
+
+    const replaceWordsInNode = (node) => {
       const walker = document.createTreeWalker(
         node,
         NodeFilter.SHOW_TEXT,
@@ -62,33 +155,30 @@ export default function useCoiffeurReplacement() {
 
       let textNode;
       while ((textNode = walker.nextNode())) {
-        textNode.textContent = textNode.textContent.replace(
-          /\bCoiffeur\b/gi,
-          "Coiffeuse"
-        );
+        textNode.textContent = replaceWords(textNode.textContent);
       }
     };
 
     // Initial replacement
-    replaceCoiffeurInNode(document.body);
+    replaceWordsInNode(document.body);
 
-    // Observe dynamically added content (Google Translate)
+    // Watch dynamic content (Google Translate + React renders)
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((node) => {
           if (node.nodeType === Node.TEXT_NODE) {
-            node.textContent = node.textContent.replace(
-              /\bCoiffeur\b/gi,
-              "Coiffeuse"
-            );
+            node.textContent = replaceWords(node.textContent);
           } else if (node.nodeType === Node.ELEMENT_NODE) {
-            replaceCoiffeurInNode(node);
+            replaceWordsInNode(node);
           }
         });
       });
     });
 
-    observer.observe(document.body, { childList: true, subtree: true });
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
 
     return () => observer.disconnect();
   }, []);
