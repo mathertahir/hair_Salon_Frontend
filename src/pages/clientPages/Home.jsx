@@ -243,6 +243,8 @@ const Home = () => {
     }
   };
 
+  const currentLang = document.documentElement.lang || "en";
+
   return (
     <div>
       {/* Hero Section */}

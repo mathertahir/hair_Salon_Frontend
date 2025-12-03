@@ -184,8 +184,13 @@ export const sanitizeLinks = (html) => {
 //     return () => observer.disconnect();
 //   }, []);
 // }
+
 export default function useCoiffeurReplacement() {
   useEffect(() => {
+    // Detect current language from <html lang="...">
+    const currentLang = document.documentElement.lang || "en";
+
+    // Full phrase replacements
     const PHRASE_REPLACEMENTS = [
       {
         pattern:
@@ -208,10 +213,10 @@ export default function useCoiffeurReplacement() {
         replacement:
           "Trouvez une coiffeuse experte en cheveux afro et bouclés près de chez vous, et prenez rendez-vous en toute confiance.",
       },
-      {
-        pattern: /coiffeuse recommandé/gi,
-        replacement: "coiffeuses recommandées",
-      },
+      // {
+      //   pattern: /Coiffeuse recommandé/gi,
+      //   replacement: "coiffeuses recommandées",
+      // },
       {
         pattern: /Pages utilitaires/gi,
         replacement: "Politiques & Conditions",
@@ -235,29 +240,67 @@ export default function useCoiffeurReplacement() {
         pattern: /adresse contact@mycrownity.com/gi,
         replacement: "contact@mycrownity.com",
       },
+      {
+        pattern: /Coiffeuse recommandé/gi,
+        replacement: "Coiffeuses recommandées",
+      },
+      {
+        pattern: /Coiffeur recommandé/gi,
+        replacement: "Coiffeuses recommandées",
+      },
     ];
 
+    // Word replacements
     const WORD_REPLACEMENTS = [
-      { pattern: /\bCoiffeur\b/gi, replacement: "Coiffeuse" },
-      { pattern: /\bMaison\b/gi, replacement: "Accueil" },
-      { pattern: /\bCouronne\b/gi, replacement: "Crownity" },
-      { pattern: /\ble\b/gi, replacement: "la" },
-      { pattern: /\bidéal\b/gi, replacement: "idéale" },
+      { word: "Coiffeur", replacement: "Coiffeuse" },
+      { word: "Maison", replacement: "Accueil" },
+      // { word: "Couronne", replacement: "Crownity", strict: true }, // Strict standalone
+      { word: "Crown", replacement: "Couronne", conditionalLang: "fr" }, // Conditional French
+      { word: "le", replacement: "la" },
+      { word: "idéal", replacement: "idéale" },
     ];
 
+    // Strict single-word replacement
+    const replaceWordStrict = (text, word, replacement) => {
+      return text
+        .split(/\b/) // split by word boundaries
+        .map((t) => (t.toLowerCase() === word.toLowerCase() ? replacement : t))
+        .join("");
+    };
+
+    // Apply all replacements on text
     const replaceWords = (text) => {
       let updated = text;
+
+      // 1️⃣ Phrase replacements
       PHRASE_REPLACEMENTS.forEach(({ pattern, replacement }) => {
         updated = updated.replace(pattern, replacement);
       });
-      WORD_REPLACEMENTS.forEach(({ pattern, replacement }) => {
-        updated = updated.replace(pattern, replacement);
-      });
+
+      // 2️⃣ Word replacements
+      WORD_REPLACEMENTS.forEach(
+        ({ word, replacement, strict, conditionalLang }) => {
+          // Conditional language check
+          if (conditionalLang && conditionalLang !== currentLang) return;
+
+          if (strict) {
+            updated = replaceWordStrict(updated, word, replacement);
+          } else {
+            const regex = new RegExp(`\\b${word}\\b`, "gi");
+            updated = updated.replace(regex, replacement);
+          }
+        }
+      );
+
       return updated;
     };
 
+    // Replace text in a single node safely
     const replaceTextNode = (node) => {
       if (!node || !node.textContent) return;
+
+      // Skip nodes inside "no-translate"
+      if (node.parentElement?.classList.contains("notranslate")) return;
 
       // Prevent infinite loops
       if (node.parentElement?.dataset?.translated === "yes") return;
@@ -270,6 +313,7 @@ export default function useCoiffeurReplacement() {
       }
     };
 
+    // Walk through all text nodes
     const walkDOM = (root) => {
       const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
       let node;
@@ -278,20 +322,19 @@ export default function useCoiffeurReplacement() {
       }
     };
 
-    // FIX TITLE — always Crownity
+    // Always fix the title
     const fixTitle = () => {
       const titleEl = document.querySelector("title");
-
       if (titleEl && titleEl.textContent !== "Crownity") {
         titleEl.textContent = "Crownity";
       }
     };
 
-    // First run
+    // Initial run
     walkDOM(document.body);
     fixTitle();
 
-    // Observe changes
+    // Observe DOM changes (Google Translate / React renders)
     const observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         for (const node of mutation.addedNodes) {
@@ -302,8 +345,7 @@ export default function useCoiffeurReplacement() {
           }
         }
       }
-
-      // Also re-fix title if Google Translate changes it
+      // Re-fix title in case Google Translate changes it
       fixTitle();
     });
 
