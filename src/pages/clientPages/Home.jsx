@@ -182,6 +182,7 @@ const Home = () => {
     { value: "Weave", label: "Weave" },
     { value: "Wigs", label: "Wigs" },
     { value: "Make Up", label: "Make Up" },
+    { value: "All", label: "See All" }
   ];
 
   useEffect(() => {
@@ -210,6 +211,8 @@ const Home = () => {
         return;
       }
 
+
+
       // Google Geocode call
       const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${postalCode}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
       const geocodeRes = await fetch(url);
@@ -236,7 +239,11 @@ const Home = () => {
       window.dispatchEvent(new Event("userLocationChanged"));
 
       // ToastService.success("Location updated successfully!");
-      navigate(`/userServices?searchParam=${encodeURIComponent(searchParam)}`);
+      if (searchParam === "All") {
+        navigate(`/userServices`);
+      } else {
+        navigate(`/userServices?searchParam=${encodeURIComponent(searchParam)}`);
+      }
     } catch (error) {
       console.error(error);
       ToastService.error("Unable to fetch location!");
@@ -456,11 +463,9 @@ const Home = () => {
                 {[gallery2, gallery3, gallery4, gallery5].map((img, idx) => (
                   <div
                     key={idx}
-                    className={`aspect-[6/4] ${
-                      idx === 1 ? "lg:rounded-tr-3xl" : ""
-                    } ${idx === 2 ? "rounded-bl-3xl lg:rounded-bl-none" : ""} ${
-                      idx === 3 ? "rounded-br-3xl" : ""
-                    } overflow-hidden`}
+                    className={`aspect-[6/4] ${idx === 1 ? "lg:rounded-tr-3xl" : ""
+                      } ${idx === 2 ? "rounded-bl-3xl lg:rounded-bl-none" : ""} ${idx === 3 ? "rounded-br-3xl" : ""
+                      } overflow-hidden`}
                   >
                     <img
                       src={img}

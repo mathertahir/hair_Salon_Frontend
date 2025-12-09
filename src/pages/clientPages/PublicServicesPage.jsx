@@ -28,6 +28,7 @@ const hairstyleOptions = [
     { value: 'Weave', label: 'Weave' },
     { value: 'Wigs', label: 'Wigs' },
     { value: 'Make Up', label: 'Make Up' },
+    { value: 'All', label: 'See All' },
 ];
 
 const PublicServicesPage = () => {
@@ -73,7 +74,7 @@ const PublicServicesPage = () => {
                     limit,
                     page: currentPage,
                     sortBy: selectedFilter ?? 0,
-                    searchParam: search,
+                    searchParam: search === 'All' ? "" : search,
                 },
             });
 

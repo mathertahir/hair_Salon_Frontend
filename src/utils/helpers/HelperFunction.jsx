@@ -205,18 +205,33 @@ export default function useCoiffeurReplacement() {
       {
         pattern: /Tresses africaines, tresses collées/gi,
         replacement:
-          "Trouvez une coiffeuse experte en cheveux afro et bouclés près de chez vous, et prenez rendez-vous en toute confiance.",
+          "Trouvez Une Coiffeuse Experte En Cheveux Afro Et Bouclés Près De Chez Vous, Et Prenez Rendez-vous En Toute Confiance.",
       },
       {
         pattern:
-          /Trouvez un Coiffeuse afro et bouclé de confiance près de chez vous et réservez en toute sérénité./gi,
+          /Trouvez un Coiffeur afro et bouclé de confiance près de chez vous et réservez en toute sérénité./gi,
         replacement:
           "Trouvez une coiffeuse experte en cheveux afro et bouclés près de chez vous, et prenez rendez-vous en toute confiance.",
       },
-      // {
-      //   pattern: /Coiffeuse recommandé/gi,
-      //   replacement: "coiffeuses recommandées",
-      // },
+
+      {
+        pattern: /tresses au crochet/gi,
+        replacement: "Crochet braids",
+      },
+      {
+        pattern: /Lissage des cheveux (brushing, lisage brésilien) /gi,
+        replacement: "Lissage (Brushing, silk press etc)"
+      },
+
+      {
+        pattern: /Torsades/gi,
+        replacement: "Twists",
+      },
+      {
+        pattern: /Se maquiller/gi,
+        replacement: "Make up",
+      },
+
       {
         pattern: /Pages utilitaires/gi,
         replacement: "Politiques & Conditions",
@@ -254,7 +269,7 @@ export default function useCoiffeurReplacement() {
     const WORD_REPLACEMENTS = [
       { word: "Coiffeur", replacement: "Coiffeuse" },
       { word: "Maison", replacement: "Accueil" },
-      // { word: "Couronne", replacement: "Crownity", strict: true }, // Strict standalone
+
       { word: "Crown", replacement: "Couronne", conditionalLang: "fr" }, // Conditional French
       { word: "le", replacement: "la" },
       { word: "idéal", replacement: "idéale" },
