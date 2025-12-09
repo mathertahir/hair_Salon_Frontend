@@ -219,7 +219,7 @@ export default function useCoiffeurReplacement() {
         replacement: "Crochet braids",
       },
       {
-        pattern: /Lissage des cheveux (brushing, lisage brésilien) /gi,
+        pattern: /Lissage des cheveux.*brésilien/gi,
         replacement: "Lissage (Brushing, silk press etc)"
       },
 
