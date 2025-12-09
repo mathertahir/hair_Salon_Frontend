@@ -242,14 +242,14 @@ export default function useCoiffeurReplacement() {
       },
       {
         pattern:
-          /Nous mettons en relation nos clients avec des coiffeurs afro et bouclés qualifiés et certifiés/gi,
+          /Nous mettons en relation nos clients avec des coiffeurs afro et bouclés qualifiés et certifiés, soucieux de la qualité, du professionnalisme et de l'obtention de résultats exceptionnels à chaque fois/gi,
         replacement:
-          "Nous connectons nos clientes à des coiffeuses spécialisées dans les cheveux afro et bouclés, qualifiées, offrant un service professionnel et des résultats exceptionnels.",
+          "Nous connectons nos clientes à des coiffeuses spécialisées dans les cheveux afro et bouclés, qualifiées, offrant un service professionnel et des résultats exceptionnels",
       },
       { pattern: /les coiffeurs/gi, replacement: "les coiffeuses" },
       { pattern: / la Coiffeuse/gi, replacement: " La coiffeuse" },
       { pattern: / de coiffeurs/gi, replacement: " de coiffeuses" },
-      { pattern: /Coiffeuse\s*\(\s*se\s*\)/gi, replacement: "Coiffeuse" },
+      { pattern: /Coiffeur\s*\(\s*se\s*\)/gi, replacement: "Coiffeuse" },
       { pattern: /macrownité.com/gi, replacement: "mycrownity.com" },
       {
         pattern: /adresse contact@mycrownity.com/gi,
