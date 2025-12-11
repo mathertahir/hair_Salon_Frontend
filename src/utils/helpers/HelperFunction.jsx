@@ -216,11 +216,11 @@ export default function useCoiffeurReplacement() {
 
       {
         pattern: /tresses au crochet/gi,
-        replacement: "Crochet braids",
+        replacement: "Crochet Braids",
       },
       {
         pattern: /Lissage des cheveux.*brésilien/gi,
-        replacement: "Lissage (Brushing, silk press etc)"
+        replacement: "Lissage (Brushing, Silk Press etc",
       },
 
       {
@@ -229,7 +229,7 @@ export default function useCoiffeurReplacement() {
       },
       {
         pattern: /Se maquiller/gi,
-        replacement: "Make up",
+        replacement: "Make Up",
       },
 
       {
@@ -262,6 +262,36 @@ export default function useCoiffeurReplacement() {
       {
         pattern: /Coiffeur recommandé/gi,
         replacement: "Coiffeuses recommandées",
+      },
+      {
+        pattern: /Tisser/gi,
+        replacement: "Tissage",
+      },
+      {
+        pattern: /Tisser/gi,
+        replacement: "Tissage",
+      },
+      {
+        pattern: /tresses africaines/gi,
+        replacement: "Tresses Africaines",
+      },
+      {
+        pattern: /Coiffures pour enfants/gi,
+        replacement: "Coiffures Pour Enfants",
+      },
+      {
+        pattern: /perruques/gi,
+        replacement: "Perruques",
+      },
+
+      {
+        pattern: /Soins capillaires naturels/gi,
+        replacement: "Soins Capillaires Naturels",
+      },
+
+      {
+        pattern: /Voir tout/gi,
+        replacement: "Voir Tout",
       },
     ];
 
