@@ -385,7 +385,7 @@ const SalonDetailedInfo = () => {
                             </h1>
                           </div>
                           <p className="text-[14px] md:text-[20px] font-medium font-manrope text-brown-A43">
-                            Premium($49/month)
+                            Premium($19.99/month)
                           </p>
                         </div>
 
