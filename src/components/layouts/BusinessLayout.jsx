@@ -23,14 +23,14 @@ const BusinessLayout = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50   ">
-      {/* 🔹 Top Navbar */}
-      <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200  flex justify-between items-center px-4 py-3">
+
+    <>
+      <nav className="fixed  z-50 w-full bg-white border-b border-gray-200  flex justify-between items-center px-4 py-3">
         {/* Left side */}
         <div className="flex items-center space-x-3">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="text-gray-600 dark:text-gray-300 hover:text-gray-900 sm:hidden"
+            className="text-gray-600  hover:text-gray-900 sm:hidden"
           >
             <FiMenu className="w-6 h-6" />
           </button>
@@ -96,16 +96,22 @@ const BusinessLayout = () => {
 
       </nav>
 
-      {/* 🔹 Sidebar */}
-      <BusinessSideBar open={sidebarOpen} setOpen={setSidebarOpen} />
+      <div className="min-h-screen bg-gray-50   ">
+        {/* 🔹 Top Navbar */}
 
-      {/* 🔹 Main Content */}
-      <main className="pt-16 sm:ml-64 transition-all">
-        <div className="p-4 border-2 border-dashed border-gray-200  rounded-lg m-4 min-h-[90vh]">
-          <Outlet />
-        </div>
-      </main>
-    </div>
+
+        {/* 🔹 Sidebar */}
+        <BusinessSideBar open={sidebarOpen} setOpen={setSidebarOpen} />
+
+        {/* 🔹 Main Content */}
+        <main className="pt-24 sm:ml-64 transition-all">
+          <div className="p-4 border-2 border-dashed border-gray-200  rounded-lg m-4 min-h-[90vh]">
+            <Outlet />
+          </div>
+        </main>
+      </div>
+    </>
+
   );
 };
 

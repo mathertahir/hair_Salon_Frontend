@@ -28,7 +28,7 @@ const SubscriptionPage = () => {
       setSubscriptionType(response.data.responseData.subscriptionType);
       auth.handleUserSubscription(subscription);
 
-      ToastService.success(response.data?.responseMessage?.[0]);
+
     } catch (err) {
       handleApiError(err);
     } finally {
